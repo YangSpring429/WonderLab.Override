@@ -19,6 +19,11 @@
 [![README_en](https://img.shields.io/badge/English-4169E1?style=for-the-badge&logoColor=white)](/README_en.md)
 
 </div>
+<p align="center">
+
+<img Height="58.2" Width="292.8" href="https://blessing-studio.cn/BSO-302/" src="https://blessing-studio.cn/WL-BQ/B.svg"/>
+</p>
+
 
 ## 自我介绍
 
