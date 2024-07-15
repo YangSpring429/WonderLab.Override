@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 	<!--HomePage-->
-	<sys:String x:Key="Launch">启动</sys:String>
+	<sys:String x:Key="Launch">Start!</sys:String>
 	<sys:String x:Key="Unknown">未知</sys:String>
 	<sys:String x:Key="ExpandInterface">展开界面</sys:String>
 	<sys:String x:Key="CollapseInterface">收起界面</sys:String>
@@ -78,10 +78,10 @@
 
 	<!--Debug-->
 	<sys:String x:Key="DebugSettingsTitle">调试模式设置</sys:String>
-	<sys:String x:Key="DebugSettingsD">启用调试（Debug）模式</sys:String>
-	<sys:String x:Key="DebugSettingsI">您更改了调试（Debug）选项，如要使功能生效请重启程序！</sys:String>
-  <sys:String x:Key="PressOOBE">一键跳转OOBE</sys:String>
-  <sys:String x:Key="ToOOBE">跳转</sys:String>
+	<sys:String x:Key="DebugSettingsD">启用开发者（Debug）模式</sys:String>
+	<sys:String x:Key="DebugSettingsI">您更改了开发者（Debug）选项，如要使功能生效请重启程序！</sys:String>
+  <sys:String x:Key="PressOOBE">重置OOBE状态</sys:String>
+  <sys:String x:Key="ToOOBE">重置</sys:String>
 
 	<!--AboutPage-->
 	<sys:String x:Key="Developers">开发团队</sys:String>
@@ -101,5 +101,5 @@
 	<sys:String x:Key="Style">个性化</sys:String>
 	<sys:String x:Key="Start">开始吧！</sys:String>
 	<sys:String x:Key="Next">下一步</sys:String>
-	<sys:String x:Key="Sorry">对不起，但是我们目前没有完成此功能</sys:String>
+	<sys:String x:Key="Sorry">OOBE暂未完成</sys:String>
 </ResourceDictionary>
