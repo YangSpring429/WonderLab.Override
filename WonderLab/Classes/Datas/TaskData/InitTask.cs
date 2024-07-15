@@ -16,10 +16,11 @@ using Microsoft.Extensions.DependencyInjection;
 namespace WonderLab.Classes.Datas.TaskData;
 
 public sealed class InitTask : TaskBase {
+    private const string APIKEY = "9e15a18a-e726-453b-9004-a670c1dfaca3";
+
     private readonly DialogService _dialogService;
     private readonly SettingService _settingService;
     private readonly NotificationService _notificationService;
-    private readonly string _apiKey = "9e15a18a-e726-453b-9004-a670c1dfaca3";
 
     public InitTask(SettingService settingService, DialogService dialogService, NotificationService notificationService) {
         _dialogService = dialogService;
@@ -49,8 +50,8 @@ public sealed class InitTask : TaskBase {
         }
 
         try {
-            var result = await "http://47.113.149.130:14514/api/user".WithHeaders(new Dictionary<string, string>() {
-                { "x-api-key", _apiKey },
+            var result = await "https://wlapi.mcols.cn/api/user".WithHeaders(new Dictionary<string, string>() {
+                { "x-api-key", APIKEY },
                 { "x-user-uuid", _settingService.Data.TestUserUuid },
             }).GetJsonAsync<KeyValuePair<string, string>>();
 

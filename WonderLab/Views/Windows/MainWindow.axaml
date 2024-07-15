@@ -22,7 +22,7 @@
 		FontFamily="{StaticResource DefaultFontFamily}">
 	<i:Interaction.Behaviors>
 		<ia:EventTriggerBehavior EventName="Loaded" SourceObject="Window">
-			
+			<ia:CallMethodAction TargetObject="{Binding}" MethodName="OnLoaded"/>
 		</ia:EventTriggerBehavior>
 	</i:Interaction.Behaviors>
 	
@@ -69,6 +69,8 @@
 
 					<ui:NavigationViewItem Icon="&#xF0B9;"
 										   Content="{DynamicResource Online}"
+										   CommandParameter="MultiplayerPage"
+										   Command="{Binding NavigationToCommand}"
 										   Foreground="{DynamicResource WarningBaseColor}"/>
 
 					<ui:NavigationViewItem Icon="&#xF8B0;"

@@ -47,8 +47,7 @@
 	<sys:String x:Key="AutoSelectJava">自动为游戏选择合适的 Java</sys:String>
 	<sys:String x:Key="FolderSettingTitle">Minecraft 目录设置</sys:String>
 	<sys:String x:Key="AutoAllocateMemory">自动为游戏分配合适的内存量</sys:String>
-
-	<!--DetailSettingPage-->
+  
 	<!--Theme-->
 	<sys:String x:Key="AppTheme">切换主题</sys:String>
 	<sys:String x:Key="TLight">亮色</sys:String>
@@ -81,6 +80,8 @@
 	<sys:String x:Key="DebugSettingsTitle">调试模式设置</sys:String>
 	<sys:String x:Key="DebugSettingsD">启用调试（Debug）模式</sys:String>
 	<sys:String x:Key="DebugSettingsI">您更改了调试（Debug）选项，如要使功能生效请重启程序！</sys:String>
+  <sys:String x:Key="PressOOBE">一键跳转OOBE</sys:String>
+  <sys:String x:Key="ToOOBE">跳转</sys:String>
 
 	<!--AboutPage-->
 	<sys:String x:Key="Developers">开发团队</sys:String>
@@ -93,4 +94,12 @@
 	<sys:String x:Key="Thanks">鸣谢</sys:String>
 	<sys:String x:Key="ServerSupport">服务器支持</sys:String>
 	<sys:String x:Key="TechnicalSupport">技术支持</sys:String>
+
+	<!--Oobe-->
+	<sys:String x:Key="Welcome">欢迎</sys:String>
+	<sys:String x:Key="Language">语言</sys:String>
+	<sys:String x:Key="Style">个性化</sys:String>
+	<sys:String x:Key="Start">开始吧！</sys:String>
+	<sys:String x:Key="Next">下一步</sys:String>
+	<sys:String x:Key="Sorry">对不起，但是我们目前没有完成此功能</sys:String>
 </ResourceDictionary>

@@ -9,7 +9,7 @@ using WonderLab.Classes.Datas.ViewData;
 
 namespace WonderLab.ViewModels.Dialogs;
 
-public sealed partial class TestUserCheckDialogViewModel : ViewModelBase {
+public sealed partial class TestUserCheckDialogViewModel : DialogViewModelBase {
     private readonly DialogService _dialogService;
     private readonly WindowService _windowService;
     private readonly SettingService _settingService;
@@ -31,7 +31,7 @@ public sealed partial class TestUserCheckDialogViewModel : ViewModelBase {
     [RelayCommand]
     private async Task Authenticate(string uuid) {
         try {
-            var result = await "http://47.113.149.130:14514/api/user".WithHeaders(new Dictionary<string, string>() {
+            var result = await "https://wlapi.mcols.cn/api/user".WithHeaders(new Dictionary<string, string>() {
                 { "x-api-key", _apiKey },
                 { "x-user-uuid", uuid },
             }).GetJsonAsync<KeyValuePair<string, string>>();
