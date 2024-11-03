@@ -59,18 +59,16 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void OnLoaded() {
-        _ = Dispatcher.UIThread.InvokeAsync(() => {
-            ActiveImage = Config.ActiveImagePath;
-            Color = Color.Parse(Config.ActiveAccentColor);
-            ThemeType = Config.ThemeType;
-            Language = new(Config.ActiveLanguage);
-            BackgroundType = Config.BackgroundType;
-        });
-    }
+    private void OnLoaded() => Dispatcher.UIThread.InvokeAsync(() => {
+        ActiveImage = Config.ActiveImagePath;
+        Color = Color.Parse(Config.ActiveAccentColor);
+        ThemeType = Config.ThemeType;
+        Language = new(Config.ActiveLanguage);
+        BackgroundType = Config.BackgroundType;
+    });
 
     [RelayCommand]
-    private Task BrowserImage() => Task.Run(async () => {
+    private Task BrowserImage() => Dispatcher.UIThread.InvokeAsync(async () => {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime) {
             var result = await lifetime.MainWindow.StorageProvider.OpenFilePickerAsync(new() {
                 AllowMultiple = false,

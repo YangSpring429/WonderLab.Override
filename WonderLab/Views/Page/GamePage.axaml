@@ -45,7 +45,7 @@
 											BorderBrush="{DynamicResource ContentBrush4}">
 										<Border.Background>
 											<ImageBrush Stretch="UniformToFill"
-														Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+														Source="{Binding Converter={StaticResource MinecraftTypeIconConverter}}"/>
 										</Border.Background>
 									</Border>
 

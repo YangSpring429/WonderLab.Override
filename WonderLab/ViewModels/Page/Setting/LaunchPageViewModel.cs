@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
@@ -74,11 +75,11 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
         }
 
         Config.Javas = [.. _javaEntrys];
-        Config.ActiveJava = ActiveJava = _javaEntrys.Last();
+        Config.ActiveJava = ActiveJava = _javaEntrys.LastOrDefault();
     });
 
     [RelayCommand]
-    private Task BrowserJava() => Task.Run(async () => {
+    private Task BrowserJava() => Dispatcher.UIThread.InvokeAsync(async () => {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime) {
             var result = await lifetime.MainWindow.StorageProvider.OpenFolderPickerAsync(new() {
                 AllowMultiple = false,
@@ -96,7 +97,7 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
     });
 
     [RelayCommand]
-    private Task BrowserFolder() => Task.Run(async () => {
+    private Task BrowserFolder() => Dispatcher.UIThread.InvokeAsync(async () => {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime) {
             var result = await lifetime.MainWindow.StorageProvider.OpenFolderPickerAsync(new() {
                 AllowMultiple = false,

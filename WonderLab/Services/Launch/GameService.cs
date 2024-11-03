@@ -41,6 +41,10 @@ public sealed class GameService {
 
     public void RefreshGames() {
         _gameEntries.Clear();
+        if (string.IsNullOrEmpty(_configService?.Entries?.ActiveMinecraftFolder)) {
+            return;
+        }
+        
         GameResolver = new GameResolver(_configService?.Entries?.ActiveMinecraftFolder);
         var games = GameResolver.GetGameEntitys();
         var root = Path.Combine(GameResolver.Root.FullName, "gamedata.json");

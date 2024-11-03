@@ -14,9 +14,9 @@
 		<Setter Property="MinWidth" Value="840"/>
 		<Setter Property="MinHeight" Value="510"/>
 		<Setter Property="IsTabStop" Value="True"/>
+		<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
 		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="40"/>
 		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
-		<Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome"/>
 		<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 		<Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
