@@ -35,25 +35,30 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
     public event EventHandler Completed;
 
     public void Report(TaskProgress value) => Dispatcher.UIThread.InvokeAsync(() => {
-        if (value.Step is 1) {
-            TaskStatus = TaskStatus.Running;
-            IsIndeterminate = false;
-            TaskSteps[0].Progress = value.Progress;
-        } else if (value.Step is 2) {
-            TaskSteps[0].TaskStatus = TaskStatus.RanToCompletion;
-            TaskSteps[1].TaskStatus = TaskStatus.Running;
-            TaskSteps[1].Progress = value.Progress;
-        } else if (value.Step is 3) {
-            TaskSteps[1].TaskStatus = TaskStatus.RanToCompletion;
-            TaskSteps[2].TaskStatus = TaskStatus.Running;
-            TaskSteps[2].Progress = value.Progress;
-        } else if (value.Step is 4) {
-            TaskSteps[2].TaskStatus = TaskStatus.RanToCompletion;
-            TaskSteps[3].TaskStatus = TaskStatus.Running;
-            TaskSteps[3].Progress = value.Progress;
+        switch (value.Step) {
+            case 1:
+                TaskStatus = TaskStatus.Running;
+                IsIndeterminate = false;
+                TaskSteps[0].Progress = value.Progress;
+                break;
+            case 2:
+                TaskSteps[0].TaskStatus = TaskStatus.RanToCompletion;
+                TaskSteps[1].TaskStatus = TaskStatus.Running;
+                TaskSteps[1].Progress = value.Progress;
+                break;
+            case 3:
+                TaskSteps[1].TaskStatus = TaskStatus.RanToCompletion;
+                TaskSteps[2].TaskStatus = TaskStatus.Running;
+                TaskSteps[2].Progress = value.Progress;
+                break;
+            case 4:
+                TaskSteps[2].TaskStatus = TaskStatus.RanToCompletion;
+                TaskSteps[3].TaskStatus = TaskStatus.Running;
+                TaskSteps[3].Progress = value.Progress;
 
-            TaskStatus = TaskStatus.RanToCompletion;
-            Completed?.Invoke(this, EventArgs.Empty);
+                TaskStatus = TaskStatus.RanToCompletion;
+                Completed?.Invoke(this, EventArgs.Empty);
+                break;
         }
 
         Progress = TaskSteps.Select(x => x.Progress).Sum() / (double)TaskSteps.Length;

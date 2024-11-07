@@ -121,6 +121,9 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
                 _gameService.RefreshGames();
                 Config.ActiveMinecraftFolder = ActiveFolder;
                 break;
+            case nameof(ActiveJava):
+                Config.ActiveJava = ActiveJava;
+                break;
             case nameof(IsFullScreen):
                 Config.IsFullScreen = IsFullScreen;
                 break;

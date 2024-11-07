@@ -13,6 +13,7 @@ using System.IO;
 using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
+using WonderLab.Services.Account;
 using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Page;
@@ -25,14 +26,14 @@ using WonderLab.Views.Page.Setting;
 
 namespace WonderLab;
 
-public sealed partial class App : Application {
+public sealed class App : Application {
     private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
 
     public static IServiceProvider ServiceProvider { get; private set; }
 
     public static TKey Get<TKey>() {
         return ServiceProvider.GetRequiredService<TKey>();
-    }
+    } 
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
@@ -110,7 +111,10 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<GameService>();
         builder.Services.AddSingleton<ThemeService>();
         builder.Services.AddSingleton<ConfigService>();
-
+        builder.Services.AddSingleton<LaunchService>();
+        builder.Services.AddSingleton<AccountService>();
+        builder.Services.AddSingleton<NotificationService>();
+        
         //Configure Window
         builder.Services.AddSingleton<MainWindow>();
         builder.Services.AddSingleton<MainWindowViewModel>();

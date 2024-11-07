@@ -27,22 +27,15 @@ public sealed class ConfigService {
         } catch (Exception ex) {
             _logger.LogError("Failed to load config json.\n{Trace}", ex.ToString());
 
-            Entries = new Config {
-            };
+            Entries = new Config();
         }
 
         if (string.IsNullOrEmpty(Entries.ActiveLanguage)) {
             Entries.ActiveLanguage = "zh-Hans";
         }
 
-        if (Entries.Javas is null) {
-            Entries.Javas = [];
-        }
-
-
-        if (Entries.MinecraftFolders is null) {
-            Entries.MinecraftFolders = [];
-        }
+        Entries.Javas ??= [];
+        Entries.MinecraftFolders ??= [];
     }
 
     public void Save() {

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services;
@@ -13,6 +14,7 @@ namespace WonderLab.ViewModels.Page;
 
 public sealed partial class HomePageViewModel : ObservableObject {
     private readonly GameService _gameService;
+    private readonly LaunchService _launchService;
     private readonly ConfigService _configService;
     private readonly ILogger<HomePageViewModel> _logger;
 
@@ -20,10 +22,11 @@ public sealed partial class HomePageViewModel : ObservableObject {
     [NotifyCanExecuteChangedFor(nameof(LaunchCommand))]
     private GameModel _activeGame;
 
-    public HomePageViewModel(GameService gameService, ConfigService configService, ILogger<HomePageViewModel> logger) {
+    public HomePageViewModel(GameService gameService, LaunchService launchService, ConfigService configService, ILogger<HomePageViewModel> logger) {
         _logger = logger;
         _gameService = gameService;
         _configService = configService;
+        _launchService = launchService;
 
         _gameService.CollectionChanged += OnCollectionChanged;
         _gameService.RefreshGames();
@@ -32,8 +35,9 @@ public sealed partial class HomePageViewModel : ObservableObject {
     private bool CanLaunch() => ActiveGame is not null;
 
     [RelayCommand(CanExecute = nameof(CanLaunch))]
-    private void Launch() {
-    }
+    private Task Launch() => Task.Run(async () => {
+        await _launchService.LaunchTaskAsync(ActiveGame);
+    });
 
     [RelayCommand]
     private void NavigationToGame() {
