@@ -4,5 +4,33 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:Class="WonderLab.Views.Page.TaskListPage">
-	Hello
+	<ScrollViewer VerticalScrollBarVisibility="Hidden">
+		<Grid Margin="16 0"
+		      RowDefinitions="Auto, 1*">
+			<TextBlock FontSize="28"
+			           FontWeight="Bold"
+			           Margin="0 12 0 0"
+			           VerticalAlignment="Top"
+			           HorizontalAlignment="Left"
+			           Text="任务中心"/>
+			
+			<ItemsControl Grid.Row="1"
+			              Margin="0 12"
+			              ItemsSource="{Binding Tasks}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VirtualizingStackPanel Orientation="Vertical"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Expander>
+							
+						</Expander>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Grid>
+	</ScrollViewer>
 </UserControl>

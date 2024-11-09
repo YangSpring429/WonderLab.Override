@@ -29,9 +29,9 @@ namespace WonderLab;
 public sealed class App : Application {
     private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
 
-    public static IServiceProvider ServiceProvider { get; private set; }
+    private static IServiceProvider ServiceProvider { get; set; }
 
-    public static TKey Get<TKey>() {
+    private static TKey Get<TKey>() {
         return ServiceProvider.GetRequiredService<TKey>();
     } 
 
