@@ -48,7 +48,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             1 => "Download/Navigation",
             2 => "Multiplayer",
             3 => "Setting/Navigation",
-            _ => "Home",
+            _ => PageKey ?? "Home",
         };
     }
 }

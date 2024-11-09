@@ -25,7 +25,7 @@ public sealed partial class GamePageViewModel : ObservableObject {
 
     public bool IsAllListVisible => Games.Count > 0;
     public bool IsCollectionGamesVisible => CollectionGames?.Count > 0;
-    public string MinecraftFolderPath => _gameService.GameResolver.Root.FullName;
+    public string MinecraftFolderPath => _gameService.GameResolver?.Root.FullName ?? "Not Found";
 
     public GamePageViewModel(GameService gameService) {
         _gameService = gameService;
