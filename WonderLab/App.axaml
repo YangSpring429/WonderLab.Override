@@ -24,6 +24,7 @@
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TitleBarPlusTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingExpanderTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
@@ -36,9 +37,10 @@
 		<SolidColorBrush x:Key="DarkAccentBrush2"/>
 		<SolidColorBrush x:Key="LightAccentBrush1"/>
 		<SolidColorBrush x:Key="LightAccentBrush2"/>
-
+		
 		<wcc:BooleanReverseConverter x:Key="BooleanReverseConverter"/>
 		<wcc:MinecraftTypeIconConverter x:Key="MinecraftTypeIconConverter"/>
+		<wcc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
 		
 		<LinearGradientBrush x:Key="ColourBackground" StartPoint="10% 100%" EndPoint="90% 0%">
 			<LinearGradientBrush.GradientStops>

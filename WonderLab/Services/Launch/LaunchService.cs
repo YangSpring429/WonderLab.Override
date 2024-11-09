@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using MinecraftLaunch.Classes.Models.Launch;
+using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Launcher;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
@@ -34,7 +35,7 @@ public sealed class LaunchService {
 
     public async Task LaunchTaskAsync(GameModel game) {
         LaunchTaskViewModel task = new() {
-            JobName = "Launch"
+            JobName = $"游戏 {game.Entry.Id} 的启动任务"
         };
         
         _taskService.QueueJob(task);
@@ -60,7 +61,6 @@ public sealed class LaunchService {
             progress.Report(new(1, 0d));
 
             if (config.ActiveJava is null) {
-                //TODO: Text translation
                 throw new ArgumentException("未选择任何 Java 实例");
             }
 
@@ -89,9 +89,9 @@ public sealed class LaunchService {
 
             Launcher launcher = new(_gameService.GameResolver, new() {
                 JvmConfig = new JvmConfig(javaPath.JavaPath) {
-                    MaxMemory = config.MaxMemory
+                    MaxMemory = 1024
                 },
-                Account = account,
+                Account = account ?? new OfflineAuthenticator("Steve").Authenticate(),
                 IsEnableIndependencyCore = config.IsGameIndependent,
                 LauncherName = "WonderLab"
             });

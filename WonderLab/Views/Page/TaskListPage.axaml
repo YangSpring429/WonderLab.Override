@@ -3,20 +3,36 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
 			 x:Class="WonderLab.Views.Page.TaskListPage">
 	<ScrollViewer VerticalScrollBarVisibility="Hidden">
 		<Grid Margin="16 0"
-		      RowDefinitions="Auto, 1*">
+			  RowDefinitions="Auto, 1*">
 			<TextBlock FontSize="28"
-			           FontWeight="Bold"
-			           Margin="0 12 0 0"
-			           VerticalAlignment="Top"
-			           HorizontalAlignment="Left"
-			           Text="任务中心"/>
-			
+					   FontWeight="Bold"
+					   Margin="0 12 0 0"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"
+					   Text="任务中心"/>
+
+			<StackPanel Spacing="8"
+						Grid.Row="1"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						IsVisible="{Binding HasTask, Converter={StaticResource BooleanReverseConverter}}">
+				<wc:FontIcon FontSize="28"
+							 Glyph="&#xF133;"
+							 HorizontalAlignment="Center"/>
+
+				<TextBlock FontSize="14"
+						   FontWeight="Bold"
+						   Text="没有新任务"/>
+			</StackPanel>
+
 			<ItemsControl Grid.Row="1"
-			              Margin="0 12"
-			              ItemsSource="{Binding Tasks}">
+						  Margin="0 12"
+						  IsVisible="{Binding HasTask}"
+						  ItemsSource="{Binding Tasks, Mode=TwoWay}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<VirtualizingStackPanel Orientation="Vertical"/>
@@ -25,12 +41,82 @@
 				
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Expander>
-							
+						<Expander Margin="0 0 0 4">
+							<Expander.Header>
+								<Grid ColumnDefinitions="1*, Auto">
+									<Grid RowDefinitions="Auto, 4, Auto, 4, Auto">
+										<TextBlock FontSize="14"
+												   Text="{Binding TaskJob.JobName}"/>
+
+										<TextBlock Grid.Row="2"
+												   FontSize="12"
+												   Text="{Binding TaskJob.TaskStatus}"/>
+
+										<TextBlock Grid.Row="2"
+												   FontSize="12"
+												   HorizontalAlignment="Right"
+												   Text="{Binding TaskJob.ProgressText}"/>
+
+										<ProgressBar Grid.Row="4"
+													 Value="{Binding TaskJob.Progress}"
+													 Maximum="{Binding TaskJob.MaxProgress}"
+													 IsIndeterminate="{Binding TaskJob.IsIndeterminate}"/>
+									</Grid>
+
+									<!--<Button Width="25"
+												Height="25"
+												Grid.Column="1"
+												Content="&#xE8BB;"
+												Classes="titlebarbutton"
+												VerticalAlignment="Center"
+												HorizontalAlignment="Right"
+												Foreground="{TemplateBinding Foreground}"
+												Command="{Binding TaskJob.CancelTaskCommand}"/>-->
+								</Grid>
+							</Expander.Header>
+
+							<Expander.Content>
+								<ItemsControl ItemsSource="{Binding TaskJob.TaskSteps}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<wc:RippleControl Margin="4 0"
+															  RippleOpacity="0.2"
+															  Background="Transparent"
+															  RippleFill="{DynamicResource DividerBrush}">
+												<Grid RowDefinitions="1*, 0.6"
+													  VerticalAlignment="Center">
+													<Grid Margin="8"
+														  VerticalAlignment="Center"
+														  ColumnDefinitions="Auto, 8, 1*">
+														<wc:FontIcon FontSize="20"
+																	 Grid.Column="0"
+																	 Glyph="{Binding ProgressIcon}"/>
+														
+														<TextBlock FontSize="12"
+																   Grid.Column="2"
+																   VerticalAlignment="Center"
+																   HorizontalAlignment="Left">
+															<Run Text="{Binding StepName}"/>
+															<Run Text=" - "/>
+															<Run Text="{Binding ProgressText}"/>
+														</TextBlock>
+													</Grid>
+
+													<Separator Margin="0"
+															   Grid.Row="1"
+															   Height="0.6"
+															   HorizontalAlignment="Stretch"
+															   Background="{DynamicResource DividerBrush}"/>
+												</Grid>
+											</wc:RippleControl>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Expander.Content>
 						</Expander>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
-			</ItemsControl>
+			</ItemsControl>	
 		</Grid>
 	</ScrollViewer>
 </UserControl>

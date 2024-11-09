@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,10 +15,14 @@ namespace WonderLab.ViewModels.Tasks;
 public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<TaskProgress> {
     public readonly CancellationTokenSource LaunchCancellationTokenSource = new();
 
-    [ObservableProperty] private double _progress;
-    [ObservableProperty] private string _progressText;
+    public string ProgressText => Progress.ToString("P2");
+
     [ObservableProperty] private TaskStatus _taskStatus;
     [ObservableProperty] private bool _isIndeterminate = true;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ProgressText))]
+    private double _progress;
 
     public Exception Exception { get; set; }
     public required string JobName { get; set; }
@@ -62,7 +67,6 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
         }
 
         Progress = TaskSteps.Select(x => x.Progress).Sum() / (double)TaskSteps.Length;
-        ProgressText = Progress.ToString("P2");
     }, DispatcherPriority.ApplicationIdle);
 
     [RelayCommand]

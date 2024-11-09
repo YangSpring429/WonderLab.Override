@@ -23,12 +23,12 @@
 							CornerRadius="{TemplateBinding CornerRadius}">
 						<Grid RowDefinitions="Auto, Auto">
 							<wc:ContentExpandControl Grid.Row="1"
-														   Name="PART_ContentExpand"
-														   Content="{TemplateBinding Content}"
-														   ContentTemplate="{TemplateBinding ContentTemplate}"
-														   Background="{DynamicResource ExpanderContentBackground}"
-														   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-														   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+												     Name="PART_ContentExpand"
+												     Content="{TemplateBinding Content}"
+												     ContentTemplate="{TemplateBinding ContentTemplate}"
+												     Background="{DynamicResource ExpanderContentBackground}"
+												     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+												     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 
 							<LayoutTransformControl Grid.Row="0"
 													Name="PART_ToggleTransform">
@@ -37,20 +37,6 @@
 											Grid.Row="1"
 											Name="PART_BottomBorder"
 											HorizontalAlignment="Stretch"/>
-
-									<wc:FontIcon Glyph="&#xE70D;"
-													   Margin="0 0 16 0"
-													   VerticalAlignment="Center"
-													   HorizontalAlignment="Right"
-													   Name="PART_IndicateFontIcon">
-										<wc:FontIcon.Transitions>
-											<Transitions>
-												<TransformOperationsTransition Duration="0:0:0.25"
-																			   Property="RenderTransform"
-																			   Easing="ExponentialEaseOut"/>
-											</Transitions>
-										</wc:FontIcon.Transitions>
-									</wc:FontIcon>
 
 									<ToggleButton Grid.Row="0"
 												  MinHeight="50"
@@ -63,10 +49,26 @@
 												  HorizontalContentAlignment="Stretch"
 												  BorderBrush="{DynamicResource SukiBorderBrush}"
 												  IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}">
-
-										<ContentPresenter VerticalAlignment="Center"
-														  HorizontalAlignment="Left"
-														  Content="{TemplateBinding Header}"/>
+										<Grid ColumnDefinitions="1*, 12, Auto">
+											<ContentPresenter Grid.Column="0"
+															  VerticalAlignment="Center"
+															  HorizontalAlignment="Stretch"
+															  Content="{TemplateBinding Header}"/>
+											
+											<wc:FontIcon Grid.Column="2"
+														 Glyph="&#xE70D;"
+														 VerticalAlignment="Center"
+														 HorizontalAlignment="Right"
+														 Name="PART_IndicateFontIcon">
+												<wc:FontIcon.Transitions>
+													<Transitions>
+														<TransformOperationsTransition Duration="0:0:0.25"
+																					   Property="RenderTransform"
+																					   Easing="ExponentialEaseOut"/>
+													</Transitions>
+												</wc:FontIcon.Transitions>
+											</wc:FontIcon>
+										</Grid>
 									</ToggleButton>
 								</Grid>
 							</LayoutTransformControl>
@@ -170,15 +172,16 @@
 
 	<ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton">
 		<Style Selector="^.Basic">
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="BorderBrush" Value="Transparent" />
-			<Setter Property="Padding" Value="11,8" />
+			<Setter Property="Padding" Value="12" />
 			<Setter Property="CornerRadius" Value="5" />
+			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderBrush" Value="Transparent" />
 
 			<Setter Property="Transitions">
 				<Transitions>
-					<BrushTransition Property="Background" Duration="0:0:0.25"/>
+					<BrushTransition Duration="0:0:0.25"
+									 Property="Background"/>
 				</Transitions>
 			</Setter>
 		</Style>
