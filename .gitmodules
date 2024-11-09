@@ -1,0 +1,3 @@
+[submodule "refs/MinecraftLaunch"]
+	path = refs/MinecraftLaunch
+	url = https://github.com/Blessing-Studio/MinecraftLaunch

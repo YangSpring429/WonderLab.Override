@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLab.Desktop", "Wonder
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonderLab.Infrastructure", "WonderLab.Infrastructure\WonderLab.Infrastructure.csproj", "{B7244E16-1C2D-48B8-8EF9-AD6BFA2CB984}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftLaunch", "refs\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj", "{651523C1-5B8D-47E2-BF01-661FEF309FA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "refs", "refs", "{112FC393-5D77-4A54-9A41-ACFB0F965A10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{B7244E16-1C2D-48B8-8EF9-AD6BFA2CB984}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7244E16-1C2D-48B8-8EF9-AD6BFA2CB984}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7244E16-1C2D-48B8-8EF9-AD6BFA2CB984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{651523C1-5B8D-47E2-BF01-661FEF309FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{651523C1-5B8D-47E2-BF01-661FEF309FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{651523C1-5B8D-47E2-BF01-661FEF309FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{651523C1-5B8D-47E2-BF01-661FEF309FA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{651523C1-5B8D-47E2-BF01-661FEF309FA1} = {112FC393-5D77-4A54-9A41-ACFB0F965A10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C808D3E-F7AB-41DF-B008-C4C9026BCDCE}
