@@ -15,6 +15,12 @@
 				  DefaultPageKey="Home"
 				  PageKey="{Binding PageKey}"
 				  PageProvider="{Binding PageProvider}"/>
+
+		<WindowNotificationManager Margin="0 12">
+			<Interaction.Behaviors>
+				<wb:NotificationManagerBehavior/>
+			</Interaction.Behaviors>
+		</WindowNotificationManager>
 		
 		<ListBox Grid.Row="1"
 				 Classes="SelectorBar"
@@ -27,38 +33,116 @@
 			</Interaction.Behaviors>
 
 			<ListBox.Tag>
-				<Button Classes="ripple"
-						Margin="0 5 0 5"
-						CornerRadius="10"
-						Padding="10 1 10 1"
-						Background="Transparent"
-						VerticalAlignment="Center"
-						Command="{Binding GoToTaskListCommand}">
-					<Grid ColumnDefinitions="Auto, Auto">
-						<wc:FontIcon Glyph="&#xE7E7;"
-									 FontSize="18"
-									 Grid.Column="1"
-									 Margin="8 0 0 0"
-									 VerticalAlignment="Center"/>
+				<Grid ColumnDefinitions="Auto, Auto">
+					<Button Margin="8 0"
+							Padding="8 4"
+							Grid.Column="1"
+							Classes="ripple"
+							CornerRadius="8"
+							Background="Transparent"
+							VerticalAlignment="Center"
+							Command="{Binding GoToTaskListCommand}">
+						<Grid ColumnDefinitions="Auto, Auto">
+							<wc:FontIcon Glyph="&#xE7E7;"
+										 FontSize="20"
+										 Grid.Column="1"
+										 Margin="4 0 0 0"
+										 VerticalAlignment="Center"/>
 
-						<Grid Grid.Column="0"
-							  RowDefinitions="Auto, Auto">
-							<TextBlock FontSize="12"
-									   HorizontalAlignment="Right"
-									   Text="{I18N {x:Static w:LanguageKeys.Task_Manager}}"/>
+							<Grid Grid.Column="0"
+								  RowDefinitions="Auto, Auto">
+								<TextBlock FontSize="12"
+										   HorizontalAlignment="Right"
+										   Text="{I18N {x:Static w:LanguageKeys.Task_Manager}}"/>
 
-							<TextBlock Grid.Row="1"
-									   FontSize="12"
-									   HorizontalAlignment="Right">
-								<TextBlock.Text>
-									<I18N Key="{x:Static w:LanguageKeys.Task_ActiveInfo}">
-										<Binding Path="Tasks.Count"/>
-									</I18N>
-								</TextBlock.Text>
-							</TextBlock>
+								<TextBlock Grid.Row="1"
+										   FontSize="12"
+										   HorizontalAlignment="Right">
+									<TextBlock.Text>
+										<I18N Key="{x:Static w:LanguageKeys.Task_ActiveInfo}">
+											<Binding Path="Tasks.Count"/>
+										</I18N>
+									</TextBlock.Text>
+								</TextBlock>
+							</Grid>
 						</Grid>
-					</Grid>
-				</Button>
+					</Button>
+
+					<ListBox Margin="0 1"
+							 Grid.Column="0"
+							 Background="Transparent"
+							 ItemsSource="{Binding GameProcesses}">
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<ReversibleStackPanel ReverseOrder="True" Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
+						
+						<ListBox.ItemContainerTheme>
+							<ControlTheme TargetType="ListBoxItem">
+								<Setter Property="Height" Value="40"/>
+								
+								<Setter Property="Template">
+									<ControlTemplate>
+										<ToggleButton Padding="4 0"
+													  Classes="ripple"
+													  CornerRadius="4"
+													  VerticalAlignment="Stretch"
+													  Height="{TemplateBinding Height}"
+													  ToolTip.Placement="TopEdgeAlignedRight"
+													  ToolTip.Tip="{Binding Game.Entry.Id, Mode=OneWay}">
+											<ToggleButton.Flyout>
+												<MenuFlyout Placement="TopEdgeAlignedRight">
+													<MenuItem Header="结束游戏"
+															  CommandParameter="{Binding}"
+															  Command="{Binding $parent[ListBox].DataContext.KillGameProcessCommand}">
+														<MenuItem.Icon>
+															<wc:FontIcon FontSize="16" Glyph="&#xF140;"/>
+														</MenuItem.Icon>
+													</MenuItem>
+													
+													<Separator/>
+													
+													<MenuItem Header="打开日志文件夹"/>
+													<MenuItem Header="打开实时日志窗口"/>
+												</MenuFlyout>
+											</ToggleButton.Flyout>
+
+											<ToggleButton.Content>
+												<Border Width="20"
+														Height="20"
+														CornerRadius="4"
+														ClipToBounds="True"
+														BorderThickness="1"
+														BorderBrush="{DynamicResource ContentBrush4}">
+													<Border.Background>
+														<ImageBrush Stretch="UniformToFill"
+																	Source="resm:WonderLab.Assets.Image.Icon.old_minecraft.png"/>
+													</Border.Background>
+												</Border>
+											</ToggleButton.Content>
+										</ToggleButton>
+									</ControlTemplate>
+								</Setter>
+
+								<Style Selector="^">
+									<Style.Animations>
+										<Animation Duration="0:0:0.4"
+												   Easing="ExponentialEaseOut">
+											<KeyFrame Cue="0%">
+												<Setter Property="Margin" Value="0 0 0 -50"/>
+											</KeyFrame>
+
+											<KeyFrame Cue="100%">
+												<Setter Property="Margin" Value="0"/>
+											</KeyFrame>
+										</Animation>
+									</Style.Animations>
+								</Style>
+							</ControlTheme>
+						</ListBox.ItemContainerTheme>
+					</ListBox>
+				</Grid>
 			</ListBox.Tag>
 			
 			<ListBoxItem Tag="&#xEA8A;"

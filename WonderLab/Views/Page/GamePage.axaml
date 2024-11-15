@@ -11,12 +11,6 @@
 			<Setter Property="CornerRadius" Value="8"/>
 			<Setter Property="Background" Value="Transparent"/>
 
-			<!--<Setter Property="ItemsPanel">
-				<ItemsPanelTemplate>
-					<VirtualizingStackPanel Orientation="Vertical"/>
-				</ItemsPanelTemplate>
-			</Setter>-->
-
 			<Setter Property="ItemContainerTheme">
 				<ControlTheme TargetType="ListBoxItem">
 					<Setter Property="CornerRadius" Value="12"/>
@@ -28,17 +22,27 @@
 					<Setter Property="Template">
 						<ControlTemplate>
 							<Button Classes="ripple"
+									Name="PART_LayoutButtton"
 									HorizontalAlignment="Stretch"
 									Width="{TemplateBinding Width}"
 									Height="{TemplateBinding Height}"
 									Background="{TemplateBinding Background}"
 									CornerRadius="{TemplateBinding CornerRadius}"
 									BorderBrush="{DynamicResource ContentBrush4}"
-									BorderThickness="{TemplateBinding BorderThickness}">		
-								<Grid Margin="8"
-									  ColumnDefinitions="Auto, Auto, 1*, Auto">
+									BorderThickness="{TemplateBinding BorderThickness}">
+								<Grid Margin="-8 8 8 8"
+									  ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+									<Border Width="4"
+											Height="0"
+											CornerRadius="20"
+											Name="PART_SelectorBorder"
+											HorizontalAlignment="Left"
+											Background="{DynamicResource NormalAccentBrush}"/>
+									
 									<Border Width="40"
 											Height="40"
+											Grid.Column="1"
+											Margin="16 0 0 0"
 											CornerRadius="5"
 											ClipToBounds="True"
 											BorderThickness="2"
@@ -49,7 +53,7 @@
 										</Border.Background>
 									</Border>
 
-									<Grid Grid.Column="1"
+									<Grid Grid.Column="2"
 										  Margin="8 0 0 0"
 										  VerticalAlignment="Center"
 										  RowDefinitions="Auto, Auto">
@@ -66,8 +70,15 @@
 									</Grid>
 
 									<StackPanel Spacing="8"
-												Grid.Column="3"
+												Grid.Column="4"
 												Orientation="Horizontal">
+										<ToggleButton Classes="icon"
+													  Content="&#xE718;"
+													  ToolTip.ShowDelay="0"
+													  ToolTip.Tip="选择此核心"
+													  ToolTip.Placement="Pointer"
+													  Command="{Binding $parent[ListBox].DataContext.GoToGameSettingCommand}"/>
+
 										<Button Classes="icon"
 												FontSize="14"
 												Content="&#xE735;"
@@ -105,6 +116,18 @@
 							</Button>
 						</ControlTemplate>
 					</Setter>
+
+					<Style Selector="^:pointerover /template/ Button#PART_LayoutButtton">
+						<Setter Property="Background" Value="#26000000"/>
+					</Style>
+
+					<Style Selector="^:selected /template/ Border#PART_SelectorBorder">
+						<Setter Property="Height" Value="25"/>
+					</Style>
+
+					<Style Selector="^:selected:pressed /template/ Border#PART_SelectorBorder">
+						<Setter Property="Height" Value="20"/>
+					</Style>
 				</ControlTheme>
 			</Setter>
 		</Style>
@@ -118,12 +141,6 @@
 
 	<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
 		<ItemsControl Margin="16 0">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Orientation="Vertical"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-
 			<TextBlock FontSize="28"
 					   FontWeight="Bold"
 					   Margin="0 12 0 0"
@@ -163,7 +180,6 @@
 
 			<ListBox Margin="0 12"
 					 CornerRadius="8"
-					 Name="d"
 					 Background="Transparent"
 					 ItemsSource="{Binding Games}"/>
 		</ItemsControl>

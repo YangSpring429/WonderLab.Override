@@ -94,8 +94,8 @@ public sealed class GameService {
 
     public void ActivateGame(GameModel gameModel) {
         if (ActiveGame == null || !ActiveGame.Equals(gameModel)) {
-            ActiveGame = gameModel;
-            _configService.Entries.ActiveGameId = gameModel.Entry.Id;
+            ActiveGame = gameModel ?? ActiveGame;
+            _configService.Entries.ActiveGameId = gameModel?.Entry.Id ?? ActiveGame.Entry.Id;
         }
 
         CollectionChanged?.Invoke(this, EventArgs.Empty);

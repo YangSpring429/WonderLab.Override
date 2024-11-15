@@ -97,6 +97,15 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Test 的本地化字符串。
+        /// </summary>
+        internal static string Launch_Notification {
+            get {
+                return ResourceManager.GetString("Launch_Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Download 的本地化字符串。
         /// </summary>
         internal static string Main_Download {

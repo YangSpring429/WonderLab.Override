@@ -22,7 +22,7 @@ public sealed class TaskService {
 
     public void QueueJob(ITaskJob<TaskProgress> job) => Task.Run(async () => {
         job.Completed += (_, _) => {
-            //_tasks.Remove(new(job));
+            _tasks.Remove(new(job));
         };
 
         await Dispatcher.UIThread.InvokeAsync(() => {

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Avalonia.Threading;
+﻿using Avalonia.Threading;
+using MinecraftLaunch.Classes.Interfaces;
 using MinecraftLaunch.Classes.Models.Launch;
 using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Launcher;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Services.Account;
@@ -20,6 +22,8 @@ public sealed class LaunchService {
     private readonly AccountService _accountService;
     private readonly NotificationService _notificationService;
 
+    public ObservableCollection<GameProcess> GameProcesses { get; }
+
     public LaunchService(
         GameService gameService,
         TaskService taskService,
@@ -31,13 +35,15 @@ public sealed class LaunchService {
         _configService = configService;
         _accountService = accountService;
         _notificationService = notificationService;
+
+        GameProcesses = [];
     }
 
     public async Task LaunchTaskAsync(GameModel game) {
         LaunchTaskViewModel task = new() {
             JobName = $"游戏 {game.Entry.Id} 的启动任务"
         };
-        
+
         _taskService.QueueJob(task);
         await Task.Run(async () => await LaunchAsync(_configService.Entries.ActiveAccount, task, task.TaskCancellationToken));
     }
@@ -46,7 +52,7 @@ public sealed class LaunchService {
         MinecraftLaunch.Classes.Models.Auth.Account account,
         IProgress<TaskProgress> progress,
         CancellationToken cancellationToken) {
-                double progressCache = 0d;
+        double progressCache = 0d;
         DispatcherTimer dispatcherTimer = new(DispatcherPriority.ApplicationIdle) {
             Interval = TimeSpan.FromSeconds(0.2d),
         };
@@ -96,7 +102,17 @@ public sealed class LaunchService {
                 LauncherName = "WonderLab"
             });
 
-            await launcher.LaunchAsync(_gameService.ActiveGame.Entry.Id);
+            var gameProcessWatcher = await launcher.LaunchAsync(_gameService.ActiveGame.Entry.Id);
+            var gameProcess = new GameProcess {
+                Game = _gameService.ActiveGame,
+                ProcessWatcher = gameProcessWatcher,
+            };
+
+            gameProcess.ProcessWatcher.Exited += (_, _) => {
+                GameProcesses.Remove(gameProcess);
+            };
+
+            GameProcesses.Add(gameProcess);
 
             progress.Report(new(4, 1d));
         } catch (Exception ex) {

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ public sealed partial class GamePageViewModel : ObservableObject {
     [NotifyPropertyChangedFor(nameof(IsCollectionGamesVisible))]
     private ObservableCollection<GameModel> _collectionGames;
 
+    [ObservableProperty] private GameModel _activeGame;
+
     public bool IsAllListVisible => Games.Count > 0;
     public bool IsCollectionGamesVisible => CollectionGames?.Count > 0;
     public string MinecraftFolderPath => _gameService.GameResolver?.Root.FullName ?? "Not Found";
@@ -34,6 +37,7 @@ public sealed partial class GamePageViewModel : ObservableObject {
     [RelayCommand]
     private Task OnLoaded() => Task.Run(() => {
         Games = _gameService.Games;
+        ActiveGame = _gameService.ActiveGame;
         CollectionGames = Games.Where(x => x.Model.IsCollection).ToObservableList();
     });
 
@@ -61,5 +65,13 @@ public sealed partial class GamePageViewModel : ObservableObject {
     [RelayCommand]
     private void GoToGameSetting() {
         WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Multiplayer"));
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
+        base.OnPropertyChanged(e);
+
+        if (e.PropertyName is nameof(ActiveGame)) {
+            _gameService.ActivateGame(ActiveGame);
+        }
     }
 }

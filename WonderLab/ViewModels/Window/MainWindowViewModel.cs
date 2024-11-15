@@ -1,11 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using MinecraftLaunch.Classes.Interfaces;
 using System.Collections.ObjectModel;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Infrastructure.Models;
+using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services;
+using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Window;
 
@@ -16,6 +19,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     public AvaloniaPageProvider PageProvider { get; }
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; }
+    public ReadOnlyObservableCollection<GameProcess> GameProcesses { get; }
 
     [ObservableProperty] private string _pageKey;
     [ObservableProperty] private object _activePage;
@@ -24,10 +28,11 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     [NotifyPropertyChangedFor(nameof(BackgroundOpacity))]
     private int _activePageIndex;
 
-    public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider, TaskService taskService) {
+    public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider, TaskService taskService, LaunchService launchService) {
         _taskService = taskService;
         PageProvider = avaloniaPageProvider;
         Tasks = _taskService.Tasks;
+        GameProcesses = new(launchService.GameProcesses);
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageIndex = -1;
@@ -50,5 +55,14 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             3 => "Setting/Navigation",
             _ => PageKey ?? "Home",
         };
+    }
+
+    [RelayCommand]
+    private void KillGameProcess(GameProcess gameProcess) {
+        if (gameProcess.ProcessWatcher.Process.HasExited) {
+            return;
+        }
+
+        gameProcess.ProcessWatcher.Process.Kill();
     }
 }

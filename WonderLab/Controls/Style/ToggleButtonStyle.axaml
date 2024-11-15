@@ -1,0 +1,47 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<ToggleButton Content="6" Background="red"/>
+		</Border>
+	</Design.PreviewWith>
+
+	<Style Selector="ToggleButton.ripple">
+		<Setter Property="MinWidth" Value="25"/>
+		<Setter Property="MinHeight" Value="25"/>
+		<Setter Property="CornerRadius" Value="4"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl RippleOpacity="0.2"
+								  Name="PART_RippleControl"
+								  Background="{TemplateBinding Background}"
+								  RippleFill="{DynamicResource DividerBrush}"
+								  BorderBrush="{TemplateBinding BorderBrush}"
+								  CornerRadius="{TemplateBinding CornerRadius}">
+					<wc:RippleControl.Transitions>
+						<Transitions>
+							<BrushTransition Duration="0:0:0.35"
+											 Property="Background"
+											 Easing="CubicEaseOut"/>
+						</Transitions>
+					</wc:RippleControl.Transitions>
+					
+					<ContentPresenter Padding="{TemplateBinding Padding}"
+									  Content="{TemplateBinding Content}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+
+	<Style Selector="ToggleButton.ripple:pointerover /template/ wc|RippleControl#PART_RippleControl">
+		<Setter Property="Background" Value="#26000000"/>
+	</Style>
+</Styles>

@@ -285,4 +285,7 @@
   <data name="Item_Remove" xml:space="preserve">
     <value>移除</value>
   </data>
+  <data name="Launch_Notification" xml:space="preserve">
+    <value>正在启动游戏 {0}，点击此通知以查看详情</value>
+  </data>
 </root>

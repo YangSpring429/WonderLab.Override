@@ -10,6 +10,7 @@
 		<StyleInclude Source="/Controls/Style/SideBarStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/MainWindowStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/SelectorBarStyle.axaml"/>
+		<StyleInclude Source="/Controls/Style/ToggleButtonStyle.axaml"/>
 		<StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml"/>
     </Application.Styles>
 
@@ -27,6 +28,7 @@
 				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingExpanderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 

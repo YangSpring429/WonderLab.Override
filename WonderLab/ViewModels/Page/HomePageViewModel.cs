@@ -1,10 +1,13 @@
-﻿using Avalonia.Threading;
+﻿using Avalonia.Controls.Notifications;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using WonderLab.Assets.Language;
 using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services;
@@ -36,6 +39,13 @@ public sealed partial class HomePageViewModel : ObservableObject {
 
     [RelayCommand(CanExecute = nameof(CanLaunch))]
     private Task Launch() => Task.Run(async () => {
+        var text = I18NExtension.Translate(LanguageKeys.Launch_Notification);
+
+        WeakReferenceMessenger.Default.Send(new NotificationMessage(string.Format(text, ActiveGame.Entry.Id),
+            NotificationType.Information, () => {
+                WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("TaskList"));
+            }));
+
         await _launchService.LaunchTaskAsync(ActiveGame);
     });
 
