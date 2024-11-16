@@ -31,8 +31,9 @@ public sealed partial class HomePageViewModel : ObservableObject {
         _configService = configService;
         _launchService = launchService;
 
-        _gameService.CollectionChanged += OnCollectionChanged;
-        _gameService.RefreshGames();
+        _gameService.ActiveGameChanged += OnActiveGameChanged;
+        ActiveGame = _gameService.ActiveGame;
+        //_gameService.RefreshGames();
     }
 
     private bool CanLaunch() => ActiveGame is not null;
@@ -54,7 +55,7 @@ public sealed partial class HomePageViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Game"));
     }
 
-    private void OnCollectionChanged(object sender, EventArgs e) => Dispatcher.UIThread.InvokeAsync(() => {
+    private void OnActiveGameChanged(object sender, EventArgs e) => Dispatcher.UIThread.InvokeAsync(() => {
         ActiveGame = _gameService.ActiveGame;
     });
 }

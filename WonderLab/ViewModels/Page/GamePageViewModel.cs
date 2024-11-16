@@ -63,6 +63,12 @@ public sealed partial class GamePageViewModel : ObservableObject {
     }
 
     [RelayCommand]
+    private void SelectGame(GameModel gameModel) {
+        _gameService.ActivateGame(gameModel);
+        WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Home"));
+    }
+
+    [RelayCommand]
     private void GoToGameSetting() {
         WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Multiplayer"));
     }

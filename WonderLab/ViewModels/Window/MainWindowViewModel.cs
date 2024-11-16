@@ -35,7 +35,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         GameProcesses = new(launchService.GameProcesses);
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
-            ActivePageIndex = -1;
+            ActivePageIndex = arg.PageKey is "Home" ? 0 : - 1;
             PageKey = arg.PageKey;
         });
     }

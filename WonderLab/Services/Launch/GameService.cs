@@ -20,6 +20,8 @@ public sealed class GameService {
     private readonly ObservableCollection<GameModel> _gameEntries = new();
 
     public event EventHandler CollectionChanged;
+    public event EventHandler ActiveGameChanged;
+
     public GameModel ActiveGame { get; private set; }
     public IGameResolver GameResolver { get; private set; }
     public ReadOnlyObservableCollection<GameModel> Games { get; }
@@ -98,7 +100,7 @@ public sealed class GameService {
             _configService.Entries.ActiveGameId = gameModel?.Entry.Id ?? ActiveGame.Entry.Id;
         }
 
-        CollectionChanged?.Invoke(this, EventArgs.Empty);
+        ActiveGameChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void Save() {

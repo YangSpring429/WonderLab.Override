@@ -24,12 +24,14 @@
 							<Button Classes="ripple"
 									Name="PART_LayoutButtton"
 									HorizontalAlignment="Stretch"
+									CommandParameter="{Binding}"
 									Width="{TemplateBinding Width}"
 									Height="{TemplateBinding Height}"
 									Background="{TemplateBinding Background}"
 									CornerRadius="{TemplateBinding CornerRadius}"
 									BorderBrush="{DynamicResource ContentBrush4}"
-									BorderThickness="{TemplateBinding BorderThickness}">
+									BorderThickness="{TemplateBinding BorderThickness}"
+									Command="{Binding $parent[ListBox].DataContext.SelectGameCommand}">
 								<Grid Margin="-8 8 8 8"
 									  ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
 									<Border Width="4"
@@ -72,13 +74,6 @@
 									<StackPanel Spacing="8"
 												Grid.Column="4"
 												Orientation="Horizontal">
-										<ToggleButton Classes="icon"
-													  Content="&#xE718;"
-													  ToolTip.ShowDelay="0"
-													  ToolTip.Tip="选择此核心"
-													  ToolTip.Placement="Pointer"
-													  Command="{Binding $parent[ListBox].DataContext.GoToGameSettingCommand}"/>
-
 										<Button Classes="icon"
 												FontSize="14"
 												Content="&#xE735;"
