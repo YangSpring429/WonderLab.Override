@@ -14,13 +14,12 @@
 		<Setter Property="MinWidth" Value="840"/>
 		<Setter Property="MinHeight" Value="510"/>
 		<Setter Property="IsTabStop" Value="True"/>
-		<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome"/>
-		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="40"/>
+		<Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome"/>
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="50"/>
 		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
 		<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 		<Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
-		
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel>
@@ -59,8 +58,8 @@
 					</ExperimentalAcrylicBorder>
 
 					<VisualLayerManager>
-						<Grid RowDefinitions="12, Auto, 1*">
-							<wc:TitleBarPlus Grid.Row="1"/>
+						<Grid RowDefinitions="8, Auto, 1*">
+							<wc:TitleBarPlus  Grid.Row="1"/>
 
 							<ContentPresenter Grid.Row="2"
 											  Name="PART_ContentPresenter"

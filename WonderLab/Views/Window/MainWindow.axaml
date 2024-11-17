@@ -9,7 +9,11 @@
 		xmlns:wa="using:WonderLab.Controls.Media.Attachments"
 		x:Class="WonderLab.MainWindow"
 		Classes="wonder"
-		Tag="{Binding BackgroundOpacity, FallbackValue=0}">	
+		Tag="{Binding BackgroundOpacity, FallbackValue=0}">
+	<Interaction.Behaviors>
+		<wb:WindowTitleBarBehavior/>
+	</Interaction.Behaviors>
+	
 	<Grid RowDefinitions="1* Auto">
 		<wc:Frame Margin="16 12"
 				  DefaultPageKey="Home"
