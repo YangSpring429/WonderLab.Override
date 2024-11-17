@@ -1,4 +1,4 @@
-name: Bug Report
+name: BugReport
 description: 反馈 WonderLab 使用中遇到的问题和 Bug
 labels:
   - "bug"
