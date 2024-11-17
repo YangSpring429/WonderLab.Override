@@ -29,6 +29,18 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 > [!WARNING]
 > 当前分支为 `feature` 测试分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
 
+## 测试版UI展示
+
+<img src="https://s21.ax1x.com/2024/11/17/pARPxN8.png" alt="pARPxN8.png" border="0" />
+
+> [!WARNING]
+> 当前分支为 `feature` 测试分支，以下展示的UI为240214-1023版本。在未来，实际显示可能会有所差别，请以实际为准
+
+<img src="https://s21.ax1x.com/2024/11/17/pARPOBt.md.png" alt="pARPOBt.png" border="0" />
+
+<img src="https://s21.ax1x.com/2024/11/17/pARPbjA.png" alt="pARPbjA.png" border="0" />
+
+
 ## 食用文档
 
 请移步至 [此处](https://wiki.blessing-studio.cn/zh_CN/wonderlab/index.html) 查看如何食用
