@@ -1,5 +1,5 @@
 <p align="center">
-<img src="/WonderLab/Assets/Image/App/logo.48.png"/>
+<img src="https://imgse.com/i/pARPxN8"/>
 </p>
 
 <div align="center">
