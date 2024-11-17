@@ -3,6 +3,90 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
 			 x:Class="WonderLab.Views.Page.Setting.AccountPage">
-  Welcome to Avalonia!
+	<ScrollViewer VerticalScrollBarVisibility="Hidden">
+		<ItemsControl MaxWidth="1000"
+					  Margin="0 24 0 16">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="4"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Margin="0 0 0 12"
+					   Classes="Title"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"
+					   Effect="{StaticResource LowTextBlockShadow}"
+					   Text="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}"/>
+
+			<wc:SettingExpander Glyph="&#xE8B7;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Account_Add_Description}}">
+					<Button Content="{I18N {x:Static w:LanguageKeys.Item_Add}}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<TextBlock FontSize="14"
+					   Margin="0 20 0 0"
+					   FontWeight="SemiBold"
+					   Text="保存的游戏账户" LineHeight="20"
+					   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
+
+			<ItemsRepeater Margin="0 8 0 0"
+						   ItemsSource="{Binding Test}">
+				<ItemsRepeater.Layout>
+					<UniformGridLayout MinItemWidth="260"
+									   ItemsStretch="Fill"
+									   MinRowSpacing="4"
+									   MinColumnSpacing="4"
+									   ItemsJustification="Start"/>
+				</ItemsRepeater.Layout>
+
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Button Padding="20 12"
+								CornerRadius="8"
+								BorderThickness="2"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								BorderBrush="{DynamicResource ContentBrush4}"
+								Background="{DynamicResource ExpanderHeaderBackground}">
+							<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+								<Border Width="36"
+										Height="36"
+										Grid.Column="0"
+										CornerRadius="5"
+										ClipToBounds="True"
+										BorderThickness="2"
+										BorderBrush="{DynamicResource ContentBrush4}">
+									<Interaction.Behaviors>
+										
+									</Interaction.Behaviors>
+								</Border>
+
+								<Grid Grid.Column="1"
+									  Margin="8 0 0 0"
+									  VerticalAlignment="Center"
+									  RowDefinitions="Auto, Auto">
+									<TextBlock Grid.Row="0"
+											   FontSize="14"
+											   FontWeight="SemiBold"
+											   Text="{Binding}"
+											   TextTrimming="CharacterEllipsis"/>
+
+									<TextBlock Grid.Row="1"
+											   FontSize="12"
+											   Text="下北泽账户"
+											   Foreground="{DynamicResource DefaultBrush400}"/>
+								</Grid>
+							</Grid>
+						</Button>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</ItemsControl>
+	</ScrollViewer>
 </UserControl>

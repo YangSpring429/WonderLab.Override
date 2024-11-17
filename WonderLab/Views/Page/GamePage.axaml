@@ -41,8 +41,8 @@
 											HorizontalAlignment="Left"
 											Background="{DynamicResource NormalAccentBrush}"/>
 									
-									<Border Width="40"
-											Height="40"
+									<Border Width="36"
+											Height="36"
 											Grid.Column="1"
 											Margin="16 0 0 0"
 											CornerRadius="5"
@@ -113,7 +113,7 @@
 					</Setter>
 
 					<Style Selector="^:pointerover /template/ Button#PART_LayoutButtton">
-						<Setter Property="Background" Value="#26000000"/>
+						<Setter Property="Background" Value="#36000000"/>
 					</Style>
 
 					<Style Selector="^:selected /template/ Border#PART_SelectorBorder">
@@ -137,8 +137,8 @@
 	<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
 		<ItemsControl Margin="16 0">
 			<TextBlock FontSize="28"
-					   FontWeight="Bold"
 					   Margin="0 12 0 0"
+					   FontWeight="SemiBold"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
 					   Effect="{StaticResource LowTextBlockShadow}"
@@ -156,7 +156,6 @@
 								 Content="{Binding MinecraftFolderPath}"
 								 Foreground="{DynamicResource NormalAccentBrush}"/>
 			</WrapPanel>
-
 
 			<TextBlock FontSize="14"
 					   FontWeight="Bold"

@@ -8,6 +8,7 @@
         <FluentTheme />
 
 		<StyleInclude Source="/Controls/Style/SideBarStyle.axaml"/>
+		<StyleInclude Source="/Controls/Style/TextBlockStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/MainWindowStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/SelectorBarStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/ToggleButtonStyle.axaml"/>

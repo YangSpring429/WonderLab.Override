@@ -8,6 +8,7 @@ using System;
 namespace WonderLab.Extensions;
 
 public static class AvaloniaExtension {
+    [Obsolete("Avalonia has fixed this bug.")]
     public static AppBuilder WithFont(this AppBuilder app) {
         return app.With(new FontManagerOptions {
             DefaultFamilyName = "resm:WonderLab.Assets.Font.DinPro.ttf?assembly=WonderLab#DIN Pro",

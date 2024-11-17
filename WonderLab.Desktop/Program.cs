@@ -14,7 +14,6 @@ public static class Program {
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .LogToTrace()
-            .WithFont()
             .With(new Win32PlatformOptions {
                 RenderingMode = RuntimeInformation.ProcessArchitecture == Architecture.Arm || RuntimeInformation.ProcessArchitecture == Architecture.Arm64
                     ? [Win32RenderingMode.Wgl]

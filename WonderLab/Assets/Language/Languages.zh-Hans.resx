@@ -288,4 +288,13 @@
   <data name="Launch_Notification" xml:space="preserve">
     <value>正在启动游戏 {0}，点击此通知以查看详情</value>
   </data>
+  <data name="Settings_Account_Title" xml:space="preserve">
+    <value>账户设置</value>
+  </data>
+  <data name="Settings_Account_Add_Description" xml:space="preserve">
+    <value>添加新账户</value>
+  </data>
+  <data name="Item_Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
 </root>

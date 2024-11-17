@@ -3,12 +3,14 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using System;
 using WonderLab.Extensions.Hosting.UI;
 
 namespace WonderLab.Controls.Media.Attachments;
 
+[Obsolete("Replaced by new navigation component.")]
 public sealed class Navigate : AvaloniaObject {
-    private static AvaloniaPageProvider _pageProvider;
+    private readonly static AvaloniaPageProvider _pageProvider = null;
 
     static Navigate() {
         KeyProperty.Changed.AddClassHandler<Interactive>(HandleKeyChanged);

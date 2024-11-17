@@ -70,6 +70,15 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Add 的本地化字符串。
+        /// </summary>
+        internal static string Item_Add {
+            get {
+                return ResourceManager.GetString("Item_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Browse 的本地化字符串。
         /// </summary>
         internal static string Item_Browse {
@@ -309,6 +318,24 @@ namespace WonderLab.Assets.Language {
         internal static string Settings_About_Version {
             get {
                 return ResourceManager.GetString("Settings_About_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Add new account 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Account_Add_Description {
+            get {
+                return ResourceManager.GetString("Settings_Account_Add_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Account Settings 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Account_Title {
+            get {
+                return ResourceManager.GetString("Settings_Account_Title", resourceCulture);
             }
         }
         
