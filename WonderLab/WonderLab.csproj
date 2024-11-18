@@ -5,6 +5,17 @@
 		<LangVersion>latest</LangVersion>
 		<TargetFramework>net8.0</TargetFramework>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+		<DefineConstants>WINDOWS</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' == 'Unix'">
+		<DefineConstants>LINUX</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' == 'MacOS'">
+		<DefineConstants>OSX</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -12,43 +23,44 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Remove="Assets\Font\DinPro.ttf" />
-	  <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
-	  <AvaloniaResource Remove="Assets\Image\Icon\loader_minecraft.png" />
-	  <AvaloniaResource Remove="Assets\Image\Icon\old_minecraft.png" />
-	  <AvaloniaResource Remove="Assets\Image\Icon\release_minecraft.png" />
-	  <AvaloniaResource Remove="Assets\Image\Icon\snapshot_minecraft.png" />
-	  <AvaloniaResource Remove="Assets\Image\steve.png" />
-	  <AvaloniaResource Remove="Assets\Language\Languages.Designer.cs" />
-	  <AvaloniaResource Remove="Assets\Language\Languages.resx" />
-	  <AvaloniaResource Remove="Assets\Language\Languages.zh-Hans.resx" />
-	  <AvaloniaResource Remove="Assets\Language\Languages.zh-Hant.resx" />
+		<AvaloniaResource Remove="Assets\Font\DinPro.ttf" />
+		<AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
+		<AvaloniaResource Remove="Assets\Image\Icon\loader_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\old_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\release_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\snapshot_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\steve.png" />
+		<AvaloniaResource Remove="Assets\Language\Languages.Designer.cs" />
+		<AvaloniaResource Remove="Assets\Language\Languages.resx" />
+		<AvaloniaResource Remove="Assets\Language\Languages.zh-Hans.resx" />
+		<AvaloniaResource Remove="Assets\Language\Languages.zh-Hant.resx" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Assets\Font\DinPro.ttf" />
-	  <None Remove="Assets\Font\SegoeFluentIcons.ttf" />
-	  <None Remove="Assets\Image\Icon\loader_minecraft.png" />
-	  <None Remove="Assets\Image\Icon\old_minecraft.png" />
-	  <None Remove="Assets\Image\Icon\release_minecraft.png" />
-	  <None Remove="Assets\Image\Icon\snapshot_minecraft.png" />
-	  <None Remove="Assets\Image\steve.png" />
+		<None Remove="Assets\Font\DinPro.ttf" />
+		<None Remove="Assets\Font\SegoeFluentIcons.ttf" />
+		<None Remove="Assets\Image\Icon\loader_minecraft.png" />
+		<None Remove="Assets\Image\Icon\old_minecraft.png" />
+		<None Remove="Assets\Image\Icon\release_minecraft.png" />
+		<None Remove="Assets\Image\Icon\snapshot_minecraft.png" />
+		<None Remove="Assets\Image\steve.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
-	  <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
-	  <EmbeddedResource Include="Assets\Image\Icon\loader_minecraft.png" />
-	  <EmbeddedResource Include="Assets\Image\Icon\old_minecraft.png" />
-	  <EmbeddedResource Include="Assets\Image\Icon\release_minecraft.png" />
-	  <EmbeddedResource Include="Assets\Image\Icon\snapshot_minecraft.png" />
-	  <EmbeddedResource Include="Assets\Image\steve.png" />
+		<EmbeddedResource Include="Assets\Font\DinPro.ttf" />
+		<EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
+		<EmbeddedResource Include="Assets\Image\Icon\loader_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\old_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\release_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\snapshot_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\steve.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Antelcat.I18N.Avalonia" Version="1.0.3" />
 		<PackageReference Include="Avalonia" Version="11.2.1" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.4" />
+		<PackageReference Include="Avalonia.Native" Version="11.2.1" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.2.0" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -63,33 +75,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Platform\Linux\Wayland\" />
 		<Folder Include="Views\DialogContent\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\WonderLab.Infrastructure\WonderLab.Infrastructure.csproj" />
+		<ProjectReference Include="..\WonderLab.Infrastructure\WonderLab.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Assets\Language\Languages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Languages.resx</DependentUpon>
-	  </Compile>
-	  <EmbeddedResource Update="Assets\Language\Languages.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Languages.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<Compile Update="Assets\Language\Languages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Languages.resx</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Assets\Language\Languages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Languages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Assets\Language\Languages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Languages.resx</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Page\Setting\SettingNavigationPage.axaml.cs">
-	    <DependentUpon>SettingNavigationPage.axaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Assets\Language\Languages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Languages.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Page\Setting\SettingNavigationPage.axaml.cs">
+			<DependentUpon>SettingNavigationPage.axaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 </Project>
