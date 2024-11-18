@@ -55,12 +55,12 @@
 
 							<Grid Grid.Column="0"
 								  RowDefinitions="Auto, Auto">
-								<TextBlock FontSize="12"
+								<TextBlock Classes="Caption"
 										   HorizontalAlignment="Right"
 										   Text="{I18N {x:Static w:LanguageKeys.Task_Manager}}"/>
 
 								<TextBlock Grid.Row="1"
-										   FontSize="12"
+										   Classes="Caption"
 										   HorizontalAlignment="Right">
 									<TextBlock.Text>
 										<I18N Key="{x:Static w:LanguageKeys.Task_ActiveInfo}">

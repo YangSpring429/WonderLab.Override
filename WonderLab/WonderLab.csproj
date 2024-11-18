@@ -76,7 +76,7 @@
 
 	<ItemGroup>
 		<Folder Include="Platform\Linux\Wayland\" />
-		<Folder Include="Views\DialogContent\" />
+		<Folder Include="Views\Dialog\" />
 	</ItemGroup>
 
 	<ItemGroup>

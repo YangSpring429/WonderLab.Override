@@ -195,7 +195,7 @@
 			<SolidColorBrush x:Key="SettingSideBarBackground" Color="{StaticResource LayoutBackgroundColor}"/>
 			<SolidColorBrush x:Key="GameManagerPanelBackground" Color="{StaticResource LayoutBackgroundColor}"/>
 			
-			<SolidColorBrush x:Key="SelectorBarBackground" Color="{StaticResource ContentColor2}"/>
+			<SolidColorBrush x:Key="SelectorBarBackground" Color="{StaticResource LayoutBackgroundColor}"/>
 			<SolidColorBrush x:Key="SelectorBarItemSelectedBackground" Color="{StaticResource LayoutBackgroundColor}"/>
 		</ResourceDictionary>
 

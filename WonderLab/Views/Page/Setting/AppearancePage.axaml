@@ -88,12 +88,10 @@
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 			
-			<TextBlock FontSize="24"
+			<TextBlock Classes="Title"
 					   Margin="0 0 0 12"
-					   FontWeight="Bold"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
-					   Effect="{StaticResource LowTextBlockShadow}"
 					   Text="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Title}}"/>
 
 			<wc:SettingExpander Glyph="&#xE793;"
@@ -146,7 +144,8 @@
 							  ItemsSource="{Binding Languages}">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
-								<TextBlock VerticalAlignment="Center"
+								<TextBlock Classes="Caption"
+										   VerticalAlignment="Center"
 										   Text="{Binding DisplayName}"/>
 							</DataTemplate>
 						</ComboBox.ItemTemplate>

@@ -20,9 +20,8 @@
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
-			<TextBlock FontSize="28"
+			<TextBlock Classes="Title"
 					   Margin="0 0 0 12"
-					   FontWeight="Bold"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
 					   Effect="{StaticResource LowTextBlockShadow}"
@@ -56,7 +55,8 @@
 							  SelectedItem="{Binding ActiveJava, Mode=TwoWay}">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
-								<TextBlock Text="{Binding JavaPath}"/>
+								<TextBlock Classes="Caption"
+										   Text="{Binding JavaPath}"/>
 							</DataTemplate>
 						</ComboBox.ItemTemplate>
 					</ComboBox>

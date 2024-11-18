@@ -59,7 +59,7 @@
 
 					<VisualLayerManager>
 						<Grid RowDefinitions="8, Auto, 1*">
-							<wc:TitleBarPlus  Grid.Row="1"/>
+							<wc:TitleBarPlus Grid.Row="1"/>
 
 							<ContentPresenter Grid.Row="2"
 											  Name="PART_ContentPresenter"

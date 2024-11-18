@@ -101,7 +101,8 @@
 											 Foreground="{Binding #PART_TextBlock.Foreground}"/>
 
 
-								<TextBlock Grid.Column="1"
+								<TextBlock Classes="Body"
+										   Grid.Column="1"
 										   Margin="8 0 0 0"
 										   Name="PART_TextBlock"
 										   VerticalAlignment="Center"

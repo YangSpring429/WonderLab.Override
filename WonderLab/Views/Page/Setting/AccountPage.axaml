@@ -5,6 +5,7 @@
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:w="using:WonderLab"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 			 x:Class="WonderLab.Views.Page.Setting.AccountPage">
 	<ScrollViewer VerticalScrollBarVisibility="Hidden">
 		<ItemsControl MaxWidth="1000"
@@ -15,11 +16,10 @@
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
-			<TextBlock Margin="0 0 0 12"
-					   Classes="Title"
+			<TextBlock Classes="Title"
+					   Margin="0 0 0 12"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
-					   Effect="{StaticResource LowTextBlockShadow}"
 					   Text="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}"/>
 
 			<wc:SettingExpander Glyph="&#xE8B7;"
@@ -29,11 +29,9 @@
 				</wc:SettingExpanderItem>
 			</wc:SettingExpander>
 
-			<TextBlock FontSize="14"
-					   Margin="0 20 0 0"
-					   FontWeight="SemiBold"
-					   Text="保存的游戏账户" LineHeight="20"
-					   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
+			<TextBlock Margin="0 20 0 0"
+					   Classes="BodyStrong"
+					   Text="保存的游戏账户"/>
 
 			<ItemsRepeater Margin="0 8 0 0"
 						   ItemsSource="{Binding Test}">
@@ -63,7 +61,7 @@
 										BorderThickness="2"
 										BorderBrush="{DynamicResource ContentBrush4}">
 									<Interaction.Behaviors>
-										
+										<wb:AccountSkinLoadBehavior Account="{Binding}" SkinArea="Head"/>
 									</Interaction.Behaviors>
 								</Border>
 
@@ -72,14 +70,13 @@
 									  VerticalAlignment="Center"
 									  RowDefinitions="Auto, Auto">
 									<TextBlock Grid.Row="0"
-											   FontSize="14"
-											   FontWeight="SemiBold"
-											   Text="{Binding}"
+											   Classes="BodyStrong"
+											   Text="{Binding Name}"
 											   TextTrimming="CharacterEllipsis"/>
 
 									<TextBlock Grid.Row="1"
-											   FontSize="12"
-											   Text="下北泽账户"
+											   Classes="Caption"
+											   Text="{Binding Type}"
 											   Foreground="{DynamicResource DefaultBrush400}"/>
 								</Grid>
 							</Grid>

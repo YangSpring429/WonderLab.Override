@@ -60,13 +60,12 @@
 										  VerticalAlignment="Center"
 										  RowDefinitions="Auto, Auto">
 										<TextBlock Grid.Row="0"
-												   FontSize="14"
-												   FontWeight="SemiBold"
+												   Classes="BodyStrong"
 												   Text="{Binding Entry.Id}"
 												   TextTrimming="CharacterEllipsis"/>
 
 										<TextBlock Grid.Row="1"
-												   FontSize="12"
+												   Classes="Caption"
 												   Text="{Binding Entry.Version}"
 												   Foreground="{DynamicResource DefaultBrush400}"/>
 									</Grid>
@@ -136,9 +135,8 @@
 
 	<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
 		<ItemsControl Margin="16 0">
-			<TextBlock FontSize="28"
+			<TextBlock Classes="Title"
 					   Margin="0 12 0 0"
-					   FontWeight="SemiBold"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
 					   Effect="{StaticResource LowTextBlockShadow}"
@@ -157,8 +155,7 @@
 								 Foreground="{DynamicResource NormalAccentBrush}"/>
 			</WrapPanel>
 
-			<TextBlock FontSize="14"
-					   FontWeight="Bold"
+			<TextBlock Classes="BodyStrong"
 					   Text="收藏的核心"
 					   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
 
@@ -168,8 +165,7 @@
 					 ItemsSource="{Binding CollectionGames}"
 					 IsVisible="{Binding IsCollectionGamesVisible}"/>
 
-			<TextBlock FontSize="14"
-					   FontWeight="Bold"
+			<TextBlock Classes="BodyStrong"
 					   Text="所有核心"/>
 
 			<ListBox Margin="0 12"

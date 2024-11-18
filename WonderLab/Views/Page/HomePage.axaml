@@ -25,13 +25,13 @@
 					Background="{DynamicResource GameManagerPanelBackground}">
 				<Grid RowDefinitions="Auto, Auto">
 					<TextBlock FontSize="16"
-							   FontWeight="Bold"
+							   Classes="BodyStrong"
 							   Text="{Binding ActiveGame.Entry.Id}"/>
 					
 					<TextBlock Grid.Row="1"
-							   FontSize="12"
 							   Margin="0 2 0 0"
-							   Foreground="{DynamicResource DefaultBrush400}"
+							   Classes="Caption"
+							   Foreground="{DynamicResource DefaultBrush500}"
 							   Text="{Binding ActiveGame.Entry.Version}"/>
 				</Grid>
 			</Border>
@@ -44,8 +44,7 @@
 				CornerRadius="16"
 				Command="{Binding LaunchCommand}"
 				Effect="{StaticResource TextBlockShadow}">
-			<TextBlock FontSize="16"
-					   FontWeight="Bold"
+			<TextBlock Classes="BodyStrong"
 					   Foreground="{DynamicResource ContentBrush1}"
 					   Text="{I18N {x:Static w:LanguageKeys.Home_Launch}}"/>
 		</Button>

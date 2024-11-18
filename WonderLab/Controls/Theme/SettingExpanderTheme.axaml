@@ -12,10 +12,9 @@
 										 HorizontalAlignment="Center"
 										 Glyph="{TemplateBinding Glyph}"/>
 
-							<TextBlock FontSize="14"
+							<TextBlock Classes="Body"
 									   Grid.Column="1"
 									   Margin="12 0 0 0"
-									   FontWeight="Regular"
 									   VerticalAlignment="Center"
 									   HorizontalAlignment="Left"
 									   Text="{TemplateBinding Header}"/>
@@ -55,8 +54,7 @@
 							<Grid Margin="5 8"
 								  Name="PART_ContentGrid"
 								  ColumnDefinitions="Auto 15 1*">
-								<TextBlock FontSize="14"
-										   FontWeight="Regular"
+								<TextBlock Classes="Body"
 										   VerticalAlignment="Center"
 										   Text="{TemplateBinding Description}"/>
 

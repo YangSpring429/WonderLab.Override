@@ -9,15 +9,13 @@
 	<ScrollViewer>
 		<Grid Margin="0 24 0 16"
 			  RowDefinitions="Auto, Auto, Auto">
-			<TextBlock FontSize="20"
-					   Text="WonderLab"
-					   FontWeight="SemiBold"
+			<TextBlock Text="WonderLab"
+					   Classes="Subtitle"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"/>
 
 			<TextBlock Grid.Row="1"
-					   FontSize="12"
-					   FontWeight="Regular"
+					   Classes="Caption"
 					   Text="{I18N {x:Static w:LanguageKeys.Settings_About_Copyright}}"/>
 
 			<ItemsControl Grid.Row="2"
