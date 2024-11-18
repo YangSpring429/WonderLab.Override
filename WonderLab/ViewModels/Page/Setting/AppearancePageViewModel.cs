@@ -45,8 +45,6 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
 
     public IEnumerable<Color> ImageColors => ActiveImage?.ToRgba32Bitmap()?.GetPaletteFromBitmap().Select(x => x.Color);
 
-    public List<Color> Colors { get; } = ColorExtension.Colors;
-
     public List<CultureInfo> Languages { get; } = [
         new("zh-Hans"),
         new("zh-Hant"),

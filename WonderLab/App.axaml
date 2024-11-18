@@ -13,6 +13,7 @@
 		<StyleInclude Source="/Controls/Style/SelectorBarStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/ToggleButtonStyle.axaml"/>
 		<StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml"/>
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml"/>
     </Application.Styles>
 
 	<Application.Resources>

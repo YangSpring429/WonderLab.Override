@@ -108,10 +108,11 @@
 				</wc:SettingExpanderItem>
 
 				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Color}}">
-					<ListBox Classes="colorbox"
+					<!--<ListBox Classes="colorbox"
 							 ItemsSource="{Binding Colors}"
 							 SelectedItem="{Binding Color}">
-					</ListBox>
+					</ListBox>-->
+					<ColorPicker Color="{Binding Color}"/>
 				</wc:SettingExpanderItem>
 
 				<wc:SettingExpanderItem IsVisible="{Binding IsImageBackground}"

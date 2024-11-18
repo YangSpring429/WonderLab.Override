@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using System;
 using System.Runtime.InteropServices;
-using WonderLab.Extensions;
 
 namespace WonderLab.Desktop;
 

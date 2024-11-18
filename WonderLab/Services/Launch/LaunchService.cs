@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
-using WonderLab.Services.Account;
+using WonderLab.Services.Accounts;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Tasks;
 
@@ -27,8 +27,8 @@ public sealed class LaunchService {
     public LaunchService(
         GameService gameService,
         TaskService taskService,
-        AccountService accountService,
         ConfigService configService,
+        AccountService accountService,
         NotificationService notificationService) {
         _taskService = taskService;
         _gameService = gameService;

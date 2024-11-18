@@ -55,21 +55,23 @@ public sealed class Frame : TemplatedControl {
         set => SetValue(PageProviderProperty, value);
     }
 
-    private async void RunAnimation(object page) {
+    private void RunAnimation(object page) {
         using (_cancellationTokenSource) {
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource = new();
         }
-        
-        if (_controlType is ControlType.Control1) {
-            _PART_LeftContentPresenter.Content = page;
-            await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
-            _controlType = ControlType.Control2;
-        }else {
-            _PART_RightContentPresenter.Content = page;
-            await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
-            _controlType = ControlType.Control1;
-        }
+
+        Dispatcher.UIThread.Post(async () => {
+            if (_controlType is ControlType.Control1) {
+                _PART_LeftContentPresenter.Content = page;
+                await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
+                _controlType = ControlType.Control2;
+            } else {
+                _PART_RightContentPresenter.Content = page;
+                await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
+                _controlType = ControlType.Control1;
+            }
+        }, DispatcherPriority.Render);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {

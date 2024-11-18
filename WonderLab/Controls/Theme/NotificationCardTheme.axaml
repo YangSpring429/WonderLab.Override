@@ -97,6 +97,7 @@
 		<Style Selector="^:information /template/ Panel#PART_HeaderBar">
 			<Setter Property="Background" Value="{DynamicResource NotificationCardInformationBackgroundBrush}"/>
 		</Style>
+		
 		<Style Selector="^:success /template/ Panel#PART_HeaderBar">
 			<Setter Property="Background" Value="{DynamicResource NotificationCardSuccessBackgroundBrush}"/>
 		</Style>

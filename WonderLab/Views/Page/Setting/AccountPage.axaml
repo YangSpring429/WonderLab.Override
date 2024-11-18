@@ -25,7 +25,8 @@
 			<wc:SettingExpander Glyph="&#xE8B7;"
 								Header="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}">
 				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Account_Add_Description}}">
-					<Button Content="{I18N {x:Static w:LanguageKeys.Item_Add}}"/>
+					<Button Command="{Binding CreateAccountCommand}"
+							Content="{I18N {x:Static w:LanguageKeys.Item_Add}}"/>
 				</wc:SettingExpanderItem>
 			</wc:SettingExpander>
 
@@ -33,8 +34,22 @@
 					   Classes="BodyStrong"
 					   Text="保存的游戏账户"/>
 
+			<StackPanel Spacing="8"
+						Grid.Row="1"
+						Margin="0 50"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						IsVisible="{Binding HasAccount, Converter={StaticResource BooleanReverseConverter}}">
+				<wc:FontIcon FontSize="28"
+							 Glyph="&#xF133;"
+							 HorizontalAlignment="Center"/>
+
+				<TextBlock Classes="BodyStrong"
+						   Text="没有任何账户"/>
+			</StackPanel>
+
 			<ItemsRepeater Margin="0 8 0 0"
-						   ItemsSource="{Binding Test}">
+						   ItemsSource="{Binding Accounts}">
 				<ItemsRepeater.Layout>
 					<UniformGridLayout MinItemWidth="260"
 									   ItemsStretch="Fill"

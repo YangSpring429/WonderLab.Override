@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
@@ -10,14 +9,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
-using System.Diagnostics;
 using System.IO;
 using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
-using WonderLab.Services.Account;
+using WonderLab.Services.Accounts;
 using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
+using WonderLab.ViewModels.Dialog;
 using WonderLab.ViewModels.Page;
 using WonderLab.ViewModels.Page.Download;
 using WonderLab.ViewModels.Page.Setting;
@@ -33,9 +32,9 @@ public sealed class App : Application {
 
     private static IServiceProvider ServiceProvider { get; set; }
 
-    private static TKey Get<TKey>() {
+    public static TKey Get<TKey>() {
         return ServiceProvider.GetRequiredService<TKey>();
-    } 
+    }
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
@@ -81,6 +80,7 @@ public sealed class App : Application {
         configService.Load();
 
         Get<GameService>().Initialize();
+        Get<AccountService>().Initialize();
 
         //Override AccentColors
         Current.Resources["NormalAccentBrush"] =
@@ -116,10 +116,13 @@ public sealed class App : Application {
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<AccountService>();
         builder.Services.AddSingleton<NotificationService>();
-        
+
         //Configure Window
         builder.Services.AddSingleton<MainWindow>();
         builder.Services.AddSingleton<MainWindowViewModel>();
+
+        //Configure Dialog
+        builder.Services.AddTransient<ChooseAccountTypeDialogViewModel>();
 
         //Configure Page
         var page = builder.PageProvider;
