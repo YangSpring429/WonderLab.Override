@@ -26,6 +26,8 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     private readonly ThemeService _themeService;
     private readonly ConfigService _configService;
 
+    private bool _isFirstLoad;
+
     [ObservableProperty] private bool _isDebugMode;
     [ObservableProperty] private Color _color;
     [ObservableProperty] private ThemeType _themeType;
@@ -40,9 +42,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     private BackgroundType _backgroundType;
 
     public Config Config => _configService.Entries;
-
     public bool IsImageBackground => BackgroundType is BackgroundType.Image;
-
     public IEnumerable<Color> ImageColors => ActiveImage?.ToRgba32Bitmap()?.GetPaletteFromBitmap().Select(x => x.Color);
 
     public List<CultureInfo> Languages { get; } = [
@@ -58,11 +58,15 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
 
     [RelayCommand]
     private void OnLoaded() => Dispatcher.UIThread.InvokeAsync(() => {
+        _isFirstLoad = true;
+
         ActiveImage = Config.ActiveImagePath;
         Color = Color.Parse(Config.ActiveAccentColor);
         ThemeType = Config.ThemeType;
         Language = new(Config.ActiveLanguage);
         BackgroundType = Config.BackgroundType;
+
+        _isFirstLoad = false;
     });
 
     [RelayCommand]
@@ -83,6 +87,10 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
         base.OnPropertyChanged(e);
+
+        if (_isFirstLoad) {
+            return;
+        }
 
         switch (e.PropertyName) {
             case nameof(ActiveImage):
