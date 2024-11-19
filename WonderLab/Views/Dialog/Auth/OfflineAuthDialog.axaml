@@ -3,17 +3,17 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 x:Class="WonderLab.ChooseAccountTypeDialog">
+			 x:Class="WonderLab.OfflineAuthDialog">
 	<Grid Margin="16 24 16 0"
 		  RowDefinitions="Auto, Auto, Auto">
 		<TextBlock Classes="Subtitle"
-				   Text="选择账户类型"/>
+				   Text="创建新账户"/>
 
-		<TextBlock Grid.Row="1"
-				   Classes="Body"
-				   Margin="0 16 0 24"
-				   Text="请选择一种账户类型，按相关法律规定，离线模式（Offline Account）在部分地区无法使用"/>
-
+		<TextBox Grid.Row="1"
+				 Margin="0 16 0 24"
+				 Watermark="账户名称"
+				 Text="{Binding UserName}"/>
+		
 		<Border Grid.Row="2"
 				Padding="16"
 				Margin="-16 0"
@@ -21,21 +21,16 @@
 				BorderThickness="0 1.5 0 0"
 				Background="{DynamicResource ContentColor2}"
 				BorderBrush="{DynamicResource ContentColor3}">
-			<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+			<Grid HorizontalAlignment="Right"
+				  ColumnDefinitions="Auto, Auto">
 				<Button Grid.Column="0"
-						Content="离线"
-						Command="{Binding GoToOfflineAuthCommand}"/>
-				
-				<Button Margin="8 0"
-						Grid.Column="1"
-						Content="第三方"/>
-				
-				<Button Grid.Column="2"
-						Content="微软"/>
-
-				<Button Grid.Column="4"
-						Content="关闭"
+						Margin="0 0 8 0"
+						Content="取消"
 						Command="{Binding CloseCommand}"/>
+
+				<Button Grid.Column="1"
+						Content="保存"
+						Command="{Binding SaveCommand}"/>
 			</Grid>
 		</Border>
 	</Grid>

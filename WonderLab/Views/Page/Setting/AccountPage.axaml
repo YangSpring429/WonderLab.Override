@@ -34,71 +34,70 @@
 					   Classes="BodyStrong"
 					   Text="保存的游戏账户"/>
 
-			<StackPanel Spacing="8"
-						Grid.Row="1"
-						Margin="0 50"
-						VerticalAlignment="Center"
-						HorizontalAlignment="Center"
-						IsVisible="{Binding HasAccount, Converter={StaticResource BooleanReverseConverter}}">
-				<wc:FontIcon FontSize="28"
-							 Glyph="&#xF133;"
-							 HorizontalAlignment="Center"/>
+			<Panel Margin="0 8 0 0">
+				<StackPanel Spacing="8"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Center"
+							IsVisible="{Binding HasAccount, Converter={StaticResource BooleanReverseConverter}}">
+					<wc:FontIcon FontSize="28"
+								 Glyph="&#xF133;"
+								 HorizontalAlignment="Center"/>
 
-				<TextBlock Classes="BodyStrong"
-						   Text="没有任何账户"/>
-			</StackPanel>
+					<TextBlock Classes="BodyStrong"
+							   Text="没有任何账户"/>
+				</StackPanel>
 
-			<ItemsRepeater Margin="0 8 0 0"
-						   ItemsSource="{Binding Accounts}">
-				<ItemsRepeater.Layout>
-					<UniformGridLayout MinItemWidth="260"
-									   ItemsStretch="Fill"
-									   MinRowSpacing="4"
-									   MinColumnSpacing="4"
-									   ItemsJustification="Start"/>
-				</ItemsRepeater.Layout>
+				<ItemsRepeater ItemsSource="{Binding Accounts}">
+					<ItemsRepeater.Layout>
+						<UniformGridLayout MinItemWidth="260"
+										   ItemsStretch="Fill"
+										   MinRowSpacing="4"
+										   MinColumnSpacing="4"
+										   ItemsJustification="Start"/>
+					</ItemsRepeater.Layout>
 
-				<ItemsRepeater.ItemTemplate>
-					<DataTemplate>
-						<Button Padding="20 12"
-								CornerRadius="8"
-								BorderThickness="2"
-								VerticalAlignment="Stretch"
-								HorizontalAlignment="Stretch"
-								BorderBrush="{DynamicResource ContentBrush4}"
-								Background="{DynamicResource ExpanderHeaderBackground}">
-							<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
-								<Border Width="36"
-										Height="36"
-										Grid.Column="0"
-										CornerRadius="5"
-										ClipToBounds="True"
-										BorderThickness="2"
-										BorderBrush="{DynamicResource ContentBrush4}">
-									<Interaction.Behaviors>
-										<wb:AccountSkinLoadBehavior Account="{Binding}" SkinArea="Head"/>
-									</Interaction.Behaviors>
-								</Border>
+					<ItemsRepeater.ItemTemplate>
+						<DataTemplate>
+							<Button Padding="20 12"
+									CornerRadius="8"
+									BorderThickness="2"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"
+									BorderBrush="{DynamicResource ContentBrush4}"
+									Background="{DynamicResource ExpanderHeaderBackground}">
+								<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+									<Border Width="36"
+											Height="36"
+											Grid.Column="0"
+											CornerRadius="5"
+											ClipToBounds="True"
+											BorderThickness="2"
+											BorderBrush="{DynamicResource ContentBrush4}">
+										<Interaction.Behaviors>
+											<wb:AccountSkinLoadBehavior Account="{Binding}" SkinArea="Head"/>
+										</Interaction.Behaviors>
+									</Border>
 
-								<Grid Grid.Column="1"
-									  Margin="8 0 0 0"
-									  VerticalAlignment="Center"
-									  RowDefinitions="Auto, Auto">
-									<TextBlock Grid.Row="0"
-											   Classes="BodyStrong"
-											   Text="{Binding Name}"
-											   TextTrimming="CharacterEllipsis"/>
+									<Grid Grid.Column="1"
+										  Margin="8 0 0 0"
+										  VerticalAlignment="Center"
+										  RowDefinitions="Auto, Auto">
+										<TextBlock Grid.Row="0"
+												   Classes="BodyStrong"
+												   Text="{Binding Name}"
+												   TextTrimming="CharacterEllipsis"/>
 
-									<TextBlock Grid.Row="1"
-											   Classes="Caption"
-											   Text="{Binding Type}"
-											   Foreground="{DynamicResource DefaultBrush400}"/>
+										<TextBlock Grid.Row="1"
+												   Classes="Caption"
+												   Text="{Binding Type}"
+												   Foreground="{DynamicResource DefaultBrush400}"/>
+									</Grid>
 								</Grid>
-							</Grid>
-						</Button>
-					</DataTemplate>
-				</ItemsRepeater.ItemTemplate>
-			</ItemsRepeater>
+							</Button>
+						</DataTemplate>
+					</ItemsRepeater.ItemTemplate>
+				</ItemsRepeater>
+			</Panel>
 		</ItemsControl>
 	</ScrollViewer>
 </UserControl>

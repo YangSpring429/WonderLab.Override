@@ -1,4 +1,4 @@
-<Styles xmlns="https://github.com/avaloniaui"
+ <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:wc="using:WonderLab.Controls"
 		xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
@@ -76,7 +76,24 @@
 									Identifier="PART_DialogHost"
 									DisableOpeningAnimation="True"
 									dha:DialogHostStyle.CornerRadius="14"
-									OverlayBackground="{DynamicResource DialogOverlayBackground}"/>
+									OverlayBackground="{DynamicResource DialogOverlayBackground}">
+						<dha:DialogHost.PopupTemplate>
+							<ControlTemplate>
+								<Border MinWidth="350"
+										CornerRadius="12"
+										BorderThickness="2"
+										VerticalAlignment="Center"
+										HorizontalAlignment="Center"
+										BorderBrush="{DynamicResource ContentBrush4}"
+										Background="{DynamicResource GameManagerPanelBackground}">
+									<ContentPresenter Name="PART_ContentPresenter"
+													  Content="{TemplateBinding Content}"
+													  Padding="{TemplateBinding Padding}" 
+													  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+								</Border>
+							</ControlTemplate>
+						</dha:DialogHost.PopupTemplate>
+					</dha:DialogHost>
 				</Panel>
 			</ControlTemplate>
 		</Setter>

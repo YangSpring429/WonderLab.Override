@@ -122,6 +122,7 @@ public sealed class App : Application {
         builder.Services.AddSingleton<MainWindowViewModel>();
 
         //Configure Dialog
+        builder.Services.AddTransient<OfflineAuthDialogViewMdoel>();
         builder.Services.AddTransient<ChooseAccountTypeDialogViewModel>();
 
         //Configure Page

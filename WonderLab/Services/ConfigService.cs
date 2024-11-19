@@ -35,6 +35,7 @@ public sealed class ConfigService {
         }
 
         Entries.Javas ??= [];
+        Entries.Accounts ??= [];
         Entries.MinecraftFolders ??= [];
     }
 
