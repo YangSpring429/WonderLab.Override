@@ -36,6 +36,7 @@
 
 			<Panel Margin="0 8 0 0">
 				<StackPanel Spacing="8"
+							Margin="0 50"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center"
 							IsVisible="{Binding HasAccount, Converter={StaticResource BooleanReverseConverter}}">

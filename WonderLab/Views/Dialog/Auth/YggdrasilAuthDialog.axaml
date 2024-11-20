@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="WonderLab.Views.Dialog.Auth.YggdrasilAuthDialog">
+	<Grid Margin="16 24 16 0"
+		  RowDefinitions="Auto, Auto, Auto">
+		<TextBlock Classes="Subtitle"
+				   Text="创建新账户"/>
+
+		<StackPanel Grid.Row="1"
+					Spacing="8"
+					MinWidth="550"
+					Margin="0 16 0 24">
+			<TextBox Watermark="Yggdrasil 服务器地址（例：https://littleskin.cn/api/yggdrasil）"
+					 IsEnabled="{Binding IsUseLittleSkin, Converter={StaticResource BooleanReverseConverter}}"
+					 Text="{Binding YggdrasilServerUrl}"/>
+
+			<TextBox Watermark="电子邮箱"
+					 Text="{Binding Email}"/>
+
+			<TextBox Watermark="密码"
+					 Text="{Binding UserName}"/>
+
+			<CheckBox FontSize="14"
+					  FontWeight="Regular"
+					  IsChecked="{Binding IsUseLittleSkin}"
+					  Content="使用 LittleSkin 进行验证"/>
+		</StackPanel>
+
+		<Border Grid.Row="2"
+				Padding="16"
+				Margin="-16 0"
+				CornerRadius="0 0 12 12"
+				BorderThickness="0 1.5 0 0"
+				Background="{DynamicResource ContentColor2}"
+				BorderBrush="{DynamicResource ContentColor3}">
+			<Grid HorizontalAlignment="Right"
+				  ColumnDefinitions="Auto, Auto">
+				<Button Grid.Column="0"
+						Margin="0 0 8 0"
+						Content="取消"
+						Command="{Binding CloseCommand}"/>
+
+				<Button Grid.Column="1"
+						Content="保存"
+						Command="{Binding SaveCommand}"/>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

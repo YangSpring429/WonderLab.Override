@@ -14,7 +14,7 @@ namespace WonderLab.Controls.Media.Transitions;
 
 public sealed class EntrancePageTransition : IPageTransition {
     public TimeSpan Duration { get; set; }
-    public Easing Easing { get; set; } = new CircularEaseInOut();
+    public Easing Easing { get; set; } = new SplineEasing(0.1, 0.9, 0.2, 1.0);
 
     public EntrancePageTransition() { }
 

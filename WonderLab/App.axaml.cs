@@ -17,6 +17,7 @@ using WonderLab.Services.Accounts;
 using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Dialog;
+using WonderLab.ViewModels.Dialog.Auth;
 using WonderLab.ViewModels.Page;
 using WonderLab.ViewModels.Page.Download;
 using WonderLab.ViewModels.Page.Setting;
@@ -123,6 +124,7 @@ public sealed class App : Application {
 
         //Configure Dialog
         builder.Services.AddTransient<OfflineAuthDialogViewMdoel>();
+        builder.Services.AddTransient<YggdrasilAuthDialogViewModel>();
         builder.Services.AddTransient<ChooseAccountTypeDialogViewModel>();
 
         //Configure Page

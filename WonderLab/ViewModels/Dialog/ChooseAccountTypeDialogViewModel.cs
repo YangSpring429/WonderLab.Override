@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
 using System.Threading.Tasks;
+using WonderLab.ViewModels.Dialog.Auth;
+using WonderLab.Views.Dialog.Auth;
 
 namespace WonderLab.ViewModels.Dialog;
 
@@ -18,6 +20,17 @@ public sealed partial class ChooseAccountTypeDialogViewModel : ObservableObject 
 
         OfflineAuthDialog dialog = new() {
             DataContext = App.Get<OfflineAuthDialogViewMdoel>()
+        };
+
+        await DialogHost.Show(dialog, "PART_DialogHost");
+    });
+
+    [RelayCommand]
+    private Task GoToYggdrasilAuth() => Dispatcher.UIThread.InvokeAsync(async () => {
+        Close();
+
+        YggdrasilAuthDialog dialog = new() {
+            DataContext = App.Get<YggdrasilAuthDialogViewModel>()
         };
 
         await DialogHost.Show(dialog, "PART_DialogHost");

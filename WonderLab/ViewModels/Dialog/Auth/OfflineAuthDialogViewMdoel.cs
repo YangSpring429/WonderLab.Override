@@ -7,7 +7,7 @@ using System.Linq;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services.Accounts;
 
-namespace WonderLab.ViewModels.Dialog;
+namespace WonderLab.ViewModels.Dialog.Auth;
 
 public sealed partial class OfflineAuthDialogViewMdoel : ObservableObject {
     private readonly AccountService _accountService;

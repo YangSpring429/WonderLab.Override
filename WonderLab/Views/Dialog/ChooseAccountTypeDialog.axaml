@@ -28,7 +28,8 @@
 				
 				<Button Margin="8 0"
 						Grid.Column="1"
-						Content="第三方"/>
+						Content="第三方"
+						Command="{Binding GoToYggdrasilAuthCommand}"/>
 				
 				<Button Grid.Column="2"
 						Content="微软"/>

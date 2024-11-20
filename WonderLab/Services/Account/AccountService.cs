@@ -1,5 +1,6 @@
 ﻿using MinecraftLaunch.Classes.Models.Auth;
 using MinecraftLaunch.Components.Authenticator;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace WonderLab.Services.Accounts;
@@ -23,5 +24,13 @@ public sealed class AccountService {
 
         _configService.Entries.Accounts.Add(account);
         return account;
+    }
+
+    public IEnumerable<YggdrasilAccount> CreateYggdrasilAccounts(string email, string password, string url = "https://littleskin.cn/api/yggdrasil") {
+        var accounts = new YggdrasilAuthenticator(url, email, password)
+            .Authenticate();
+
+        _configService.Entries.Accounts.AddRange(accounts);
+        return accounts;
     }
 }
