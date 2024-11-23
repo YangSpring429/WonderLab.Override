@@ -2,6 +2,7 @@
 using MinecraftLaunch.Components.Authenticator;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace WonderLab.Services.Accounts;
 
@@ -26,9 +27,9 @@ public sealed class AccountService {
         return account;
     }
 
-    public IEnumerable<YggdrasilAccount> CreateYggdrasilAccounts(string email, string password, string url = "https://littleskin.cn/api/yggdrasil") {
-        var accounts = new YggdrasilAuthenticator(url, email, password)
-            .Authenticate();
+    public async ValueTask<IEnumerable<YggdrasilAccount>> CreateYggdrasilAccounts(string email, string password, string url = "https://littleskin.cn/api/yggdrasil") {
+        var accounts = await new YggdrasilAuthenticator(url, email, password)
+            .AuthenticateAsync();
 
         _configService.Entries.Accounts.AddRange(accounts);
         return accounts;

@@ -21,7 +21,7 @@
 					 Text="{Binding Email}"/>
 
 			<TextBox Watermark="密码"
-					 Text="{Binding UserName}"/>
+					 Text="{Binding Password}"/>
 
 			<CheckBox FontSize="14"
 					  FontWeight="Regular"

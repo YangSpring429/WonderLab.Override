@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
 using System.Linq;
+using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services.Accounts;
 
@@ -42,14 +43,14 @@ public sealed partial class YggdrasilAuthDialogViewModel : ObservableObject {
     }
 
     [RelayCommand(CanExecute = nameof(CanSave))]
-    private void Save() {
-        var accounts = _accountService.CreateYggdrasilAccounts(Email, Password, YggdrasilServerUrl)
+    private async Task Save() {
+        var accounts = (await _accountService.CreateYggdrasilAccounts(Email, Password, YggdrasilServerUrl))
             .ToList();
 
         Close();
 
         if (accounts is { Count: 0 }) {
-            WeakReferenceMessenger.Default.Send(new NotificationMessage($"已存在用户名为的离线账户！", NotificationType.Warning));
+            WeakReferenceMessenger.Default.Send(new NotificationMessage($"此名下为发现任何账户档案！", NotificationType.Warning));
             return;
         }
     }
