@@ -32,7 +32,8 @@
 						Command="{Binding GoToYggdrasilAuthCommand}"/>
 				
 				<Button Grid.Column="2"
-						Content="微软"/>
+						Content="微软"
+						Command="{Binding GoToMicrosoftAuthCommand}"/>
 
 				<Button Grid.Column="4"
 						Content="关闭"

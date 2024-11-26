@@ -7,7 +7,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using WonderLab.Assets.Language;
 using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services;

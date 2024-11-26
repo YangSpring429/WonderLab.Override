@@ -19,7 +19,7 @@ public sealed partial class ChooseAccountTypeDialogViewModel : ObservableObject 
         Close();
 
         OfflineAuthDialog dialog = new() {
-            DataContext = App.Get<OfflineAuthDialogViewMdoel>()
+            DataContext = App.Get<OfflineAuthDialogViewModel>()
         };
 
         await DialogHost.Show(dialog, "PART_DialogHost");
@@ -31,6 +31,17 @@ public sealed partial class ChooseAccountTypeDialogViewModel : ObservableObject 
 
         YggdrasilAuthDialog dialog = new() {
             DataContext = App.Get<YggdrasilAuthDialogViewModel>()
+        };
+
+        await DialogHost.Show(dialog, "PART_DialogHost");
+    });
+
+    [RelayCommand]
+    private Task GoToMicrosoftAuth() => Dispatcher.UIThread.InvokeAsync(async () => {
+        Close();
+
+        MicrosoftAuthDialog dialog = new() {
+            DataContext = App.Get<MicrosoftAuthDialogViewModel>()
         };
 
         await DialogHost.Show(dialog, "PART_DialogHost");

@@ -123,7 +123,8 @@ public sealed class App : Application {
         builder.Services.AddSingleton<MainWindowViewModel>();
 
         //Configure Dialog
-        builder.Services.AddTransient<OfflineAuthDialogViewMdoel>();
+        builder.Services.AddTransient<OfflineAuthDialogViewModel>();
+        builder.Services.AddTransient<MicrosoftAuthDialogViewModel>();
         builder.Services.AddTransient<YggdrasilAuthDialogViewModel>();
         builder.Services.AddTransient<ChooseAccountTypeDialogViewModel>();
 

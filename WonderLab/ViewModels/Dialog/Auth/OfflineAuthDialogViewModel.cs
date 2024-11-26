@@ -9,14 +9,14 @@ using WonderLab.Services.Accounts;
 
 namespace WonderLab.ViewModels.Dialog.Auth;
 
-public sealed partial class OfflineAuthDialogViewMdoel : ObservableObject {
+public sealed partial class OfflineAuthDialogViewModel : ObservableObject {
     private readonly AccountService _accountService;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
     private string _userName;
 
-    public OfflineAuthDialogViewMdoel(AccountService accountService) {
+    public OfflineAuthDialogViewModel(AccountService accountService) {
         _accountService = accountService;
     }
 
