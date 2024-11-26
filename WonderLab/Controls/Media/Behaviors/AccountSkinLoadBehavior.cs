@@ -11,6 +11,8 @@ using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Skin;
 using MinecraftLaunch.Skin.Class.Fetchers;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Enums;
@@ -18,6 +20,41 @@ using WonderLab.Infrastructure.Enums;
 namespace WonderLab.Controls.Media.Behaviors;
 
 public sealed class AccountSkinLoadBehavior : Behavior<Border> {
+    readonly record struct AccountSkinCache {
+        public static Dictionary<Account, IImmutableBrush> SkinAreas { get; }
+            = new(new AccountEqualityComparer());
+
+        public static void Add(Account account, IImmutableBrush area) {
+            if (account is null || SkinAreas.ContainsKey(account)) {
+                return;
+            }
+
+            SkinAreas.Add(account, area);
+        }
+
+        public static bool TryGetArea(Account account, out IImmutableBrush area) {
+            if (SkinAreas.TryGetValue(account, out var area1)) {
+                area = area1;
+                return true;
+            }
+
+            area = null;
+            return false;
+        }
+    }
+
+    sealed class AccountEqualityComparer : IEqualityComparer<Account> {
+        public bool Equals(Account account1, Account account2) {
+            return account1.Type == account2.Type
+                && account1.Name == account2.Name
+                && account1.Uuid == account2.Uuid;
+        }
+
+        public int GetHashCode([DisallowNull] Account obj) {
+            return obj.GetHashCode();
+        }
+    }
+
     public static readonly StyledProperty<SkinArea> SkinAreaProperty =
         AvaloniaProperty.Register<AccountSkinLoadBehavior, SkinArea>(nameof(SkinArea), SkinArea.Head);
 
@@ -48,26 +85,22 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e) {
-        if (Account is null) {
+        if (AccountSkinCache.TryGetArea(Account, out var area)) {
+            AssociatedObject.Background = area;
             return;
         }
 
         var skin = new SkinResolver(await GetSkinAsync(Account));
         await Dispatcher.UIThread.InvokeAsync(() => {
-            AssociatedObject.Background = new ImageBrush(SkinArea switch {
-                SkinArea.Head => skin.CropSkinHeadBitmap().ToBitmap(),
-                SkinArea.Body => skin.CropSkinBodyBitmap().ToBitmap(),
-                SkinArea.LeftHand => skin.CropLeftHandBitmap().ToBitmap(),
-                SkinArea.RightHand => skin.CropRightHandBitmap().ToBitmap(),
-                SkinArea.LeftLeg => skin.CropLeftLegBitmap().ToBitmap(),
-                SkinArea.RightLeg => skin.CropRightLegBitmap().ToBitmap(),
-                _ => skin.CropSkinHeadBitmap().ToBitmap()
-            });
+            var brush = new ImageBrush(skin.CropSkinHeadBitmap().ToBitmap())
+                .ToImmutable();
+
+            AssociatedObject.Background = brush;
+            AccountSkinCache.Add(Account, brush);
         }, DispatcherPriority.Background);
     }
 
-    private void OnUnloaded(object sender, RoutedEventArgs e) {
-    }
+    private void OnUnloaded(object sender, RoutedEventArgs e) { }
 
     protected override void OnAttached() {
         AssociatedObject.Loaded += OnLoaded;

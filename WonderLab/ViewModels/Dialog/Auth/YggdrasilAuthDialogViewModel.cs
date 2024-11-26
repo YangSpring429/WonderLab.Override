@@ -53,5 +53,7 @@ public sealed partial class YggdrasilAuthDialogViewModel : ObservableObject {
             WeakReferenceMessenger.Default.Send(new NotificationMessage($"此名下为发现任何账户档案！", NotificationType.Warning));
             return;
         }
+
+        WeakReferenceMessenger.Default.Send(new NotificationMessage($"已将名下的 {accounts.Count} 个账户添加至 WonderLab！", NotificationType.Success));
     }
 }

@@ -3,8 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
 using MinecraftLaunch.Classes.Models.Auth;
+using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Threading.Tasks;
 using WonderLab.Services.Accounts;
 using WonderLab.ViewModels.Dialog;
@@ -22,12 +22,12 @@ public sealed partial class AccountPageViewModel : ObservableObject {
     public AccountPageViewModel(AccountService accountService) {
         _accountService = accountService;
 
-        _accountService.Accounts.CollectionChanged += OnCollectionChanged;
-        Accounts = new(_accountService.Accounts);
+        _accountService.CollectionChanged += OnCollectionChanged;
+        Accounts = _accountService.Accounts;
         HasAccount = Accounts?.Count > 0;
     }
 
-    private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+    private void OnCollectionChanged(object sender, EventArgs e) {
         HasAccount = Accounts?.Count > 0;
     }
 

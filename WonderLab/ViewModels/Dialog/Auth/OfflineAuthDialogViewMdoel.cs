@@ -35,6 +35,6 @@ public sealed partial class OfflineAuthDialogViewMdoel : ObservableObject {
         }
 
         Close();
-        _accountService.Accounts.Add(_accountService.CreateOfflineAccount(UserName));
+        _accountService.CreateOfflineAccount(UserName);
     }
 }
