@@ -21,15 +21,18 @@ public sealed partial class AccountPageViewModel : ObservableObject {
 
     public AccountPageViewModel(AccountService accountService) {
         _accountService = accountService;
-
         _accountService.CollectionChanged += OnCollectionChanged;
-        Accounts = _accountService.Accounts;
-        HasAccount = Accounts?.Count > 0;
     }
 
     private void OnCollectionChanged(object sender, EventArgs e) {
         HasAccount = Accounts?.Count > 0;
     }
+
+    [RelayCommand]
+    private Task OnLoaded() => Task.Run(() => {
+        Accounts = _accountService.Accounts;
+        HasAccount = Accounts?.Count > 0;
+    });
 
     [RelayCommand]
     private Task CreateAccount() => Dispatcher.UIThread.InvokeAsync(async () => {

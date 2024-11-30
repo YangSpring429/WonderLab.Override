@@ -7,6 +7,12 @@
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 			 x:Class="WonderLab.Views.Page.Setting.AccountPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+		
 	<ScrollViewer VerticalScrollBarVisibility="Hidden">
 		<ItemsControl MaxWidth="1000"
 					  Margin="0 24 0 16">

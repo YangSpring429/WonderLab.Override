@@ -16,8 +16,7 @@ namespace WonderLab.ViewModels.Dialog.Auth;
 
 public sealed partial class MicrosoftAuthDialogViewModel : ObservableObject {
     private readonly AccountService _accountService;
-
-    private CancellationTokenSource _cancellationTokenSource;
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     [ObservableProperty] private string _verificationUrl;
 
@@ -49,12 +48,12 @@ public sealed partial class MicrosoftAuthDialogViewModel : ObservableObject {
         DialogHost.Close("PART_DialogHost");
 
         try {
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource?.Cancel();
         } catch (System.Exception) {}
     });
 
     [RelayCommand]
-    private void OpenUrl() => Dispatcher.UIThread.InvokeAsync(() => {
+    private void OpenUrl() => Task.Run(() => {
         Process.Start(new ProcessStartInfo(VerificationUrl) {
             UseShellExecute = true,
             Verb = "open"
