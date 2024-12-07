@@ -1,5 +1,4 @@
 ﻿using Avalonia.Threading;
-using MinecraftLaunch.Classes.Interfaces;
 using MinecraftLaunch.Classes.Models.Launch;
 using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Launcher;
@@ -95,7 +94,7 @@ public sealed class LaunchService {
 
             Launcher launcher = new(_gameService.GameResolver, new() {
                 JvmConfig = new JvmConfig(javaPath.JavaPath) {
-                    MaxMemory = 1024
+                    MaxMemory = config.MaxMemory,
                 },
                 Account = account ?? new OfflineAuthenticator("Steve").Authenticate(),
                 IsEnableIndependencyCore = config.IsGameIndependent,

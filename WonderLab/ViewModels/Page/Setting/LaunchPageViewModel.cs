@@ -29,6 +29,7 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
     [ObservableProperty] private bool _isGameIndependent;
     [ObservableProperty] private bool _isAutoAllocateMemory;
 
+    [ObservableProperty] private int _maxMemory;
     [ObservableProperty] private string _activeFolder;
     [ObservableProperty] private JavaEntry _activeJava;
     [ObservableProperty] private ReadOnlyObservableCollection<string> _folders;
@@ -120,6 +121,9 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
             case nameof(ActiveFolder):
                 _gameService.RefreshGames();
                 Config.ActiveMinecraftFolder = ActiveFolder;
+                break;
+            case nameof(MaxMemory):
+                Config.MaxMemory = MaxMemory;
                 break;
             case nameof(ActiveJava):
                 Config.ActiveJava = ActiveJava;

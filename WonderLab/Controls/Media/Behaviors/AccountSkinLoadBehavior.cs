@@ -85,8 +85,10 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e) {
+        var border = AssociatedObject ?? throw new Exception();
+
         if (AccountSkinCache.TryGetArea(Account, out var area)) {
-            AssociatedObject.Background = area;
+            border.Background = area;
             return;
         }
 
@@ -95,7 +97,7 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
             var brush = new ImageBrush(skin.CropSkinHeadBitmap().ToBitmap())
                 .ToImmutable();
 
-            AssociatedObject.Background = brush;
+            border.Background = brush;
             AccountSkinCache.Add(Account, brush);
         }, DispatcherPriority.Background);
     }

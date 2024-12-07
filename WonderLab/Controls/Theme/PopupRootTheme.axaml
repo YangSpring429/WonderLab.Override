@@ -33,11 +33,11 @@
 			<Style.Animations>
 				<Animation FillMode="Forward"
 						   IterationCount="1"
-						   Duration="0:0:0.25"
-						   Easing="ExponentialEaseInOut">
+						   Duration="0:0:0.6"
+						   Easing="ExponentialEaseOut">
 					<KeyFrame Cue="0%">
 						<Setter Property="Opacity" Value="0"/>
-						<Setter Property="Percent" Value="45"/>
+						<Setter Property="Percent" Value="0"/>
 						<Setter Property="BoxShadow" Value="0 0 0 0 #3000"/>
 					</KeyFrame>
 
@@ -56,7 +56,7 @@
 
 					<KeyFrame Cue="100%">
 						<Setter Property="Percent" Value="100"/>
-						<Setter Property="BoxShadow" Value="0 0 20 2 #3000"/>
+						<!--<Setter Property="BoxShadow" Value="0 0 20 2 #3000"/>-->
 					</KeyFrame>
 				</Animation>
 			</Style.Animations>
