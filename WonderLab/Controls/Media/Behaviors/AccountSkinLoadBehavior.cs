@@ -13,6 +13,7 @@ using MinecraftLaunch.Skin.Class.Fetchers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Enums;
@@ -72,6 +73,10 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
     }
 
     private async Task<byte[]> GetSkinAsync(Account account) {
+        if (!NetworkInterface.GetIsNetworkAvailable()) {
+            return "resm:WonderLab.Assets.Image.steve.png".ToBytes();
+        }
+
         var skin = await Task.Run(async () => {
             return account.Type switch {
                 AccountType.Microsoft => await new MicrosoftSkinFetcher(account.Uuid.ToString()).GetSkinAsync(),

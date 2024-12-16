@@ -1,9 +1,15 @@
 ﻿using Avalonia.Threading;
+using MinecraftLaunch.Classes.Enums;
+using MinecraftLaunch.Classes.Models.Download;
 using MinecraftLaunch.Classes.Models.Launch;
 using MinecraftLaunch.Components.Authenticator;
+using MinecraftLaunch.Components.Checker;
+using MinecraftLaunch.Components.Downloader;
 using MinecraftLaunch.Components.Launcher;
+using MinecraftLaunch.Extensions;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models;
@@ -52,12 +58,13 @@ public sealed class LaunchService {
         IProgress<TaskProgress> progress,
         CancellationToken cancellationToken) {
         double progressCache = 0d;
+        double? speed = null;
         DispatcherTimer dispatcherTimer = new(DispatcherPriority.ApplicationIdle) {
             Interval = TimeSpan.FromSeconds(0.2d),
         };
 
         dispatcherTimer.Tick += (_, _) => {
-            progress.Report(new(3, progressCache));
+            progress.Report(new(3, progressCache, Speed: speed));
         };
 
         try {
@@ -84,7 +91,20 @@ public sealed class LaunchService {
             //Complete
             progress.Report(new(3, 0d));
 
-            //await ResolveAndDownloadResourceAsync(x => progressCache = x, cancellationToken);
+            var checker = new ResourceChecker(_gameService.ActiveGame.Entry);
+            var canComplete = await checker.CheckAsync();
+            if (!canComplete) {
+                dispatcherTimer.Start();
+                await checker.MissingResources.DownloadResourceEntrysAsync(new DownloaderConfiguration {
+                    IsEnableFragmentedDownload = true,
+                    MaxThread = 256,
+                }, e => {
+                    speed = e.Speed;
+                    progressCache = (double)e.CompletedCount / (double)checker.MissingResources.Count;
+                }, cancellationToken);
+                dispatcherTimer.Stop();
+            }
+
 
             progress.Report(new(3, 1d));
             cancellationToken.ThrowIfCancellationRequested();

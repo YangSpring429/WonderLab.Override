@@ -12,14 +12,7 @@
 									  CornerRadius="12"
 									  Name="PopupBorder"
 									  RenderTransformOrigin="0% 0%"
-									  Background="{TemplateBinding Background}">
-						<wc:RollingBorder.Transitions>
-							<Transitions>
-								<DoubleTransition Property="Percent"
-												  Duration="0:0:0.5"/>
-							</Transitions>
-						</wc:RollingBorder.Transitions>
-						
+									  Background="{TemplateBinding Background}">						
 						<ContentPresenter Name="PART_ContentPresenter"
 										  Padding="{TemplateBinding Padding}"
 										  Content="{TemplateBinding Content}"
@@ -32,8 +25,8 @@
 		<Style Selector="^ /template/ wc|RollingBorder#PopupBorder">
 			<Style.Animations>
 				<Animation FillMode="Forward"
+						   Duration="0:0:1"
 						   IterationCount="1"
-						   Duration="0:0:0.6"
 						   Easing="ExponentialEaseOut">
 					<KeyFrame Cue="0%">
 						<Setter Property="Opacity" Value="0"/>

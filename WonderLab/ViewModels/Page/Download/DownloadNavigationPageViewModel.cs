@@ -22,12 +22,9 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
     [RelayCommand]
     private void ChangeActivePage() {
         ActivePageKey = ActivePageIndex switch {
-            0 => "Setting/Launch",
+            0 => "Download/News",
             1 => "Setting/Account",
-            2 => "Setting/Network",
-            3 => "Setting/Appearance",
-            4 => "Setting/About",
-            _ => "Setting/Launch"
+            _ => "Download/News"
         };
     }
 }

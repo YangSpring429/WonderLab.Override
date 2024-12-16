@@ -13,6 +13,7 @@ using Avalonia.Threading;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
+using WonderLab.Extensions;
 
 namespace WonderLab.ViewModels.Page.Setting;
 
@@ -44,14 +45,16 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
 
     [RelayCommand]
     private void OnLoaded() {
-        _javaEntrys = new(Config.Javas);
-        _minecraftFolders = new(Config.MinecraftFolders);
+        Dispatcher.UIThread.Post(() => {
+            _javaEntrys = new(Config.Javas);
+            _minecraftFolders = new(Config.MinecraftFolders);
 
-        Javas = new(_javaEntrys);
-        Folders = new(_minecraftFolders);
+            Javas = new(_javaEntrys);
+            Folders = new(_minecraftFolders);
 
-        ActiveJava = Config.ActiveJava;
-        ActiveFolder = Config.ActiveMinecraftFolder;
+            ActiveJava = Config.ActiveJava;
+            ActiveFolder = Config.ActiveMinecraftFolder;
+        });
     }
 
     [RelayCommand]

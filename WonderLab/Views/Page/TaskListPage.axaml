@@ -90,15 +90,21 @@
 														<wc:FontIcon FontSize="20"
 																	 Grid.Column="0"
 																	 Glyph="{Binding ProgressIcon}"/>
-														
+
 														<TextBlock Grid.Column="2"
+																   Classes="Caption"
+																   VerticalAlignment="Center"
+																   HorizontalAlignment="Left"
+																   Text="{Binding ProgressText}"/>
+														
+														<!--<TextBlock Grid.Column="2"
 																   Classes="Caption"
 																   VerticalAlignment="Center"
 																   HorizontalAlignment="Left">
 															<Run Text="{Binding StepName}"/>
 															<Run Text=" - "/>
 															<Run Text="{Binding ProgressText}"/>
-														</TextBlock>
+														</TextBlock>-->
 													</Grid>
 
 													<Separator Margin="0"
