@@ -61,11 +61,74 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Choose account type 的本地化字符串。
+        /// </summary>
+        internal static string AC_Choose_Type {
+            get {
+                return ResourceManager.GetString("AC_Choose_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Microsoft Account 的本地化字符串。
+        /// </summary>
+        internal static string AC_MS {
+            get {
+                return ResourceManager.GetString("AC_MS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Account Name 的本地化字符串。
+        /// </summary>
+        internal static string AC_Name {
+            get {
+                return ResourceManager.GetString("AC_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Offline 的本地化字符串。
+        /// </summary>
+        internal static string AC_Offline {
+            get {
+                return ResourceManager.GetString("AC_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Password 的本地化字符串。
+        /// </summary>
+        internal static string AC_Passwd {
+            get {
+                return ResourceManager.GetString("AC_Passwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Saved Accounts 的本地化字符串。
         /// </summary>
         internal static string AC_Saved {
             get {
                 return ResourceManager.GetString("AC_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Third-party Server Account 的本地化字符串。
+        /// </summary>
+        internal static string AC_Thirdparty {
+            get {
+                return ResourceManager.GetString("AC_Thirdparty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 E-mail 的本地化字符串。
+        /// </summary>
+        internal static string AC_Yuuka {
+            get {
+                return ResourceManager.GetString("AC_Yuuka", resourceCulture);
             }
         }
         
@@ -160,6 +223,15 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        internal static string Item_Cancel {
+            get {
+                return ResourceManager.GetString("Item_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Full info 的本地化字符串。
         /// </summary>
         internal static string Item_Detail {
@@ -192,6 +264,15 @@ namespace WonderLab.Assets.Language {
         internal static string Item_Remove {
             get {
                 return ResourceManager.GetString("Item_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Save 的本地化字符串。
+        /// </summary>
+        internal static string Item_Save {
+            get {
+                return ResourceManager.GetString("Item_Save", resourceCulture);
             }
         }
         

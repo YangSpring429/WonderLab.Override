@@ -25,7 +25,7 @@
 							 HorizontalAlignment="Center"/>
 
 				<TextBlock Classes="BodyStrong"
-						   <Text="{I18N {x:Static w:LanguageKeys.Task_Info_Nothing}"/>
+						   Text="{I18N {x:Static w:LanguageKeys.Task_Info_Nothing}}"/>
 			</StackPanel>
 
 			<ItemsControl Grid.Row="1"
