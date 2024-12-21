@@ -8,7 +8,7 @@ using WonderLab.Infrastructure.Models;
 namespace WonderLab.Services;
 
 public sealed class TaskService {
-    private ObservableCollection<TaskModel> _tasks;
+    private readonly ObservableCollection<TaskModel> _tasks;
     private readonly ILogger<TaskService> _logger;
 
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; }

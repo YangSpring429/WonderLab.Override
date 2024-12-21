@@ -22,9 +22,9 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
     [RelayCommand]
     private void ChangeActivePage() {
         ActivePageKey = ActivePageIndex switch {
-            0 => "Download/News",
+            0 => "Download/MinecraftList",
             1 => "Setting/Account",
-            _ => "Download/News"
+            _ => "Download/MinecraftList"
         };
     }
 }

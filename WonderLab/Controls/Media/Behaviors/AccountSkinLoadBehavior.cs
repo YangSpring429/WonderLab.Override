@@ -21,7 +21,7 @@ using WonderLab.Infrastructure.Enums;
 namespace WonderLab.Controls.Media.Behaviors;
 
 public sealed class AccountSkinLoadBehavior : Behavior<Border> {
-    readonly record struct AccountSkinCache {
+    readonly struct AccountSkinCache {
         public static Dictionary<Account, IImmutableBrush> SkinAreas { get; }
             = new(new AccountEqualityComparer());
 

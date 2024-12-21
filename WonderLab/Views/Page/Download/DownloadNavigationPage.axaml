@@ -35,7 +35,7 @@
 				
 				<ListBoxItem Tag="&#xE719;"
 							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Main_Home}}"/>
+							 Content="Minecraft 本体"/>
 
 				<ListBoxItem Tag="&#xF133;"
 							 Foreground="{DynamicResource NormalAccentBrush}"

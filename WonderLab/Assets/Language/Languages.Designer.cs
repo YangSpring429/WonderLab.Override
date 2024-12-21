@@ -70,7 +70,7 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
-        ///   查找类似 Microsoft Account 的本地化字符串。
+        ///   查找类似 Microsoft 的本地化字符串。
         /// </summary>
         internal static string AC_MS {
             get {
@@ -115,11 +115,11 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
-        ///   查找类似 Third-party Server Account 的本地化字符串。
+        ///   查找类似 Yggdrasil 的本地化字符串。
         /// </summary>
-        internal static string AC_Thirdparty {
+        internal static string AC_Yggdrasil {
             get {
-                return ResourceManager.GetString("AC_Thirdparty", resourceCulture);
+                return ResourceManager.GetString("AC_Yggdrasil", resourceCulture);
             }
         }
         

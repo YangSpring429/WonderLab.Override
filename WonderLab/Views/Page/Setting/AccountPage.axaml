@@ -7,7 +7,7 @@
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-			 x:Class="WonderLab.Views.Page.Setting.AccountPage">
+			 x:Class="WonderLab.Views.Page.Setting.AccountPage">	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
@@ -73,7 +73,7 @@
 									HorizontalAlignment="Stretch"
 									BorderBrush="{DynamicResource ContentBrush4}"
 									Background="{DynamicResource ExpanderHeaderBackground}">
-								<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+								<Grid ColumnDefinitions="Auto, Auto">
 									<Border Width="36"
 											Height="36"
 											Grid.Column="0"

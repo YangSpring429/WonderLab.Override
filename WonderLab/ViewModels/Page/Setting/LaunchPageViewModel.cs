@@ -122,8 +122,8 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
 
         switch (e.PropertyName) {
             case nameof(ActiveFolder):
-                _gameService.RefreshGames();
                 Config.ActiveMinecraftFolder = ActiveFolder;
+                _gameService.RefreshGames();
                 break;
             case nameof(MaxMemory):
                 Config.MaxMemory = MaxMemory;

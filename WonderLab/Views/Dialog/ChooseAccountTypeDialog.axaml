@@ -29,7 +29,7 @@
 				
 				<Button Margin="8 0"
 						Grid.Column="1"
-						Content="{I18N {x:Static w:LanguageKeys.AC_Thirdparty}}"
+						Content="{I18N {x:Static w:LanguageKeys.AC_Yggdrasil}}"
 						Command="{Binding GoToYggdrasilAuthCommand}"/>
 				
 				<Button Grid.Column="2"

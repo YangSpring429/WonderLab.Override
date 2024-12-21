@@ -380,7 +380,7 @@
     <comment />
   </data>
   <data name="Game_Manager" xml:space="preserve">
-    <value>核心管理中心</value>
+    <value>核心管理</value>
     <comment />
   </data>
   <data name="Game_Install" xml:space="preserve">
