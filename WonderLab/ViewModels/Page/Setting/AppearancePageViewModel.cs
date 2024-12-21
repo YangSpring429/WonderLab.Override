@@ -61,10 +61,13 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
         _isFirstLoad = true;
 
         ActiveImage = Config.ActiveImagePath;
-        Color = Color.Parse(Config.ActiveAccentColor);
         ThemeType = Config.ThemeType;
         Language = new(Config.ActiveLanguage);
         BackgroundType = Config.BackgroundType;
+
+        if (Color.TryParse(Config.ActiveAccentColor, out var color)) {
+            Color = color;
+        }
 
         _isFirstLoad = false;
     });
