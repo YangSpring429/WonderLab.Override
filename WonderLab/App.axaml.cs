@@ -18,6 +18,7 @@ using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Dialog;
 using WonderLab.ViewModels.Dialog.Auth;
+using WonderLab.ViewModels.Dialog.Download;
 using WonderLab.ViewModels.Page;
 using WonderLab.ViewModels.Page.Download;
 using WonderLab.ViewModels.Page.Setting;
@@ -84,20 +85,26 @@ public sealed class App : Application {
         Get<AccountService>().Initialize();
 
         //Override AccentColors
-        Current.Resources["NormalAccentBrush"] =
-            configService.Entries.ActiveAccentColor.ToColor().ToBrush();
+        Current.Resources["NormalAccentColor"] =
+            configService.Entries.ActiveAccentColor.ToColor();
 
-        Current.Resources["DarkAccentBrush1"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.15f).ToBrush();
+        Current.Resources["DarkAccentColor1"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.15f);
 
-        Current.Resources["DarkAccentBrush2"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.30f).ToBrush();
+        Current.Resources["DarkAccentColor2"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.30f);
 
-        Current.Resources["LightAccentBrush1"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.15f).ToBrush();
+        Current.Resources["DarkAccentColor3"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.45f);
 
-        Current.Resources["LightAccentBrush2"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.30f).ToBrush();
+        Current.Resources["LightAccentColor1"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.15f);
+
+        Current.Resources["LightAccentColor2"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.30f);
+
+        Current.Resources["LightAccentColor3"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.45f);
 
         I18NExtension.Culture = new(configService.Entries.ActiveLanguage);
 
@@ -126,6 +133,7 @@ public sealed class App : Application {
         builder.Services.AddTransient<OfflineAuthDialogViewModel>();
         builder.Services.AddTransient<MicrosoftAuthDialogViewModel>();
         builder.Services.AddTransient<YggdrasilAuthDialogViewModel>();
+        builder.Services.AddTransient<InstallMinecraftDialogViewModel>();
         builder.Services.AddTransient<ChooseAccountTypeDialogViewModel>();
 
         //Configure Page

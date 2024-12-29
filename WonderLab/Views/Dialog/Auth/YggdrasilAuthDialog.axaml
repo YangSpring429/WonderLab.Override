@@ -18,11 +18,13 @@
 					 IsEnabled="{Binding IsUseLittleSkin, Converter={StaticResource BooleanReverseConverter}}"
 					 Text="{Binding YggdrasilServerUrl}"/>
 
-			<TextBox Watermark="{I18N {x:Static w:LanguageKeys.AC_Yuuka}}"
-					 Text="{Binding Email}"/>
+			<TextBox Text="{Binding Email}"
+					 Watermark="{I18N {x:Static w:LanguageKeys.AC_Yuuka}}"
+					 UseFloatingWatermark="False"/>
 
-			<TextBox Watermark="{I18N {x:Static w:LanguageKeys.AC_Passwd}}"
-					 Text="{Binding Password}"/>
+			<TextBox Text="{Binding Password}"
+					 Watermark="{I18N {x:Static w:LanguageKeys.AC_Passwd}}"
+					 UseFloatingWatermark="False"/>
 
 			<CheckBox FontSize="14"
 					  FontWeight="Regular"

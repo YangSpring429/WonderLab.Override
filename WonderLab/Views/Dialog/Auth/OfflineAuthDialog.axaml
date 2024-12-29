@@ -12,8 +12,9 @@
 
 		<TextBox Grid.Row="1"
 				 Margin="0 16 0 24"
+				 Text="{Binding UserName}"
 				 Watermark="{I18N {x:Static w:LanguageKeys.AC_Name}}"
-				 Text="{Binding UserName}"/>
+				 UseFloatingWatermark="False"/>
 		
 		<Border Grid.Row="2"
 				Padding="16"

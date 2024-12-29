@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -119,189 +119,120 @@
   </resheader>
   <data name="Main_Home" xml:space="preserve">
     <value>主页</value>
-    <comment />
   </data>
   <data name="Main_Download" xml:space="preserve">
     <value>下载</value>
-    <comment />
   </data>
   <data name="Main_Multiplayer" xml:space="preserve">
     <value>多人</value>
-    <comment />
   </data>
   <data name="Main_Settings" xml:space="preserve">
     <value>设置</value>
-    <comment />
   </data>
   <data name="Task_Manager" xml:space="preserve">
     <value>任务中心</value>
-    <comment />
   </data>
   <data name="Task_ActiveInfo" xml:space="preserve">
     <value>当前正在执行 {0} 个</value>
-    <comment />
   </data>
   <data name="Home_Launch" xml:space="preserve">
     <value>启动</value>
-    <comment />
   </data>
   <data name="Nav_Settings_Launch" xml:space="preserve">
     <value>游戏</value>
-    <comment />
   </data>
   <data name="Nav_Settings_Account" xml:space="preserve">
     <value>账户</value>
-    <comment />
   </data>
   <data name="Nav_Settings_Network" xml:space="preserve">
     <value>网络</value>
-    <comment />
   </data>
   <data name="Nav_Settings_Appearance" xml:space="preserve">
     <value>个性化</value>
-    <comment />
   </data>
   <data name="Nav_Settings_About" xml:space="preserve">
     <value>关于</value>
-    <comment />
   </data>
   <data name="Settings_Appearance" xml:space="preserve">
     <value>外观设置</value>
-    <comment />
   </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>语言设置</value>
-    <comment />
   </data>
   <data name="Settings_Language_Change" xml:space="preserve">
     <value>更改语言</value>
-    <comment />
   </data>
   <data name="Settings_DebugMode" xml:space="preserve">
     <value>调试模式设置</value>
-    <comment />
   </data>
   <data name="Settings_DebugMode_Change" xml:space="preserve">
     <value>调试（Debug）模式</value>
-    <comment />
   </data>
   <data name="Settings_OOBE" xml:space="preserve">
     <value>一键跳转 OOBE</value>
-    <comment />
   </data>
   <data name="Settings_Appearance_Title" xml:space="preserve">
     <value>个性化设置</value>
-    <comment />
   </data>
   <data name="Settings_Appearance_Theme" xml:space="preserve">
     <value>主题</value>
-    <comment />
   </data>
   <data name="Settings_Background_Mode" xml:space="preserve">
     <value>背景渲染模式</value>
-    <comment />
   </data>
   <data name="Settings_Appearance_Color" xml:space="preserve">
     <value>主题色</value>
-    <comment />
   </data>
   <data name="Settings_Background_Image" xml:space="preserve">
     <value>背景图片设置</value>
-    <comment />
   </data>
   <data name="Settings_Background_ImageChange" xml:space="preserve">
     <value>更改图片</value>
-    <comment />
   </data>
   <data name="Item_Browse" xml:space="preserve">
     <value>浏览</value>
-    <comment />
   </data>
   <data name="Settings_About" xml:space="preserve">
     <value>关于</value>
-    <comment />
   </data>
   <data name="Settings_About_Copyright" xml:space="preserve">
     <value>Blessing Studio ©2021-2024. 保留所有权利</value>
-    <comment />
   </data>
   <data name="Settings_About_Version" xml:space="preserve">
     <value>版本</value>
-    <comment />
   </data>
   <data name="Settings_About_Donate" xml:space="preserve">
     <value>赞助我们</value>
-    <comment />
   </data>
   <data name="Settings_About_Developers" xml:space="preserve">
     <value>开发团队</value>
-    <comment />
   </data>
   <data name="Settings_About_Developers_QC" xml:space="preserve">
     <value>质量控制组</value>
-    <comment />
   </data>
   <data name="Settings_About_Developers_FE" xml:space="preserve">
     <value>前端开发组</value>
-    <comment />
   </data>
   <data name="Settings_About_Developers_BE" xml:space="preserve">
     <value>后端开发组</value>
-    <comment />
   </data>
   <data name="Settings_About_Thanks" xml:space="preserve">
     <value>鸣谢</value>
-    <comment />
   </data>
   <data name="Settings_About_Thanks_ServerSupport" xml:space="preserve">
     <value>服务器支持</value>
-    <comment />
   </data>
   <data name="Settings_About_Thanks_TechSupport" xml:space="preserve">
     <value>技术支持</value>
-    <comment />
   </data>
   <data name="Settings_About_IncludedIconLib" xml:space="preserve">
     <value>部分图标引用自</value>
-    <comment />
   </data>
   <data name="Settings_About_IncludedOSLib" xml:space="preserve">
     <value>开源项目使用</value>
-    <comment />
   </data>
   <data name="Settings_About_Developers_DT" xml:space="preserve">
     <value>设计组</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_FullScreen" xml:space="preserve">
-    <value>全屏模式</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Independent" xml:space="preserve">
-    <value>版本隔离</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Game_MemoryAuto" xml:space="preserve">
-    <value>自动为游戏分配合适的内存</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Game_Memory" xml:space="preserve">
-    <value>游戏内存分配</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Game" xml:space="preserve">
-    <value>游戏运行设置</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Java_SelectAuto" xml:space="preserve">
-    <value>自动为游戏选择合适的 Java</value>
-    <comment />
-  </data>
-  <data name="Settings_Launch_Java_Remove" xml:space="preserve">
-    <value>移除当前 Java</value>
-    <comment />
-  <data name="Settings_Launch_Title" xml:space="preserve">
-    <value>启动设置</value>
   </data>
   <data name="Settings_Launch_Folder" xml:space="preserve">
     <value>Minecraft 目录设置</value>
@@ -320,95 +251,116 @@
   </data>
   <data name="Settings_Launch_Java_Select" xml:space="preserve">
     <value>选择 Java 路径</value>
-
   </data>
   <data name="Settings_Launch_Java_Add" xml:space="preserve">
     <value>导入 Java 路径</value>
-    <comment />
   </data>
+  <data name="Settings_Launch_Java_Remove" xml:space="preserve">
+    <value>启动设置</value>
+  </data>
+  <data name="Settings_Launch_Java_SelectAuto" xml:space="preserve">
+    <value>自动为游戏选择合适的 Java</value>
+  </data>
+  <data name="Settings_Launch_Game" xml:space="preserve">
+    <value>游戏运行设置</value>
+  </data>
+  <data name="Settings_Launch_Game_Memory" xml:space="preserve">
+    <value>游戏内存分配</value>
+  </data>
+  <data name="Settings_Launch_Game_MemoryAuto" xml:space="preserve">
+    <value>自动为游戏分配合适的内存</value>
+  </data>
+  <data name="Settings_Launch_Independent" xml:space="preserve">
+    <value>版本隔离</value>
+  </data>
+  <data name="Settings_Launch_FullScreen" xml:space="preserve">
+    <value>全屏模式</value>
   </data>
   <data name="Item_Search" xml:space="preserve">
     <value>搜索</value>
-    <comment />
   </data>
   <data name="Item_Remove" xml:space="preserve">
     <value>移除</value>
-    <comment />
   </data>
   <data name="Launch_Notification" xml:space="preserve">
     <value>正在启动游戏 {0}，点击此通知以查看详情</value>
-    <comment />
   </data>
   <data name="Settings_Account_Title" xml:space="preserve">
     <value>账户设置</value>
-    <comment />
   </data>
   <data name="Settings_Account_Add_Description" xml:space="preserve">
     <value>添加新账户</value>
-    <comment />
   </data>
   <data name="Item_Add" xml:space="preserve">
     <value>添加</value>
-    <comment />
   </data>
   <data name="Game_Stop" xml:space="preserve">
     <value>停止游戏实例</value>
-    <comment />
   </data>
   <data name="Game_LogDir" xml:space="preserve">
     <value>打开日志文件夹</value>
-    <comment />
   </data>
   <data name="Game_Log" xml:space="preserve">
     <value>打开实时日志</value>
-    <comment />
   </data>
   <data name="Task_Info_Nothing" xml:space="preserve">
     <value>没有任务正在执行</value>
-    <comment />
   </data>
   <data name="Item_Fav_Cancel" xml:space="preserve">
     <value>取消收藏</value>
-    <comment />
   </data>
   <data name="Item_Fav_Add" xml:space="preserve">
     <value>收藏</value>
-    <comment />
   </data>
   <data name="Item_Detail" xml:space="preserve">
     <value>详情信息</value>
-    <comment />
   </data>
   <data name="Game_Manager" xml:space="preserve">
     <value>核心管理</value>
-    <comment />
   </data>
   <data name="Game_Install" xml:space="preserve">
-    <value>添加新核心</value>
-    <comment />
+    <value>安装游戏核心</value>
   </data>
   <data name="Game_ALL" xml:space="preserve">
     <value>所有核心</value>
-    <comment />
   </data>
   <data name="Game_Starred" xml:space="preserve">
     <value>收藏核心</value>
-    <comment />
   </data>
   <data name="AC_Saved" xml:space="preserve">
     <value>保存的账户</value>
-    <comment />
   </data>
   <data name="Settings_Appearance_Monet" xml:space="preserve">
     <value>动态取色</value>
-    <comment />
   </data>
   <data name="Settings_Background_This" xml:space="preserve">
     <value>正在使用图片</value>
-    <comment />
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Game_Install" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AC_Choose_Type" xml:space="preserve">
+    <value>选择账户类型</value>
+  </data>
+  <data name="AC_Offline" xml:space="preserve">
+    <value>离线</value>
+  </data>
+  <data name="AC_MS" xml:space="preserve">
+    <value>微软</value>
+  </data>
+  <data name="AC_Yggdrasil" xml:space="preserve">
+    <value>外置</value>
+  </data>
+  <data name="Item_Cancel" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AC_Yuuka" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="AC_Passwd" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Item_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AC_Name" xml:space="preserve">
+    <value>用户名</value>
   </data>
 </root>

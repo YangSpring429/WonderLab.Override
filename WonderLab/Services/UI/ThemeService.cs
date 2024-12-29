@@ -36,19 +36,25 @@ public sealed class ThemeService {
     }
 
     public void ApplyAccentColor(Color color) {
-        Application.Current.Resources["NormalAccentBrush"] = color.ToBrush();
+        Application.Current.Resources["NormalAccentColor"] = color;
 
-        Application.Current.Resources["DarkAccentBrush1"] =
-            color.GetColorAfterLuminance(-0.15f).ToBrush();
+        Application.Current.Resources["DarkAccentColor1"] =
+            color.GetColorAfterLuminance(-0.15f);
 
-        Application.Current.Resources["DarkAccentBrush2"] =
-            color.GetColorAfterLuminance(-0.30f).ToBrush();
+        Application.Current.Resources["DarkAccentColor2"] =
+            color.GetColorAfterLuminance(-0.30f);
 
-        Application.Current.Resources["LightAccentBrush1"] =
-            color.GetColorAfterLuminance(0.15f).ToBrush();
+        Application.Current.Resources["DarkAccentColor3"] =
+            color.GetColorAfterLuminance(-0.45f);
 
-        Application.Current.Resources["LightAccentBrush2"] =
-            color.GetColorAfterLuminance(0.30f).ToBrush();
+        Application.Current.Resources["LightAccentColor1"] =
+            color.GetColorAfterLuminance(0.15f);
+
+        Application.Current.Resources["LightAccentColor2"] =
+            color.GetColorAfterLuminance(0.30f);
+
+        Application.Current.Resources["LightAccentColor3"] =
+            color.GetColorAfterLuminance(0.45f);
     }
 
     public void ApplyWindowEffect(BackgroundType backgroundType) {

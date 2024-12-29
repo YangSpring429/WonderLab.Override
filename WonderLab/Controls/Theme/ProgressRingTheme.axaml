@@ -55,7 +55,7 @@
 
 		<Style Selector="^[IsEnabled=True]:indeterminate /template/ Arc#Fill">
 			<Style.Animations>
-				<Animation Duration="0:0:5"
+				<Animation Duration="0:0:4"
 						   Easing="LinearEasing"
 						   IterationCount="INFINITE"
 						   FillMode="Both">

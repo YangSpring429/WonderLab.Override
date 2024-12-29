@@ -21,6 +21,7 @@
 				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ExpanderTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
@@ -33,15 +34,37 @@
 				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ColorPicker/ColorPickerStyles.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
 
-		<Thickness x:Key="FlyoutContentThemePadding">0</Thickness>
-		
-		<SolidColorBrush x:Key="NormalAccentBrush"/>
-		<SolidColorBrush x:Key="DarkAccentBrush1"/>
-		<SolidColorBrush x:Key="DarkAccentBrush2"/>
-		<SolidColorBrush x:Key="LightAccentBrush1"/>
-		<SolidColorBrush x:Key="LightAccentBrush2"/>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="RadioButtonCheckedBackground" Color="{DynamicResource NormalAccentColor}"/>
+					<SolidColorBrush x:Key="RadioButtonCheckedBorderBrush" Color="{DynamicResource LightAccentColor3}"/>
+				</ResourceDictionary>
+
+				<ResourceDictionary x:Key="Light">
+					<SolidColorBrush x:Key="RadioButtonCheckedBackground" Color="{DynamicResource NormalAccentColor}"/>
+					<SolidColorBrush x:Key="RadioButtonCheckedBorderBrush" Color="{DynamicResource DarkAccentColor1}"/>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+
+			<Color x:Key="NormalAccentColor">#fee7ef</Color>
+			<Color x:Key="DarkAccentColor1">#fee7ef</Color>
+			<Color x:Key="DarkAccentColor2">#fee7ef</Color>
+			<Color x:Key="DarkAccentColor3">#fee7ef</Color>
+			<Color x:Key="LightAccentColor1">#fee7ef</Color>
+			<Color x:Key="LightAccentColor2">#fee7ef</Color>
+			<Color x:Key="LightAccentColor3">#fee7ef</Color>
+
+			<SolidColorBrush x:Key="NormalAccentBrush" Color="{DynamicResource NormalAccentColor}"/>
+			<SolidColorBrush x:Key="DarkAccentBrush1" Color="{DynamicResource DarkAccentColor1}"/>
+			<SolidColorBrush x:Key="DarkAccentBrush2" Color="{DynamicResource DarkAccentColor2}"/>
+			<SolidColorBrush x:Key="DarkAccentBrush3" Color="{DynamicResource DarkAccentColor3}"/>
+			<SolidColorBrush x:Key="LightAccentBrush1" Color="{DynamicResource LightAccentColor1}"/>
+			<SolidColorBrush x:Key="LightAccentBrush2" Color="{DynamicResource LightAccentColor2}"/>
+			<SolidColorBrush x:Key="LightAccentBrush3" Color="{DynamicResource LightAccentColor3}"/>
+
+			<Thickness x:Key="FlyoutContentThemePadding">0</Thickness>
+		</ResourceDictionary>
 
 		<FontFamily x:Key="MinecraftFontFamily">resm:WonderLab.Assets.Font.MinecraftTen.ttf?assembly=WonderLab#Minecraft Ten</FontFamily>
 

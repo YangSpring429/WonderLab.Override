@@ -1,0 +1,158 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 x:Class="WonderLab.Views.Dialog.Download.InstallMinecraftDialog">
+	<UserControl.Styles>
+		<Style Selector="RadioButton">
+			<Setter Property="Margin" Value="0"/>
+			<Setter Property="Height" Value="35"/>
+			<Setter Property="CornerRadius" Value="0"/>
+			<Setter Property="BorderThickness" Value="1 2 1 2"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="{DynamicResource ButtonPadding}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource RadioButtonBorderBrush}"/>
+
+			<Setter Property="Transitions">
+				<Transitions>
+					<BrushTransition Duration="0:0:0.35"
+									 Property="Background"
+									 Easing="ExponentialEaseOut"/>
+
+					<BrushTransition Duration="0:0:0.35"
+									 Property="BorderBrush"
+									 Easing="ExponentialEaseOut"/>
+				</Transitions>
+			</Setter>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Panel>
+						<ContentPresenter Grid.Column="1"
+										  RecognizesAccessKey="True"
+										  Name="PART_ContentPresenter"
+										  Height="{TemplateBinding Height}"
+										  Margin="{TemplateBinding Margin}"
+										  Padding="{TemplateBinding Padding}"
+										  Content="{TemplateBinding Content}"
+										  Foreground="{TemplateBinding Foreground}"
+										  Background="{TemplateBinding Background}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+
+						<Border Opacity="0"
+								Name="PART_PointOverLayout"
+								Transitions="{TemplateBinding Transitions}"
+								CornerRadius="{TemplateBinding CornerRadius}"
+								Background="{DynamicResource ButtonBackgroundPointerOver}">
+							<Border.Transitions>
+								<Transitions>
+									<DoubleTransition Property="Opacity"
+													  Duration="0:0:0.35"
+													  Easing="ExponentialEaseOut"/>
+								</Transitions>
+							</Border.Transitions>
+						</Border>
+					</Panel>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="RadioButton:pointerover /template/ Border#PART_PointOverLayout">
+			<Setter Property="Opacity" Value="1" />
+		</Style>
+
+		<Style Selector="RadioButton:checked">
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Background" Value="{DynamicResource RadioButtonCheckedBackground}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource RadioButtonCheckedBorderBrush}"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid MinWidth="500"
+		  Margin="16 24 16 0"
+		  RowDefinitions="Auto, Auto, Auto">
+		<TextBlock Classes="Subtitle"
+				   Text="安装游戏核心 1.12.2"/>
+
+		<Grid Grid.Row="1"
+			  Margin="0 16 0 24"
+			  RowDefinitions="Auto, 12, Auto, Auto, Auto, 12, Auto, 12, Auto">
+			<TextBlock Classes="BodyStrong"
+					   Text="自定义核心名"/>
+			
+			<TextBox Grid.Row="2"
+					 Text="1.12.2"
+					 UseFloatingWatermark="False"/>
+			
+			<Separator Grid.Row="3"
+					   Margin="16"
+					   VerticalAlignment="Center"
+					   Background="{DynamicResource ContentColor4}"/>
+
+			<TextBlock Grid.Row="4"
+					   Classes="BodyStrong"
+					   Text="选择模组加载器"/>
+
+			<Grid Grid.Row="6"
+				  ColumnDefinitions="* * * * *">
+				<RadioButton Grid.Column="0"
+							 CornerRadius="8 0 0 8"
+							 BorderThickness="2 2 1 2"
+							 Content="Not install"/>
+				
+				<RadioButton Grid.Column="1"
+							 Content="Forge"/>
+				
+				<RadioButton Grid.Column="2"
+							 Content="Fabric"/>
+				
+				<RadioButton Grid.Column="3"
+							 Content="Neoforge"/>
+				
+				<RadioButton Grid.Column="4"
+							 CornerRadius="0 8 8 0"
+							 BorderThickness="1 2 2 2"
+							 Content="Qulit"/>
+			</Grid>
+			
+			<CheckBox Grid.Row="8"
+					  Content="额外安装 Optifine（高清修复）"/>
+		</Grid>
+		
+		<!--<TextBlock Grid.Row="1"
+				   Classes="Body"
+				   Margin="0 16 0 24"
+				   Text="请选择一种账户类型，按相关法律规定，离线模式（Offline Account）在部分地区无法使用"/>-->
+
+		<Border Grid.Row="2"
+				Padding="16"
+				Margin="-16 0"
+				CornerRadius="0 0 12 12"
+				BorderThickness="0 1.5 0 0"
+				Background="{DynamicResource ContentColor2}"
+				BorderBrush="{DynamicResource ContentColor3}">
+			<Grid HorizontalAlignment="Right"
+				  ColumnDefinitions="Auto, 8, Auto">
+				<Button Grid.Column="0"
+						Content="安装"
+						Command="{Binding GoToOfflineAuthCommand}"/>
+
+				<Button Grid.Column="2"
+						Content="关闭"
+						Command="{Binding GoToYggdrasilAuthCommand}"/>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>
