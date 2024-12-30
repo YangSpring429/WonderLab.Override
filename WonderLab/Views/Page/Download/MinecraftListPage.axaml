@@ -53,8 +53,10 @@
 								CornerRadius="8"
 								BorderThickness="2"
 								HorizontalAlignment="Stretch"
+								CommandParameter="{Binding Id}"
 								BorderBrush="{DynamicResource ContentBrush4}"
-								Background="{DynamicResource ExpanderHeaderBackground}">
+								Background="{DynamicResource ExpanderHeaderBackground}"
+								Command="{Binding $parent[ItemsRepeater].DataContext.OpenInstallDialogCommand}">
 							<Grid Background="Transparent"
 								  ColumnDefinitions="Auto, Auto, 1*, Auto">
 								<Border Width="36"
@@ -65,7 +67,7 @@
 										BorderThickness="2"
 										BorderBrush="{DynamicResource ContentBrush4}">
 									<Border.Background>
-										<ImageBrush Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+										<ImageBrush Source="{Binding $parent[Border].DataContext, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 									</Border.Background>
 								</Border>
 

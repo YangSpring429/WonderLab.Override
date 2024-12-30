@@ -83,8 +83,10 @@
 	<Grid MinWidth="500"
 		  Margin="16 24 16 0"
 		  RowDefinitions="Auto, Auto, Auto">
-		<TextBlock Classes="Subtitle"
-				   Text="安装游戏核心 1.12.2"/>
+		<TextBlock Classes="Subtitle">
+			<Run Text="{I18N {x:Static w:LanguageKeys.Dialog_Install_Minecraft_Title}}"/>
+			<Run Text="{Binding GameCoreId}"/>
+		</TextBlock>
 
 		<Grid Grid.Row="1"
 			  Margin="0 16 0 24"
@@ -93,8 +95,8 @@
 					   Text="自定义核心名"/>
 			
 			<TextBox Grid.Row="2"
-					 Text="1.12.2"
-					 UseFloatingWatermark="False"/>
+					 UseFloatingWatermark="False"
+					 Text="{Binding CustomGameCoreId}"/>
 			
 			<Separator Grid.Row="3"
 					   Margin="16"
@@ -110,31 +112,62 @@
 				<RadioButton Grid.Column="0"
 							 CornerRadius="8 0 0 8"
 							 BorderThickness="2 2 1 2"
-							 Content="Not install"/>
-				
+							 Content="Not install">
+					<Interaction.Behaviors>
+						<EventTriggerBehavior EventName="Checked">
+							<InvokeCommandAction CommandParameter="Not"
+												 Command="{Binding SelectedModLoaderCommand}"/>
+						</EventTriggerBehavior>
+					</Interaction.Behaviors>
+				</RadioButton>
+
 				<RadioButton Grid.Column="1"
-							 Content="Forge"/>
-				
+							 Content="Forge">
+					<Interaction.Behaviors>
+						<EventTriggerBehavior EventName="Checked">
+							<InvokeCommandAction CommandParameter="Forge"
+												 Command="{Binding SelectedModLoaderCommand}"/>
+						</EventTriggerBehavior>
+					</Interaction.Behaviors>
+				</RadioButton>
+
 				<RadioButton Grid.Column="2"
-							 Content="Fabric"/>
-				
+							 Content="Fabric">
+					<Interaction.Behaviors>
+						<EventTriggerBehavior EventName="Checked">
+							<InvokeCommandAction CommandParameter="Fabric"
+												 Command="{Binding SelectedModLoaderCommand}"/>
+						</EventTriggerBehavior>
+					</Interaction.Behaviors>
+				</RadioButton>
+
 				<RadioButton Grid.Column="3"
-							 Content="Neoforge"/>
-				
+							 Content="Neoforge">
+					<Interaction.Behaviors>
+						<EventTriggerBehavior EventName="Checked">
+							<InvokeCommandAction CommandParameter="Neoforge"
+												 Command="{Binding SelectedModLoaderCommand}"/>
+						</EventTriggerBehavior>
+					</Interaction.Behaviors>
+				</RadioButton>
+
 				<RadioButton Grid.Column="4"
 							 CornerRadius="0 8 8 0"
 							 BorderThickness="1 2 2 2"
-							 Content="Qulit"/>
+							 Content="Quilt">
+					<Interaction.Behaviors>
+						<EventTriggerBehavior EventName="Checked">
+							<InvokeCommandAction CommandParameter="Quilt"
+												 Command="{Binding SelectedModLoaderCommand}"/>
+						</EventTriggerBehavior>
+					</Interaction.Behaviors>
+				</RadioButton>
 			</Grid>
 			
 			<CheckBox Grid.Row="8"
+					  IsChecked="{Binding IsInstallOptifine}"
 					  Content="额外安装 Optifine（高清修复）"/>
 		</Grid>
-		
-		<!--<TextBlock Grid.Row="1"
-				   Classes="Body"
-				   Margin="0 16 0 24"
-				   Text="请选择一种账户类型，按相关法律规定，离线模式（Offline Account）在部分地区无法使用"/>-->
 
 		<Border Grid.Row="2"
 				Padding="16"
@@ -151,7 +184,7 @@
 
 				<Button Grid.Column="2"
 						Content="关闭"
-						Command="{Binding GoToYggdrasilAuthCommand}"/>
+						Command="{Binding CloseCommand}"/>
 			</Grid>
 		</Border>
 	</Grid>

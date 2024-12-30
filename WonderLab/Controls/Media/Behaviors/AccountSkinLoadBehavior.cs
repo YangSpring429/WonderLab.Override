@@ -2,60 +2,22 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
 using MinecraftLaunch.Classes.Enums;
 using MinecraftLaunch.Classes.Models.Auth;
-using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Skin;
 using MinecraftLaunch.Skin.Class.Fetchers;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Enums;
+using WonderLab.Services.Download;
 
 namespace WonderLab.Controls.Media.Behaviors;
 
 public sealed class AccountSkinLoadBehavior : Behavior<Border> {
-    readonly struct AccountSkinCache {
-        public static Dictionary<Account, IImmutableBrush> SkinAreas { get; }
-            = new(new AccountEqualityComparer());
-
-        public static void Add(Account account, IImmutableBrush area) {
-            if (account is null || SkinAreas.ContainsKey(account)) {
-                return;
-            }
-
-            SkinAreas.Add(account, area);
-        }
-
-        public static bool TryGetArea(Account account, out IImmutableBrush area) {
-            if (SkinAreas.TryGetValue(account, out var area1)) {
-                area = area1;
-                return true;
-            }
-
-            area = null;
-            return false;
-        }
-    }
-
-    sealed class AccountEqualityComparer : IEqualityComparer<Account> {
-        public bool Equals(Account account1, Account account2) {
-            return account1.Type == account2.Type
-                && account1.Name == account2.Name
-                && account1.Uuid == account2.Uuid;
-        }
-
-        public int GetHashCode([DisallowNull] Account obj) {
-            return obj.GetHashCode();
-        }
-    }
-
     public static readonly StyledProperty<SkinArea> SkinAreaProperty =
         AvaloniaProperty.Register<AccountSkinLoadBehavior, SkinArea>(nameof(SkinArea), SkinArea.Head);
 
@@ -91,8 +53,9 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
 
     private async void OnLoaded(object sender, RoutedEventArgs e) {
         var border = AssociatedObject ?? throw new Exception();
+        var service = App.Get<CacheService>();
 
-        if (AccountSkinCache.TryGetArea(Account, out var area)) {
+        if (service.TryGetArea(Account, out var area)) {
             border.Background = area;
             return;
         }
@@ -103,7 +66,7 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
                 .ToImmutable();
 
             border.Background = brush;
-            AccountSkinCache.Add(Account, brush);
+            service.AddSkin(Account, brush);
         }, DispatcherPriority.Background);
     }
 

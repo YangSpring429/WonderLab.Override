@@ -14,6 +14,7 @@ using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Accounts;
+using WonderLab.Services.Download;
 using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Dialog;
@@ -120,6 +121,7 @@ public sealed class App : Application {
         builder.Services.AddSingleton<TaskService>();
         builder.Services.AddSingleton<GameService>();
         builder.Services.AddSingleton<ThemeService>();
+        builder.Services.AddSingleton<CacheService>();
         builder.Services.AddSingleton<ConfigService>();
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<AccountService>();

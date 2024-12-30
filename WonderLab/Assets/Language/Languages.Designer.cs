@@ -133,6 +133,15 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Install GameCore  的本地化字符串。
+        /// </summary>
+        internal static string Dialog_Install_Minecraft_Title {
+            get {
+                return ResourceManager.GetString("Dialog_Install_Minecraft_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 All cores 的本地化字符串。
         /// </summary>
         internal static string Game_ALL {

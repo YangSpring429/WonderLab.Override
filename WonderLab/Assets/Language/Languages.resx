@@ -449,4 +449,7 @@
     <value>Account Name</value>
     <comment />
   </data>
+  <data name="Dialog_Install_Minecraft_Title" xml:space="preserve">
+    <value>Install GameCore </value>
+  </data>
 </root>

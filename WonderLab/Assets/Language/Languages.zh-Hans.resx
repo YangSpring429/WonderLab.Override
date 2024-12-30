@@ -363,4 +363,7 @@
   <data name="AC_Name" xml:space="preserve">
     <value>用户名</value>
   </data>
+  <data name="Dialog_Install_Minecraft_Title" xml:space="preserve">
+    <value>安装游戏核心 </value>
+  </data>
 </root>
