@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:da="using:DialogHostAvalonia">
+	<Style Selector="da|DialogHost">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid Name="PART_DialogHostRoot" Focusable="False">
+					<ContentPresenter Name="ContentPresenter"
+									  Content="{TemplateBinding Content}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					<Rectangle Focusable="True"
+							   Name="PART_ContentCover"
+							   Fill="{TemplateBinding OverlayBackground}">
+						<Rectangle.Styles>
+							<Style Selector="Rectangle#PART_ContentCover[Opacity=0]">
+								<Setter Property="IsVisible" Value="False" />
+							</Style>
+							
+							<Style Selector="Rectangle#PART_ContentCover:not(.notransitions)">
+								<Setter Property="Transitions">
+									<Transitions>
+										<DoubleTransition Property="Opacity" Easing="LinearEasing" Duration="0.3" />
+									</Transitions>
+								</Setter>
+							</Style>
+						</Rectangle.Styles>
+					</Rectangle>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

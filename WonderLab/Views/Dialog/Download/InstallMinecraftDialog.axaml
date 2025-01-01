@@ -4,8 +4,9 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
 			 xmlns:w="using:WonderLab"
+			 xmlns:wcb="using:WonderLab.Controls.Media.Behaviors"
 			 x:Class="WonderLab.Views.Dialog.Download.InstallMinecraftDialog">
-	<UserControl.Styles>
+	<UserControl.Styles>		
 		<Style Selector="RadioButton">
 			<Setter Property="Margin" Value="0"/>
 			<Setter Property="Height" Value="35"/>
@@ -17,7 +18,7 @@
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="Padding" Value="{DynamicResource ButtonPadding}"/>
 			<Setter Property="BorderBrush" Value="{DynamicResource RadioButtonBorderBrush}"/>
-
+			
 			<Setter Property="Transitions">
 				<Transitions>
 					<BrushTransition Duration="0:0:0.35"
@@ -78,10 +79,22 @@
 			<Setter Property="Background" Value="{DynamicResource RadioButtonCheckedBackground}"/>
 			<Setter Property="BorderBrush" Value="{DynamicResource RadioButtonCheckedBorderBrush}"/>
 		</Style>
+
+		<Style Selector="RadioButton.fly">
+			<Setter Property="Flyout">
+				<Flyout ShowMode="Transient" Placement="Center">
+					<ItemsRepeater>
+						
+					</ItemsRepeater>
+				</Flyout>
+			</Setter>
+		</Style>
 	</UserControl.Styles>
 	
 	<Grid MinWidth="500"
-		  Margin="16 24 16 0"
+		  Focusable="True"
+		  Margin="16 24 16 0" 
+		  Background="Transparent"
 		  RowDefinitions="Auto, Auto, Auto">
 		<TextBlock Classes="Subtitle">
 			<Run Text="{I18N {x:Static w:LanguageKeys.Dialog_Install_Minecraft_Title}}"/>
@@ -98,8 +111,8 @@
 					 UseFloatingWatermark="False"
 					 Text="{Binding CustomGameCoreId}"/>
 			
-			<Separator Grid.Row="3"
-					   Margin="16"
+			<Separator Margin="16"
+					   Grid.Row="3"
 					   VerticalAlignment="Center"
 					   Background="{DynamicResource ContentColor4}"/>
 
@@ -121,9 +134,12 @@
 					</Interaction.Behaviors>
 				</RadioButton>
 
-				<RadioButton Grid.Column="1"
+				<RadioButton Classes="fly"
+							 Grid.Column="1"
 							 Content="Forge">
 					<Interaction.Behaviors>
+						<wcb:FlyoutHideBehavior/>
+
 						<EventTriggerBehavior EventName="Checked">
 							<InvokeCommandAction CommandParameter="Forge"
 												 Command="{Binding SelectedModLoaderCommand}"/>
@@ -131,9 +147,12 @@
 					</Interaction.Behaviors>
 				</RadioButton>
 
-				<RadioButton Grid.Column="2"
+				<RadioButton Classes="fly"
+							 Grid.Column="2"
 							 Content="Fabric">
 					<Interaction.Behaviors>
+						<wcb:FlyoutHideBehavior/>
+
 						<EventTriggerBehavior EventName="Checked">
 							<InvokeCommandAction CommandParameter="Fabric"
 												 Command="{Binding SelectedModLoaderCommand}"/>
@@ -141,9 +160,12 @@
 					</Interaction.Behaviors>
 				</RadioButton>
 
-				<RadioButton Grid.Column="3"
+				<RadioButton Classes="fly"
+							 Grid.Column="3"
 							 Content="Neoforge">
 					<Interaction.Behaviors>
+						<wcb:FlyoutHideBehavior/>
+
 						<EventTriggerBehavior EventName="Checked">
 							<InvokeCommandAction CommandParameter="Neoforge"
 												 Command="{Binding SelectedModLoaderCommand}"/>
@@ -151,11 +173,14 @@
 					</Interaction.Behaviors>
 				</RadioButton>
 
-				<RadioButton Grid.Column="4"
+				<RadioButton Classes="fly"
+							 Grid.Column="4"
 							 CornerRadius="0 8 8 0"
 							 BorderThickness="1 2 2 2"
 							 Content="Quilt">
 					<Interaction.Behaviors>
+						<wcb:FlyoutHideBehavior/>
+
 						<EventTriggerBehavior EventName="Checked">
 							<InvokeCommandAction CommandParameter="Quilt"
 												 Command="{Binding SelectedModLoaderCommand}"/>

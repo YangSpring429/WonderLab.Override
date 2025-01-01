@@ -7,7 +7,7 @@
 			 xmlns:wem="using:WonderLab.Extensions.Markup"
 			 xmlns:wie="using:WonderLab.Infrastructure.Enums"
 			 x:Class="WonderLab.Views.Page.Download.MinecraftListPage">
-	<Interaction.Behaviors >
+	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
@@ -67,7 +67,7 @@
 										BorderThickness="2"
 										BorderBrush="{DynamicResource ContentBrush4}">
 									<Border.Background>
-										<ImageBrush Source="{Binding $parent[Border].DataContext, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+										<ImageBrush Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 									</Border.Background>
 								</Border>
 

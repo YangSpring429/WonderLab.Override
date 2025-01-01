@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 x:Class="WonderLab.App"
+			 
 			 xmlns:wcc="using:WonderLab.Controls.Media.Converters"
 			 RequestedThemeVariant="Default">
 
@@ -9,6 +10,7 @@
 
 		<StyleInclude Source="/Controls/Style/SideBarStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/TextBlockStyle.axaml"/>
+		<StyleInclude Source="/Controls/Style/DialogHostStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/MainWindowStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/SelectorBarStyle.axaml"/>
 		<StyleInclude Source="/Controls/Style/ToggleButtonStyle.axaml"/>

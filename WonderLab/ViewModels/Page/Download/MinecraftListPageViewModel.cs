@@ -2,10 +2,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
-using MinecraftLaunch.Classes.Enums;
 using MinecraftLaunch.Classes.Models.Install;
 using MinecraftLaunch.Components.Installer;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,7 +13,6 @@ using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Enums;
 using WonderLab.Services.Download;
-using WonderLab.ViewModels.Dialog;
 using WonderLab.ViewModels.Dialog.Download;
 using WonderLab.Views.Dialog.Download;
 
