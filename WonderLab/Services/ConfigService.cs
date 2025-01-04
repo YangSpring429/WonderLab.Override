@@ -30,6 +30,10 @@ public sealed class ConfigService {
             Entries = new Config();
         }
 
+        if (Entries.MaxMemory == 0) {
+            Entries.MaxMemory = 1024;
+        }
+
         if (string.IsNullOrEmpty(Entries.ActiveLanguage)) {
             Entries.ActiveLanguage = "zh-Hans";
         }

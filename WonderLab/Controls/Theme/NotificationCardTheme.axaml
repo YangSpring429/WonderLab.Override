@@ -120,6 +120,7 @@
 						<DataTemplate DataType="INotification">
 							<TextBlock Classes="Caption"
 									   Text="{Binding Message}"
+									   TextWrapping="WrapWithOverflow"
 									   Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 						</DataTemplate>
 					</ReversibleStackPanel.DataTemplates>

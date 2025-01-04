@@ -1,18 +1,26 @@
-﻿using Avalonia.Threading;
+﻿using Avalonia.Controls.Notifications;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
 using MinecraftLaunch.Classes.Enums;
+using MinecraftLaunch.Classes.Models.Install;
 using MinecraftLaunch.Components.Installer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
+using WonderLab.Infrastructure.Models.Messaging;
+using WonderLab.Services.Download;
 
 namespace WonderLab.ViewModels.Dialog.Download;
 
 public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
+    private readonly DownloadService _downloadService;
+
     private LoaderType _loaderType;
 
     public string GameCoreId { get; set; }
@@ -27,7 +35,7 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     [ObservableProperty] private object _currentModLoader;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(InstallCommand))] 
+    [NotifyCanExecuteChangedFor(nameof(InstallCommand))]
     private string _customGameCoreId;
 
     [ObservableProperty]
@@ -50,6 +58,10 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     [NotifyPropertyChangedFor(nameof(IsNeoforgeLoaded))]
     private ObservableCollection<object> _neoforges;
 
+    public InstallMinecraftDialogViewModel(DownloadService downloadService) {
+        _downloadService = downloadService;
+    }
+
     private bool CanInstall() => !string.IsNullOrEmpty(CustomGameCoreId);
 
     [RelayCommand]
@@ -59,11 +71,21 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void Close() => DialogHost.Close("PART_DialogHost");
+    private Task Close() => Dispatcher.UIThread.InvokeAsync(async () => {
+        DialogHost.Close("PART_DialogHost");
+    });
 
     [RelayCommand(CanExecute = nameof(CanInstall))]
     private Task Install() => Task.Run(() => {
+        //var text = I18NExtension.Translate(LanguageKeys.Launch_Notification);
 
+        WeakReferenceMessenger.Default.Send(new NotificationMessage($"正在安装游戏实例 {CustomGameCoreId}，点击此通知以查看详情",
+            NotificationType.Information, () => {
+                WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("TaskList"));
+            }));
+
+        _downloadService.InstallMinecraftTaskAsync(GameCoreId, IsInstallOptifine, CurrentModLoader, CustomGameCoreId);
+        Close();
     });
 
     [RelayCommand]
@@ -122,5 +144,18 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
         base.OnPropertyChanged(e);
+
+        if (e.PropertyName is nameof(CurrentModLoader) && CurrentModLoader != null) {
+            var loader = CurrentModLoader;
+
+            string loaderInfo = _loaderType switch {
+                LoaderType.Forge => $"{((ForgeInstallEntry)loader).ForgeVersion}{(string.IsNullOrEmpty(((ForgeInstallEntry)loader).Branch) ? string.Empty : $"-{((ForgeInstallEntry)loader).Branch}")}",
+                LoaderType.Quilt => ((QuiltBuildEntry)loader).Loader.Version,
+                LoaderType.Fabric => ((FabricBuildEntry)loader).Loader.Version,
+                _ => throw new NotSupportedException()
+            };
+
+            CustomGameCoreId = $"{GameCoreId}-{_loaderType}_{loaderInfo}";
+        }
     }
 }

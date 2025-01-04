@@ -125,6 +125,7 @@ public sealed class App : Application {
         builder.Services.AddSingleton<ConfigService>();
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<AccountService>();
+        builder.Services.AddSingleton<DownloadService>();
         builder.Services.AddSingleton<NotificationService>();
 
         //Configure Window
