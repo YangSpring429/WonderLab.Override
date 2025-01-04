@@ -12,7 +12,7 @@
 									  CornerRadius="12"
 									  Name="PopupBorder"
 									  RenderTransformOrigin="0% 0%"
-									  Background="{TemplateBinding Background}">						
+									  Background="{TemplateBinding Background}">
 						<ContentPresenter Name="PART_ContentPresenter"
 										  Padding="{TemplateBinding Padding}"
 										  Content="{TemplateBinding Content}"

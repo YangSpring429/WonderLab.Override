@@ -4,6 +4,7 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
 			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wcb="using:WonderLab.Controls.Media.Behaviors"
 			 x:Class="WonderLab.Views.Dialog.Download.InstallMinecraftDialog">
 	<UserControl.Styles>		
@@ -80,16 +81,52 @@
 			<Setter Property="BorderBrush" Value="{DynamicResource RadioButtonCheckedBorderBrush}"/>
 		</Style>
 
-		<Style Selector="RadioButton.fly">
-			<Setter Property="Flyout">
-				<Flyout ShowMode="Transient" Placement="Center">
-					<ItemsRepeater>
-						
-					</ItemsRepeater>
-				</Flyout>
+		<Style Selector="wc|RadioDropButton">
+			<Setter Property="ItemTemplate">
+				<DataTemplate>
+					<TextBlock Classes="Body"
+							   TextTrimming="CharacterEllipsis"
+							   Text="{Binding, Converter={StaticResource ModLoaderTypeTextConverter}}"/>
+					<!--<Grid MinWidth="180"
+						  ColumnDefinitions="Auto, Auto">
+						<Border Width="35"
+								Height="35"
+								Grid.Column="0"
+								CornerRadius="5"
+								ClipToBounds="True"
+								BorderThickness="2"
+								BorderBrush="{DynamicResource ContentBrush4}">
+							<Border.Background>
+								<ImageBrush Stretch="UniformToFill"
+											Source="{Binding, Converter={StaticResource ModLoaderTypeIconConverter}}"/>
+							</Border.Background>
+						</Border>
+
+						<Grid Grid.Column="1"
+							  Margin="8 0 0 0"
+							  VerticalAlignment="Center"
+							  RowDefinitions="Auto, Auto">
+							<TextBlock Grid.Row="0"
+									   Classes="BodyStrong"
+									   Text="{Binding, Converter={StaticResource ModLoaderTypeTextConverter}}"
+									   TextTrimming="CharacterEllipsis"/>
+
+							--><!--<TextBlock Grid.Row="1"
+									   Classes="Caption"
+									   Text="{Binding Type}"
+									   Foreground="{DynamicResource DefaultBrush400}"/>--><!--
+						</Grid>
+					</Grid>-->
+				</DataTemplate>
 			</Setter>
 		</Style>
 	</UserControl.Styles>
+	
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
 	
 	<Grid MinWidth="500"
 		  Focusable="True"
@@ -134,9 +171,11 @@
 					</Interaction.Behaviors>
 				</RadioButton>
 
-				<RadioButton Classes="fly"
-							 Grid.Column="1"
-							 Content="Forge">
+				<wc:RadioDropButton Grid.Column="1"
+									Content="Forge"
+									ItemsSource="{Binding Forges}"
+									IsEnabled="{Binding IsForgeLoaded}"
+									SelectedItem="{Binding CurrentModLoader, Mode=TwoWay}">
 					<Interaction.Behaviors>
 						<wcb:FlyoutHideBehavior/>
 
@@ -145,11 +184,13 @@
 												 Command="{Binding SelectedModLoaderCommand}"/>
 						</EventTriggerBehavior>
 					</Interaction.Behaviors>
-				</RadioButton>
+				</wc:RadioDropButton>
 
-				<RadioButton Classes="fly"
-							 Grid.Column="2"
-							 Content="Fabric">
+				<wc:RadioDropButton Grid.Column="2"
+									Content="Fabric"
+									ItemsSource="{Binding Fabrics}"
+									IsEnabled="{Binding IsFabricLoaded}"
+									SelectedItem="{Binding CurrentModLoader, Mode=TwoWay}">
 					<Interaction.Behaviors>
 						<wcb:FlyoutHideBehavior/>
 
@@ -158,11 +199,12 @@
 												 Command="{Binding SelectedModLoaderCommand}"/>
 						</EventTriggerBehavior>
 					</Interaction.Behaviors>
-				</RadioButton>
+				</wc:RadioDropButton>
 
-				<RadioButton Classes="fly"
-							 Grid.Column="3"
-							 Content="Neoforge">
+				<wc:RadioDropButton Grid.Column="3" 
+									Content="Neoforge"
+									IsEnabled="{Binding IsNeoforgeLoaded}"
+								    SelectedItem="{Binding CurrentModLoader, Mode=TwoWay}">
 					<Interaction.Behaviors>
 						<wcb:FlyoutHideBehavior/>
 
@@ -171,13 +213,15 @@
 												 Command="{Binding SelectedModLoaderCommand}"/>
 						</EventTriggerBehavior>
 					</Interaction.Behaviors>
-				</RadioButton>
+				</wc:RadioDropButton>
 
-				<RadioButton Classes="fly"
-							 Grid.Column="4"
-							 CornerRadius="0 8 8 0"
-							 BorderThickness="1 2 2 2"
-							 Content="Quilt">
+				<wc:RadioDropButton Grid.Column="4"
+									Content="Quilt"
+									CornerRadius="0 8 8 0"
+									BorderThickness="1 2 2 2"
+									ItemsSource="{Binding Quilts}"
+									IsEnabled="{Binding IsQuiltLoaded}"
+									SelectedItem="{Binding CurrentModLoader, Mode=TwoWay}">
 					<Interaction.Behaviors>
 						<wcb:FlyoutHideBehavior/>
 
@@ -186,7 +230,7 @@
 												 Command="{Binding SelectedModLoaderCommand}"/>
 						</EventTriggerBehavior>
 					</Interaction.Behaviors>
-				</RadioButton>
+				</wc:RadioDropButton>
 			</Grid>
 			
 			<CheckBox Grid.Row="8"
@@ -205,7 +249,7 @@
 				  ColumnDefinitions="Auto, 8, Auto">
 				<Button Grid.Column="0"
 						Content="安装"
-						Command="{Binding GoToOfflineAuthCommand}"/>
+						Command="{Binding InstallCommand}"/>
 
 				<Button Grid.Column="2"
 						Content="关闭"

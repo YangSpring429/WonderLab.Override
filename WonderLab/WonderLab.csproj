@@ -27,7 +27,10 @@
 		<AvaloniaResource Remove="Assets\Font\DinPro.ttf" />
 		<AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
 		<AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
+		<AvaloniaResource Remove="Assets\Image\Icon\loader_fabric.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\loader_forge.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\loader_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\loader_quilt.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\old_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\release_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\snapshot_minecraft.png" />
@@ -42,7 +45,10 @@
 		<None Remove="Assets\Font\DinPro.ttf" />
 		<None Remove="Assets\Font\MinecraftTen.ttf" />
 		<None Remove="Assets\Font\SegoeFluentIcons.ttf" />
+		<None Remove="Assets\Image\Icon\loader_fabric.png" />
+		<None Remove="Assets\Image\Icon\loader_forge.png" />
 		<None Remove="Assets\Image\Icon\loader_minecraft.png" />
+		<None Remove="Assets\Image\Icon\loader_quilt.png" />
 		<None Remove="Assets\Image\Icon\old_minecraft.png" />
 		<None Remove="Assets\Image\Icon\release_minecraft.png" />
 		<None Remove="Assets\Image\Icon\snapshot_minecraft.png" />
@@ -53,7 +59,10 @@
 		<EmbeddedResource Include="Assets\Font\DinPro.ttf" />
 		<EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
 		<EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
+		<EmbeddedResource Include="Assets\Image\Icon\loader_fabric.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\loader_forge.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\loader_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\loader_quilt.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\old_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\release_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\snapshot_minecraft.png" />

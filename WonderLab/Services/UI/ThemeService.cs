@@ -16,11 +16,14 @@ public sealed class ThemeService {
     private readonly ConfigService _configService;
     private readonly ILogger<ThemeService> _logger;
 
+    public static readonly Lazy<Bitmap> LoaderQuiltIcon = new("resm:WonderLab.Assets.Image.Icon.loader_quilt.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderForgeIcon = new("resm:WonderLab.Assets.Image.Icon.loader_forge.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderFabricIcon = new("resm:WonderLab.Assets.Image.Icon.loader_fabric.png".ToBitmap());
     public static readonly Lazy<Bitmap> OldMinecraftIcon = new("resm:WonderLab.Assets.Image.Icon.old_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> LoaderMinecraftIcon = new("resm:WonderLab.Assets.Image.Icon.loader_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Image.Icon.release_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> SnapshotMinecraftIcon = new("resm:WonderLab.Assets.Image.Icon.snapshot_minecraft.png".ToBitmap());
-
+    //
     public ThemeService(ConfigService configService, ILogger<ThemeService> logger) {
         _logger = logger;
         _configService = configService;
