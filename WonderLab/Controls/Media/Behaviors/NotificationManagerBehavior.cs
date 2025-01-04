@@ -17,7 +17,13 @@ public sealed class NotificationManagerBehavior : Behavior<WindowNotificationMan
             }
 
             _ = Dispatcher.UIThread.InvokeAsync(() => {
-                AssociatedObject.Show(args.Text, args.NotificationType, Default, args.OnClick, args.OnClose);
+                AssociatedObject.Show(new Notification() {
+                    Message = args.Text,
+                    Expiration = Default,
+                    OnClick = args.OnClick,
+                    OnClose = args.OnClose,
+                    Title = args.NotificationType.ToString(),
+                });
             }, DispatcherPriority.ApplicationIdle);
         });
     }

@@ -24,8 +24,11 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     public bool IsOptifineLoaded => Optifines is not null && Optifines.Count > 0;
 
     [ObservableProperty] private bool _isInstallOptifine;
-    [ObservableProperty] private string _customGameCoreId;
     [ObservableProperty] private object _currentModLoader;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(InstallCommand))] 
+    private string _customGameCoreId;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsQuiltLoaded))]
@@ -47,6 +50,8 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     [NotifyPropertyChangedFor(nameof(IsNeoforgeLoaded))]
     private ObservableCollection<object> _neoforges;
 
+    private bool CanInstall() => !string.IsNullOrEmpty(CustomGameCoreId);
+
     [RelayCommand]
     private async Task OnLoaded() {
         CustomGameCoreId = GameCoreId;
@@ -56,9 +61,9 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     [RelayCommand]
     private void Close() => DialogHost.Close("PART_DialogHost");
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanInstall))]
     private Task Install() => Task.Run(() => {
-        this.CurrentModLoader = null;
+
     });
 
     [RelayCommand]

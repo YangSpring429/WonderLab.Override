@@ -38,12 +38,13 @@
 									<TextBlock Classes="BodyStrong"
 											   Text="{TemplateBinding NotificationType}"/>
 
-									<TextBlock Width="260"
-											   Grid.Row="1"
-											   Margin="0 2 0 0"
-											   Classes="Caption"
-											   TextWrapping="WrapWithOverflow"
-											   Text="{TemplateBinding Content}"/>
+									<ContentPresenter Width="260"
+													  Grid.Row="1"
+													  Padding="0"
+													  Margin="0 2 0 0"
+													  Content="{TemplateBinding Content}">
+										
+									</ContentPresenter>
 								</Grid>
 							</DockPanel>
 						</Border>
@@ -76,6 +77,7 @@
 					</KeyFrame>
 					<KeyFrame Cue="60%">
 						<Setter Property="TranslateTransform.X" Value="800"/>
+						<Setter Property="TranslateTransform.Y" Value="0"/>
 					</KeyFrame>
 					<KeyFrame Cue="100%">
 						<Setter Property="Opacity" Value="0"/>
@@ -106,6 +108,56 @@
 		</Style>
 		<Style Selector="^:error /template/ Panel#PART_HeaderBar">
 			<Setter Property="Background" Value="{DynamicResource NotificationCardErrorBackgroundBrush}"/>
+		</Style>
+	</ControlTheme>
+
+	<ControlTheme x:Key="{x:Type WindowNotificationManager}" TargetType="WindowNotificationManager">
+		<Setter Property="Margin" Value="0 0" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ReversibleStackPanel Name="PART_Items">
+					<ReversibleStackPanel.DataTemplates>
+						<DataTemplate DataType="INotification">
+							<TextBlock Classes="Caption"
+									   Text="{Binding Message}"
+									   Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+						</DataTemplate>
+					</ReversibleStackPanel.DataTemplates>
+				</ReversibleStackPanel>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:topleft /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+
+		<Style Selector="^:topright /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="HorizontalAlignment" Value="Right" />
+		</Style>
+
+		<Style Selector="^:topcenter /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+		</Style>
+
+		<Style Selector="^:bottomleft /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="ReverseOrder" Value="True" />
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+
+		<Style Selector="^:bottomright /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="ReverseOrder" Value="True" />
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+			<Setter Property="HorizontalAlignment" Value="Right" />
+		</Style>
+
+		<Style Selector="^:bottomcenter /template/ ReversibleStackPanel#PART_Items">
+			<Setter Property="ReverseOrder" Value="True" />
+			<Setter Property="VerticalAlignment" Value="Bottom" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>
