@@ -160,6 +160,7 @@
 			<Grid Grid.Row="6"
 				  ColumnDefinitions="* * * * *">
 				<RadioButton Grid.Column="0"
+							 IsChecked="True"
 							 CornerRadius="8 0 0 8"
 							 BorderThickness="2 2 1 2"
 							 Content="Not install">
@@ -234,6 +235,7 @@
 			</Grid>
 			
 			<CheckBox Grid.Row="8"
+					  IsEnabled="True"
 					  IsChecked="{Binding IsInstallOptifine}"
 					  Content="额外安装 Optifine（高清修复）"/>
 		</Grid>
