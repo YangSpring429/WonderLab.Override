@@ -24,6 +24,8 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [ObservableProperty] private string _pageKey;
     [ObservableProperty] private object _activePage;
+    [ObservableProperty] private bool _isOpenTaskPanel;
+    [ObservableProperty] private bool _isHideTaskPanel;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BackgroundOpacity))]
@@ -43,6 +45,12 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private void GoToTaskList() {
+        //if (IsHideTaskPanel) {
+        //    IsHideTaskPanel = false;
+        //}
+        IsOpenTaskPanel = !IsOpenTaskPanel;
+
+        return;
         ActivePageIndex = -1;
         PageKey = "TaskList";
     }
@@ -56,6 +64,8 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             3 => "Setting/Navigation",
             _ => PageKey ?? "Home",
         };
+
+        IsHideTaskPanel = ActivePageIndex > 0;
     }
 
     [RelayCommand]

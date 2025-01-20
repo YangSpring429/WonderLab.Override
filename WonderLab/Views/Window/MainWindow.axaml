@@ -20,6 +20,12 @@
 				  PageKey="{Binding PageKey}"
 				  PageProvider="{Binding PageProvider}"/>
 
+		<wc:AutoPanelViewer Margin="0 12"
+							IsHidePanel="{Binding IsHideTaskPanel, Mode=TwoWay}"
+							IsOpenPanel="{Binding IsOpenTaskPanel, Mode=TwoWay}">
+
+		</wc:AutoPanelViewer>
+
 		<WindowNotificationManager Margin="0 12">
 			<Interaction.Behaviors>
 				<wb:NotificationManagerBehavior/>
