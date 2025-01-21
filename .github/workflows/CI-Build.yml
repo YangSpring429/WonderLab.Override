@@ -58,7 +58,7 @@ jobs:
 
       - name: Build
         shell: powershell
-        working-directory:./
+#        working-directory:./
         run: |
          ./.build/build_windows.ps1
 
