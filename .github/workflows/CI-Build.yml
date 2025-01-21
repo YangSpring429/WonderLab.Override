@@ -52,7 +52,7 @@ jobs:
 
       - name: Update code
         shell: cmd
-        working-directory:./
+#        working-directory:./
         run: |
          ./.build/update_code.bat
 
