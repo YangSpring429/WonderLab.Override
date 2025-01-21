@@ -121,14 +121,14 @@ jobs:
   
       - name: Update code
         shell: bash
-        working-directory:./
+#        working-directory:./
         run: |
           chmod a+x./.build/update_code.sh
          ./.build/update_code.sh
   
       - name: Build
         shell: bash
-        working-directory:./
+#        working-directory:./
         run: |
           chmod a+x./.build/build_osx.sh
          ./.build/build_osx.sh
