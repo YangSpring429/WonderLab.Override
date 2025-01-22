@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace WonderLab.Controls;
 
 [PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow")]
-public sealed class AutoPanelViewer : ContentControl, INotifyPropertyChanged {
+public sealed class AutoPanelViewer : ContentControl {
     private bool _isPress;
     private double _startX;
     private bool _canOpenPanel;
@@ -59,39 +59,6 @@ public sealed class AutoPanelViewer : ContentControl, INotifyPropertyChanged {
         PseudoClasses.Set(":panelshow", isPanelShow);
     }
 
-    private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null) {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-            return false;
-
-        field = value;
-        return true;
-    }
-
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
-        base.OnApplyTemplate(e);
-        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder");
-
-        _PART_LayoutBorder.PointerPressed += OnLayoutPointerPressed;
-        _PART_LayoutBorder.PointerReleased += OnLayoutPointerReleased;
-        _PART_LayoutBorder.PointerMoved += OnLayoutPointerMoved;
-
-        //PropertyChanged Event subscribe.
-        var openObservable = this.GetObservable(IsOpenPanelProperty);
-        var boundsObservable = (_PART_LayoutBorder.Parent as Visual).GetObservable(BoundsProperty);
-        IDisposable disposable = default;
-
-        openObservable.Subscribe(value => {
-            if (value) {
-                disposable = boundsObservable.Subscribe(x1 => {
-                    _PART_LayoutBorder.Height = x1.Height;
-                });
-            } else {
-                PanelHeight = 150;
-                disposable?.Dispose();
-            }
-        });
-    }
-
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
         if (IsOpenPanel) {
             return;
@@ -134,6 +101,35 @@ public sealed class AutoPanelViewer : ContentControl, INotifyPropertyChanged {
         if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
             _startX = e.GetPosition(this).X;
         }
+    }
+
+    private void OnLayoutPointerCaptureLost(object sender, PointerCaptureLostEventArgs e) {
+        _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
+        base.OnApplyTemplate(e);
+        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder");
+
+        _PART_LayoutBorder.PointerMoved += OnLayoutPointerMoved;
+        _PART_LayoutBorder.PointerPressed += OnLayoutPointerPressed;
+        _PART_LayoutBorder.PointerReleased += OnLayoutPointerReleased;
+        _PART_LayoutBorder.PointerCaptureLost += OnLayoutPointerCaptureLost;
+
+        //PropertyChanged Event subscribe.
+        var openObservable = this.GetObservable(IsOpenPanelProperty);
+        var boundsObservable = (_PART_LayoutBorder.Parent as Visual).GetObservable(BoundsProperty);
+        IDisposable disposable = default;
+
+        openObservable.Subscribe(value => {
+            if (value) {
+                disposable = boundsObservable.Subscribe(x1 => {
+                    _PART_LayoutBorder.Height = x1.Height;
+                });
+            } else {
+                disposable?.Dispose();
+            }
+        });
     }
 
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {

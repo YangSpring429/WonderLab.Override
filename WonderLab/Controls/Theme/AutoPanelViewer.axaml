@@ -84,6 +84,10 @@
 			</Style.Animations> 
 		</Style>
 
+		<Style Selector="^:press /template/ Border#PART_LayoutBorder">
+			<Setter Property="RenderTransform" Value="scale(0.9)"/>
+		</Style>
+		
 		<Style Selector="^:panelhide /template/ Border#PART_LayoutBorder">
 			<Style.Animations>
 				<Animation Duration="0:0:.45"

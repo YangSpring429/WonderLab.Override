@@ -22,10 +22,12 @@ using WonderLab.ViewModels.Dialog.Auth;
 using WonderLab.ViewModels.Dialog.Download;
 using WonderLab.ViewModels.Page;
 using WonderLab.ViewModels.Page.Download;
+using WonderLab.ViewModels.Page.GameSetting;
 using WonderLab.ViewModels.Page.Setting;
 using WonderLab.ViewModels.Window;
 using WonderLab.Views.Page;
 using WonderLab.Views.Page.Download;
+using WonderLab.Views.Page.GameSetting;
 using WonderLab.Views.Page.Setting;
 
 namespace WonderLab;
@@ -153,6 +155,9 @@ public sealed class App : Application {
         page.AddPage<NetworkPage, NetworkPageViewModel>("Setting/Network");
         page.AddPage<AppearancePage, AppearancePageViewModel>("Setting/Appearance");
         page.AddPage<AboutPage, AboutPageViewModel>("Setting/About");
+
+        //GameSetting
+        page.AddPage<ChooseAccountPage, ChooseAccountPageViewModel>("GameSetting/ChooseAccount");
 
         //Download
         page.AddPage<MinecraftListPage, MinecraftListPageViewModel>("Download/MinecraftList");

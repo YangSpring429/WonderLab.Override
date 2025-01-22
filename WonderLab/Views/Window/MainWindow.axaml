@@ -23,7 +23,9 @@
 		<wc:AutoPanelViewer Margin="0 12"
 							IsHidePanel="{Binding IsHideTaskPanel, Mode=TwoWay}"
 							IsOpenPanel="{Binding IsOpenTaskPanel, Mode=TwoWay}">
-
+			<wc:Frame Margin="16 12"
+					  PageProvider="{Binding PageProvider}"
+					  PageKey="{Binding AssistantPanelPageKey, Mode=TwoWay}"/>
 		</wc:AutoPanelViewer>
 
 		<WindowNotificationManager Margin="0 12">

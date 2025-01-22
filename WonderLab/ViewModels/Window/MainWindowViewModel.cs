@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Classes.Interfaces;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Infrastructure.Models;
@@ -16,20 +17,23 @@ namespace WonderLab.ViewModels.Window;
 public sealed partial class MainWindowViewModel : ObservableObject {
     private readonly TaskService _taskService;
 
+    public bool IsHideTaskPanel => PageKey is not "Home";
     public double BackgroundOpacity => ActivePageIndex is 0 ? 0 : 0.45;
 
     public AvaloniaPageProvider PageProvider { get; }
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; }
     public ReadOnlyObservableCollection<GameProcess> GameProcesses { get; }
 
-    [ObservableProperty] private string _pageKey;
-    [ObservableProperty] private object _activePage;
     [ObservableProperty] private bool _isOpenTaskPanel;
-    [ObservableProperty] private bool _isHideTaskPanel;
+    [ObservableProperty] private string _assistantPanelPageKey;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BackgroundOpacity))]
     private int _activePageIndex;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsHideTaskPanel))]
+    private string _pageKey;
 
     public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider, TaskService taskService, LaunchService launchService) {
         _taskService = taskService;
@@ -41,16 +45,19 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : - 1;
             PageKey = arg.PageKey;
         });
+
+        WeakReferenceMessenger.Default.Register<PanelPageNotificationMessage>(this, (_, arg) => {
+            if (arg.PageKey is "close") {
+                IsOpenTaskPanel = false;
+                return;
+            }
+
+            AssistantPanelPageKey = arg.PageKey;
+        });
     }
 
     [RelayCommand]
     private void GoToTaskList() {
-        //if (IsHideTaskPanel) {
-        //    IsHideTaskPanel = false;
-        //}
-        IsOpenTaskPanel = !IsOpenTaskPanel;
-
-        return;
         ActivePageIndex = -1;
         PageKey = "TaskList";
     }
@@ -64,12 +71,20 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             3 => "Setting/Navigation",
             _ => PageKey ?? "Home",
         };
-
-        IsHideTaskPanel = ActivePageIndex > 0;
     }
 
     [RelayCommand]
     private void KillGameProcess(GameProcess gameProcess) {
         gameProcess.ProcessWatcher.Process.Kill();
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
+        base.OnPropertyChanged(e);
+
+        if (e.PropertyName is nameof(IsOpenTaskPanel)) {
+            if (PageKey is "Home") {
+                AssistantPanelPageKey = "GameSetting/ChooseAccount";
+            }
+        }
     }
 }
