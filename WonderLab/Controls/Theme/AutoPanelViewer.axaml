@@ -10,7 +10,7 @@
 	</Design.PreviewWith>
 
 	<ControlTheme x:Key="{x:Type wc:AutoPanelViewer}" TargetType="wc:AutoPanelViewer">
-		<Setter Property="MaxWidth" Value="460"/>
+		<Setter Property="MaxWidth" Value="440"/>
 		<Setter Property="MinWidth" Value="450"/>
 		<Setter Property="MinHeight" Value="180"/>
 		<Setter Property="CornerRadius" Value="8"/>
@@ -29,8 +29,8 @@
 					   ClipToBounds="{TemplateBinding ClipToBounds}"
 					   VerticalAlignment="{TemplateBinding VerticalAlignment}"
 					   HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-					<Border Width="10"
-							Opacity="0"
+					<Border Opacity="0"
+							Width="10"
 							Height="150"
 							Name="PART_LayoutBorder"
 							VerticalAlignment="Center"
@@ -48,6 +48,10 @@
 													 Easing="ExponentialEaseOut"/>
 							</Transitions>
 						</Border.Transitions>
+						
+						<ContentPresenter Opacity="0"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"/>
 					</Border>
 				</Panel>
 			</ControlTemplate>
@@ -140,13 +144,13 @@
 						<Setter Property="CornerRadius" Value="8"/>
 					</KeyFrame>
 
-					<KeyFrame Cue="80%" KeySpline="0.34, 1.26, 0.64, 1">
-						<Setter Property="Width" Value="425"/>
+					<KeyFrame Cue="60%" KeySpline="0.34, 1.26, 0.64, 1">
+						<Setter Property="Width" Value="445"/>
 						<Setter Property="Height" Value="{Binding $parent[Panel].Bounds.Height, Converter={StaticResource BackEaseValueConverter}, ConverterParameter=5}"/>
 					</KeyFrame>
 
-					<KeyFrame Cue="100%" KeySpline="0.34, 1.56, 0.64, 1">
-						<Setter Property="Width" Value="420"/>
+					<KeyFrame Cue="100%" KeySpline="0.34, 1.36, 0.64, 1">
+						<Setter Property="Width" Value="440"/>
 						<Setter Property="CornerRadius" Value="12"/>
 						<Setter Property="Height" Value="{Binding $parent[Panel].Bounds.Height}"/>
 					</KeyFrame>
@@ -156,24 +160,24 @@
 
 		<Style Selector="^:panelclose /template/ Border#PART_LayoutBorder">
 			<Style.Animations>
-				<Animation Duration="0:0:.75"
+				<Animation Duration="0:0:.85"
 						   FillMode="Forward">
 					<KeyFrame Cue="0%" KeySpline="0.34, 1.56, 0.64, 1">
-						<Setter Property="Width" Value="420"/>
+						<Setter Property="Width" Value="440"/>
 						<Setter Property="CornerRadius" Value="12"/>
 						<Setter Property="Height" Value="{Binding $parent[Panel].Bounds.Height}"/>
 					</KeyFrame>
 
-					<KeyFrame Cue="40%" KeySpline="0.34, 1.26, 0.64, 1">
-						<Setter Property="Width" Value="430"/>
+					<KeyFrame Cue="30%" KeySpline="0.34, 1.26, 0.64, 1">
+						<Setter Property="Width" Value="450"/>
 						<Setter Property="Height" Value="{Binding $parent[Panel].Bounds.Height, Converter={StaticResource BackEaseValueConverter}, ConverterParameter=10}"/>
 					</KeyFrame>
 
-					<KeyFrame Cue="80%" KeySpline="0.55, 0, 1, 0.45">
+					<KeyFrame Cue="60%" KeySpline="0.55, 0, 1, 0.45">
 						<Setter Property="Width" Value="10"/>
 						<Setter Property="Height" Value="150"/>
 						<Setter Property="CornerRadius" Value="8"/>
-						<Setter Property="TranslateTransform.X" Value="-8"/>
+						<Setter Property="TranslateTransform.X" Value="0"/>
 					</KeyFrame>
 
 					<KeyFrame Cue="100%" KeySpline="0.34, 1.26, 0.64, 1">
@@ -181,6 +185,40 @@
 						<Setter Property="Height" Value="150"/>
 						<Setter Property="CornerRadius" Value="8"/>
 						<Setter Property="TranslateTransform.X" Value="-16"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="^:panelopen /template/ ContentPresenter#PART_ContentPresenter">
+			<Style.Animations>
+				<Animation Delay="0:0:0.1"
+						   Duration="0:0:.35"
+						   FillMode="Forward"
+						   Easing="ExponentialEaseOut">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0"/>
+					</KeyFrame>
+
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="1"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="^:panelclose /template/ ContentPresenter#PART_ContentPresenter">
+			<Style.Animations>
+				<Animation Delay="0:0:0.2"
+						   Duration="0:0:.55"
+						   FillMode="Forward"
+						   Easing="ExponentialEaseInOut">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="1"/>
+					</KeyFrame>
+
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="0"/>
 					</KeyFrame>
 				</Animation>
 			</Style.Animations>

@@ -4,12 +4,15 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace WonderLab.Controls;
 
 [PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow")]
-public sealed class AutoPanelViewer : TemplatedControl {
+public sealed class AutoPanelViewer : ContentControl, INotifyPropertyChanged {
     private bool _isPress;
     private double _startX;
     private bool _canOpenPanel;
@@ -23,6 +26,9 @@ public sealed class AutoPanelViewer : TemplatedControl {
 
     public static readonly StyledProperty<double> PanelWidthProperty =
         AvaloniaProperty.Register<AutoPanelViewer, double>(nameof(PanelWidth));
+
+    public static readonly StyledProperty<double> PanelHeightProperty =
+        AvaloniaProperty.Register<AutoPanelViewer, double>(nameof(PanelHeight));
 
     public bool IsOpenPanel {
         get => GetValue(IsOpenPanelProperty);
@@ -39,6 +45,12 @@ public sealed class AutoPanelViewer : TemplatedControl {
         set => SetValue(PanelWidthProperty, value);
     }
 
+    private double _panelWidth;
+    public double PanelHeight {
+        get => GetValue(PanelHeightProperty);
+        set => SetValue(PanelHeightProperty, value);
+    }
+
     private void SetPseudoclasses(bool isPress, bool isPanelOpen, bool isPanelClose, bool isPanelHide, bool isPanelShow) {
         PseudoClasses.Set(":press", isPress);
         PseudoClasses.Set(":panelopen", isPanelOpen);
@@ -47,13 +59,37 @@ public sealed class AutoPanelViewer : TemplatedControl {
         PseudoClasses.Set(":panelshow", isPanelShow);
     }
 
+    private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null) {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
+
+        field = value;
+        return true;
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
         _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder");
 
         _PART_LayoutBorder.PointerPressed += OnLayoutPointerPressed;
         _PART_LayoutBorder.PointerReleased += OnLayoutPointerReleased;
-        _PART_LayoutBorder.PointerMoved += OnLayoutPointerMoved; ;
+        _PART_LayoutBorder.PointerMoved += OnLayoutPointerMoved;
+
+        //PropertyChanged Event subscribe.
+        var openObservable = this.GetObservable(IsOpenPanelProperty);
+        var boundsObservable = (_PART_LayoutBorder.Parent as Visual).GetObservable(BoundsProperty);
+        IDisposable disposable = default;
+
+        openObservable.Subscribe(value => {
+            if (value) {
+                disposable = boundsObservable.Subscribe(x1 => {
+                    _PART_LayoutBorder.Height = x1.Height;
+                });
+            } else {
+                PanelHeight = 150;
+                disposable?.Dispose();
+            }
+        });
     }
 
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
@@ -104,6 +140,10 @@ public sealed class AutoPanelViewer : TemplatedControl {
         base.OnPropertyChanged(change);
 
         if (change.Property == IsOpenPanelProperty) {
+            if (IsOpenPanel && IsHidePanel) {
+                return;
+            }
+
             SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false);
         }
 
