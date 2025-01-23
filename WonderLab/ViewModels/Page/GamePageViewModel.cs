@@ -70,7 +70,7 @@ public sealed partial class GamePageViewModel : ObservableObject {
 
     [RelayCommand]
     private void GoToGameSetting() {
-        WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Multiplayer"));
+        WeakReferenceMessenger.Default.Send<PanelPageNotificationMessage>(new("GameSetting/Navigation"));
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {

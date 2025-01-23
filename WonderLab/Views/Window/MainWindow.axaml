@@ -25,6 +25,7 @@
 							IsOpenPanel="{Binding IsOpenTaskPanel, Mode=TwoWay}">
 			<wc:Frame Margin="16 12"
 					  PageProvider="{Binding PageProvider}"
+					  PageTransition="{x:Null}"
 					  PageKey="{Binding AssistantPanelPageKey, Mode=TwoWay}"/>
 		</wc:AutoPanelViewer>
 

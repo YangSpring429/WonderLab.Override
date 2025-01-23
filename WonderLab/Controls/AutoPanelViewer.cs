@@ -4,14 +4,10 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace WonderLab.Controls;
 
-[PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow")]
+[PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow", ":panelhideopen")]
 public sealed class AutoPanelViewer : ContentControl {
     private bool _isPress;
     private double _startX;
@@ -45,18 +41,18 @@ public sealed class AutoPanelViewer : ContentControl {
         set => SetValue(PanelWidthProperty, value);
     }
 
-    private double _panelWidth;
     public double PanelHeight {
         get => GetValue(PanelHeightProperty);
         set => SetValue(PanelHeightProperty, value);
     }
 
-    private void SetPseudoclasses(bool isPress, bool isPanelOpen, bool isPanelClose, bool isPanelHide, bool isPanelShow) {
+    private void SetPseudoclasses(bool isPress, bool isPanelOpen, bool isPanelClose, bool isPanelHide, bool isPanelShow, bool isPanelHideOpen) {
         PseudoClasses.Set(":press", isPress);
         PseudoClasses.Set(":panelopen", isPanelOpen);
         PseudoClasses.Set(":panelclose", isPanelClose);
         PseudoClasses.Set(":panelhide", isPanelHide);
         PseudoClasses.Set(":panelshow", isPanelShow);
+        PseudoClasses.Set(":panelhideopen", isPanelHideOpen);
     }
 
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
@@ -81,7 +77,7 @@ public sealed class AutoPanelViewer : ContentControl {
             return;
         }
 
-        SetPseudoclasses(_isPress = false, false, false, false, false);
+        SetPseudoclasses(_isPress = false, false, false, false, false, false);
         if (e.InitialPressMouseButton is MouseButton.Left) {
             _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
 
@@ -97,7 +93,7 @@ public sealed class AutoPanelViewer : ContentControl {
             return;
         }
 
-        SetPseudoclasses(_isPress = true, false, false, false, false);
+        SetPseudoclasses(_isPress = true, false, false, false, false, false);
         if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
             _startX = e.GetPosition(this).X;
         }
@@ -137,19 +133,25 @@ public sealed class AutoPanelViewer : ContentControl {
 
         if (change.Property == IsOpenPanelProperty) {
             if (IsOpenPanel && IsHidePanel) {
+                IsHidePanel = false;
+                SetPseudoclasses(_isPress, false, false, false, false, true);
                 return;
             }
 
-            SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false);
+            SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false, false);
         }
 
         if (change.Property == IsHidePanelProperty) {
-            if (IsOpenPanel && IsHidePanel) {
-                IsOpenPanel = false;
-                await Task.Delay(TimeSpan.FromSeconds(0.75d));
+            //if (IsOpenPanel && IsHidePanel) {
+            //    IsOpenPanel = false;
+            //    await Task.Delay(TimeSpan.FromSeconds(0.75d));
+            //}
+            if (!IsHidePanel && IsOpenPanel) {
+                return;
             }
 
-            SetPseudoclasses(_isPress, false, false, IsHidePanel, !IsHidePanel);
+
+            SetPseudoclasses(_isPress, false, false, IsHidePanel, !IsHidePanel, false);
         }
     }
 }

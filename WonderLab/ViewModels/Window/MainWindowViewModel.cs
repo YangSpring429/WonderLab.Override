@@ -52,6 +52,13 @@ public sealed partial class MainWindowViewModel : ObservableObject {
                 return;
             }
 
+#if DEBUG
+            if (arg.PageKey.Contains("Game")) {
+                IsOpenTaskPanel = true;
+                return;
+            }
+#endif
+
             AssistantPanelPageKey = arg.PageKey;
         });
     }

@@ -64,11 +64,17 @@ public sealed class Frame : TemplatedControl {
         Dispatcher.UIThread.Post(async () => {
             if (_controlType is ControlType.Control1) {
                 _PART_LeftContentPresenter.Content = page;
-                await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
+                if (PageTransition != null) {
+                    await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
+                }
+
                 _controlType = ControlType.Control2;
             } else {
                 _PART_RightContentPresenter.Content = page;
-                await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
+                if (PageTransition != null) {
+                    await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
+                }
+
                 _controlType = ControlType.Control1;
             }
         }, DispatcherPriority.Render);
