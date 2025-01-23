@@ -5,6 +5,7 @@ using MinecraftLaunch.Classes.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
@@ -17,14 +18,13 @@ namespace WonderLab.ViewModels.Window;
 public sealed partial class MainWindowViewModel : ObservableObject {
     private readonly TaskService _taskService;
 
-    public bool IsHideTaskPanel => PageKey is not "Home";
     public double BackgroundOpacity => ActivePageIndex is 0 ? 0 : 0.45;
 
     public AvaloniaPageProvider PageProvider { get; }
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; }
     public ReadOnlyObservableCollection<GameProcess> GameProcesses { get; }
 
-    [ObservableProperty] private bool _isOpenTaskPanel;
+    [ObservableProperty] private AutoPanelViewer.AutoPanelState _panelState;
     [ObservableProperty] private string _assistantPanelPageKey;
 
     [ObservableProperty]
@@ -32,7 +32,6 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private int _activePageIndex;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsHideTaskPanel))]
     private string _pageKey;
 
     public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider, TaskService taskService, LaunchService launchService) {
@@ -44,17 +43,19 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : - 1;
             PageKey = arg.PageKey;
+
+            PanelState = AutoPanelViewer.AutoPanelState.Hidden;
         });
 
         WeakReferenceMessenger.Default.Register<PanelPageNotificationMessage>(this, (_, arg) => {
             if (arg.PageKey is "close") {
-                IsOpenTaskPanel = false;
+                PanelState = AutoPanelViewer.AutoPanelState.Collapsed;
                 return;
             }
 
 #if DEBUG
             if (arg.PageKey.Contains("Game")) {
-                IsOpenTaskPanel = true;
+                PanelState = AutoPanelViewer.AutoPanelState.Expanded;
                 return;
             }
 #endif
@@ -67,6 +68,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private void GoToTaskList() {
         ActivePageIndex = -1;
         PageKey = "TaskList";
+        PanelState = AutoPanelViewer.AutoPanelState.Hidden;
     }
 
     [RelayCommand]
@@ -79,7 +81,13 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             _ => PageKey ?? "Home",
         };
 
-        IsOpenTaskPanel = false;
+        PanelState = ActivePageIndex switch {
+            0 => AutoPanelViewer.AutoPanelState.Collapsed,
+            1 => AutoPanelViewer.AutoPanelState.Hidden,
+            2 => AutoPanelViewer.AutoPanelState.Hidden,
+            3 => AutoPanelViewer.AutoPanelState.Hidden,
+            _ => PanelState
+        };
     }
 
     [RelayCommand]
@@ -90,9 +98,11 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
         base.OnPropertyChanged(e);
 
-        if (e.PropertyName is nameof(IsOpenTaskPanel)) {
+        if (e.PropertyName is nameof(PanelState) && PanelState is AutoPanelViewer.AutoPanelState.Expanded) {
             if (PageKey is "Home") {
                 AssistantPanelPageKey = "GameSetting/ChooseAccount";
+            } else {
+
             }
         }
     }

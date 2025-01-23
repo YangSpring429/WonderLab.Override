@@ -4,7 +4,6 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using System;
-using System.Diagnostics;
 
 namespace WonderLab.Controls;
 
@@ -12,15 +11,25 @@ namespace WonderLab.Controls;
 public sealed class AutoPanelViewer : ContentControl {
     private bool _isPress;
     private double _startX;
-    private bool _isHideClose;
+    private double _offsetX;
+    private bool _oldOPenPanelPropertyValue;
     private bool _canOpenPanel;
     private Border _PART_LayoutBorder;
 
-    public static readonly StyledProperty<bool> IsOpenPanelProperty =
-        AvaloniaProperty.Register<AutoPanelViewer, bool>(nameof(IsOpenPanel));
+    public enum AutoPanelState {
+        Expanded,
+        Collapsed,
+        Hidden
+    }
 
-    public static readonly StyledProperty<bool> IsHidePanelProperty =
-        AvaloniaProperty.Register<AutoPanelViewer, bool>(nameof(IsHidePanel));
+    //public static readonly StyledProperty<bool> IsOpenPanelProperty =
+    //    AvaloniaProperty.Register<AutoPanelViewer, bool>(nameof(IsOpenPanel));
+
+    //public static readonly StyledProperty<bool> IsHidePanelProperty =
+    //    AvaloniaProperty.Register<AutoPanelViewer, bool>(nameof(IsHidePanel));
+
+    public static readonly StyledProperty<AutoPanelState> PanelStateProperty =
+        AvaloniaProperty.Register<AutoPanelViewer, AutoPanelState>(nameof(PanelState), AutoPanelState.Collapsed);
 
     public static readonly StyledProperty<double> PanelWidthProperty =
         AvaloniaProperty.Register<AutoPanelViewer, double>(nameof(PanelWidth));
@@ -28,14 +37,24 @@ public sealed class AutoPanelViewer : ContentControl {
     public static readonly StyledProperty<double> PanelHeightProperty =
         AvaloniaProperty.Register<AutoPanelViewer, double>(nameof(PanelHeight));
 
-    public bool IsOpenPanel {
-        get => GetValue(IsOpenPanelProperty);
-        set => SetValue(IsOpenPanelProperty, value);
-    }
+    //public bool IsOpenPanel {
+    //    get => GetValue(IsOpenPanelProperty);
+    //    set => SetValue(IsOpenPanelProperty, value);
+    //}
 
-    public bool IsHidePanel {
-        get => GetValue(IsHidePanelProperty);
-        set => SetValue(IsHidePanelProperty, value);
+    //public bool IsHidePanel {
+    //    get => GetValue(IsHidePanelProperty);
+    //    set => SetValue(IsHidePanelProperty, value);
+    //}
+
+    //public bool IsHideOpenPanel {
+    //    get => GetValue(IsHideOpenPanelProperty);
+    //    set => SetValue(IsHideOpenPanelProperty, value);
+    //}
+
+    public AutoPanelState PanelState {
+        get => GetValue(PanelStateProperty);
+        set => SetValue(PanelStateProperty, value);
     }
 
     public double PanelWidth {
@@ -59,24 +78,24 @@ public sealed class AutoPanelViewer : ContentControl {
     }
 
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
-        if (IsOpenPanel) {
+        if (PanelState is not AutoPanelState.Collapsed) {
             return;
         }
 
         if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
             var position = e.GetPosition(this);
-            var offsetX = position.X - _startX;
-            if (offsetX > 0 || offsetX < -15) {
+            _offsetX = position.X - _startX;
+            if (_offsetX > 0 || _offsetX < -15) {
                 return;
             }
 
-            _canOpenPanel = offsetX < -5;
-            _PART_LayoutBorder.Margin = new(0, 0, -offsetX, 0);
+            _canOpenPanel = _offsetX < -5;
+            _PART_LayoutBorder.Margin = new(0, 0, -_offsetX, 0);
         }
     }
 
     private void OnLayoutPointerReleased(object sender, PointerReleasedEventArgs e) {
-        if (IsOpenPanel) {
+        if (PanelState is not AutoPanelState.Collapsed) {
             return;
         }
 
@@ -84,15 +103,21 @@ public sealed class AutoPanelViewer : ContentControl {
         if (e.InitialPressMouseButton is MouseButton.Left) {
             _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
 
+            if (_offsetX is 0) {
+                PanelState = _canOpenPanel ? AutoPanelState.Expanded : AutoPanelState.Collapsed;
+            }
+
             if (_canOpenPanel) {
-                IsOpenPanel = _canOpenPanel;
+                PanelState = _canOpenPanel ? AutoPanelState.Expanded : AutoPanelState.Collapsed;
                 _canOpenPanel = false;
             }
+
+            _offsetX = 0;
         }
     }
 
     private void OnLayoutPointerPressed(object sender, PointerPressedEventArgs e) {
-        if (IsOpenPanel) {
+        if (PanelState is not AutoPanelState.Collapsed) {
             return;
         }
 
@@ -116,12 +141,12 @@ public sealed class AutoPanelViewer : ContentControl {
         _PART_LayoutBorder.PointerCaptureLost += OnLayoutPointerCaptureLost;
 
         //PropertyChanged Event subscribe.
-        var openObservable = this.GetObservable(IsOpenPanelProperty);
+        var panelStateObservable = this.GetObservable(PanelStateProperty);
         var boundsObservable = (_PART_LayoutBorder.Parent as Visual).GetObservable(BoundsProperty);
         IDisposable disposable = default;
 
-        openObservable.Subscribe(value => {
-            if (value) {
+        panelStateObservable.Subscribe(value => {
+            if (value is AutoPanelState.Expanded) {
                 disposable = boundsObservable.Subscribe(x1 => {
                     _PART_LayoutBorder.Height = x1.Height;
                 });
@@ -134,28 +159,55 @@ public sealed class AutoPanelViewer : ContentControl {
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
-        if (change.Property == IsOpenPanelProperty) {
-            if (IsOpenPanel && IsHidePanel) {
-                IsHidePanel = false;
-                SetPseudoclasses(_isPress, false, false, false, false, true, false);
-                return;
-            }else if (!IsOpenPanel && IsHidePanel) {
-                return;
+        if (change.Property == PanelStateProperty) {
+            var (oldValue, newValue) = change.GetOldAndNewValue<AutoPanelState>();
+
+            switch ((oldValue, newValue)) {
+                case (AutoPanelState.Collapsed, AutoPanelState.Expanded):
+                    SetPseudoclasses(_isPress, true, false, false, false, false, false);
+                    break;
+                case (AutoPanelState.Expanded, AutoPanelState.Collapsed):
+                    SetPseudoclasses(_isPress, false, true, false, false, false, false);
+                    break;
+                case (AutoPanelState.Collapsed, AutoPanelState.Hidden):
+                    SetPseudoclasses(_isPress, false, false, true, false, false, false);
+                    break;
+                case (AutoPanelState.Hidden, AutoPanelState.Collapsed):
+                    SetPseudoclasses(_isPress, false, false, false, true, false, false);
+                    break;
+                case (AutoPanelState.Expanded, AutoPanelState.Hidden):
+                    SetPseudoclasses(_isPress, false, false, false, false, false, true);
+                    break;
+                case (AutoPanelState.Hidden, AutoPanelState.Expanded):
+                    SetPseudoclasses(_isPress, false, false, false, false, true, false);
+                    break;
             }
 
-            SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false, false, false);
 
-        }
+            //if (change.Property == IsOpenPanelProperty) {
+            //    //if (IsOpenPanel && IsHidePanel) {
+            //    //    IsHidePanel = false;
+            //    //    SetPseudoclasses(_isPress, false, false, false, false, true, false);
+            //    //    return;
+            //    //}else if (!IsOpenPanel && IsHidePanel) {
+            //    //    return;
+            //    //}
 
-        if (change.Property == IsHidePanelProperty) {
-            if (IsHidePanel && IsOpenPanel) {
-                IsOpenPanel = false;
-                SetPseudoclasses(_isPress, false, false, false, false, false, true);
-                return;
-            }
+            //    SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false, false, false);
+            //}
+
+            //if (change.Property == IsHidePanelProperty) {
+            //    //if (IsHidePanel && IsOpenPanel) {
+            //    //    SetPseudoclasses(_isPress, false, false, false, false, false, true);
+            //    //    IsOpenPanel = false;
+            //    //    return;
+            //    //}
 
 
-            SetPseudoclasses(_isPress, false, false, IsHidePanel, !IsHidePanel, false, false);
+            //    SetPseudoclasses(_isPress, false, false, IsHidePanel, !IsHidePanel, false, false);
+            //}
+
+
         }
     }
 }

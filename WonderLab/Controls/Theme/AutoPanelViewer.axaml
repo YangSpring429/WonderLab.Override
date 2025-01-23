@@ -83,10 +83,6 @@
 				</Animation>
 			</Style.Animations> 
 		</Style>
-
-		<Style Selector="^:press">
-			<Setter Property="IsOpenPanel" Value="True"/>
-		</Style>
 		
 		<Style Selector="^:panelhide /template/ Border#PART_LayoutBorder">
 			<Style.Animations>
