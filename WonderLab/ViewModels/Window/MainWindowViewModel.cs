@@ -78,6 +78,8 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             3 => "Setting/Navigation",
             _ => PageKey ?? "Home",
         };
+
+        IsOpenTaskPanel = false;
     }
 
     [RelayCommand]
