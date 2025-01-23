@@ -53,7 +53,7 @@ public sealed class DownloadService {
         };
 
         try {
-            var mainInstaller = new VanlliaInstaller(_gameService.GameResolver, gameId, dc);
+            var mainInstaller = new VanillaInstaller(_gameService.GameResolver, gameId, dc);
             InstallerBase installer = installEntry is null
                 ? mainInstaller
                 : installEntry switch {

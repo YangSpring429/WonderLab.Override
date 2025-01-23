@@ -44,7 +44,7 @@ public sealed partial class MinecraftListPageViewModel : ObservableObject {
             return;
         }
 
-        var result = await VanlliaInstaller.EnumerableGameCoreAsync(_cancellationTokenSource.Token);
+        var result = await VanillaInstaller.EnumerableGameCoreAsync(_cancellationTokenSource.Token);
         _cacheService.MinecraftList.AddRange(result.ToImmutableList());
         MinecraftList = new(_allMinecraftList);
         ActiveVersion = VersionType.Release;
