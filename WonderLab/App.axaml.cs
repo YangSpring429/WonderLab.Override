@@ -21,11 +21,13 @@ using WonderLab.ViewModels.Dialog;
 using WonderLab.ViewModels.Dialog.Auth;
 using WonderLab.ViewModels.Dialog.Download;
 using WonderLab.ViewModels.Page;
+using WonderLab.ViewModels.Page.Dashboard;
 using WonderLab.ViewModels.Page.Download;
 using WonderLab.ViewModels.Page.GameSetting;
 using WonderLab.ViewModels.Page.Setting;
 using WonderLab.ViewModels.Window;
 using WonderLab.Views.Page;
+using WonderLab.Views.Page.Dashboard;
 using WonderLab.Views.Page.Download;
 using WonderLab.Views.Page.GameSetting;
 using WonderLab.Views.Page.Setting;
@@ -158,6 +160,10 @@ public sealed class App : Application {
 
         //GameSetting
         page.AddPage<ChooseAccountPage, ChooseAccountPageViewModel>("GameSetting/ChooseAccount");
+        page.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
+
+        //Dashboard
+        page.AddPage<DashboardPage, DashboardPageViewModel>("Dashboard/Home");
 
         //Download
         page.AddPage<MinecraftListPage, MinecraftListPageViewModel>("Download/MinecraftList");

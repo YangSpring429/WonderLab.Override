@@ -7,6 +7,7 @@
 		xmlns:wc="using:WonderLab.Controls"
 		xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 		xmlns:wa="using:WonderLab.Controls.Media.Attachments"
+		xmlns:wt="using:WonderLab.Controls.Media.Transitions"
 		x:Class="WonderLab.MainWindow"
 		Classes="wonder"
 		Tag="{Binding BackgroundOpacity, FallbackValue=0}">
@@ -24,8 +25,12 @@
 							PanelState="{Binding PanelState, Mode=TwoWay}">
 			<wc:Frame Margin="16 12"
 					  PageProvider="{Binding PageProvider}"
-					  PageTransition="{x:Null}"
-					  PageKey="{Binding AssistantPanelPageKey, Mode=TwoWay}"/>
+					  PageKey="{Binding AssistantPanelPageKey, Mode=TwoWay}">
+				<wc:Frame.PageTransition>
+					<wt:EntrancePageTransition Duration="0:0:0.5"
+											   Easing="ExponentialEaseInOut"/>
+				</wc:Frame.PageTransition>
+			</wc:Frame>
 		</wc:AutoPanelViewer>
 
 		<WindowNotificationManager Margin="0 12">

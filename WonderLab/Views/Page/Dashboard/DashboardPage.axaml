@@ -1,0 +1,112 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+			 x:Class="WonderLab.Views.Page.Dashboard.DashboardPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Grid RowDefinitions="Auto, 8, Auto">
+		<TextBlock Classes="Subtitle"
+				   Text="仪表板"/>
+
+		<Button Width="25"
+				Height="25"
+				FontSize="16"
+				Classes="icon"
+				Content="&#xE72A;"
+				VerticalAlignment="Bottom"
+				HorizontalAlignment="Right"
+				Command="{Binding ClosePanelCommand}"
+				Foreground="{DynamicResource ButtonForeground}"/>
+
+		<Grid Grid.Row="2"
+			  ColumnDefinitions="1* 8 1*">
+			<ComboBox Height="60"
+					  Classes="card"
+					  Padding="20 12"
+					  CornerRadius="8"
+					  BorderThickness="2"
+					  VerticalAlignment="Stretch"
+					  HorizontalAlignment="Stretch"
+					  ItemsSource="{Binding Accounts}"
+					  SelectedItem="{x:Null}"
+					  BorderBrush="{DynamicResource ContentBrush4}"
+					  Background="{DynamicResource ContentBrush2}"
+					  PlaceholderText="选择你的账户">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<Grid ColumnDefinitions="Auto, Auto">
+							<!--<Border Width="36"
+									Height="36"
+									Grid.Column="0"
+									CornerRadius="5"
+									ClipToBounds="True"
+									BorderThickness="2"
+									BorderBrush="{DynamicResource ContentBrush4}"
+									IsVisible="{Binding, Converter={x:Static ObjectConverters.IsNotNull}}">
+								<Interaction.Behaviors>
+									<wb:AccountSkinLoadBehavior Account="{Binding}" SkinArea="Head"/>
+								</Interaction.Behaviors>
+							</Border>-->
+
+							<Grid Grid.Column="1"
+								  Margin="0 0 0 0"
+								  VerticalAlignment="Center"
+								  RowDefinitions="Auto, Auto">
+								<TextBlock Grid.Row="0"
+										   Classes="BodyStrong"
+										   Text="{Binding Name}"
+										   TextTrimming="CharacterEllipsis"/>
+
+								<TextBlock Grid.Row="1"
+										   Classes="Caption"
+										   Text="{Binding Type}"
+										   Foreground="{DynamicResource DefaultBrush400}"/>
+							</Grid>
+						</Grid>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+
+			<ComboBox Classes="card"
+					  Grid.Column="2"
+					  Padding="20 12"
+					  CornerRadius="8"
+					  BorderThickness="2"
+					  VerticalAlignment="Stretch"
+					  HorizontalAlignment="Stretch"
+					  ItemsSource="{Binding Games,Mode=TwoWay}"
+					  Background="{DynamicResource ContentBrush2}"
+					  BorderBrush="{DynamicResource ContentBrush4}"
+					  PlaceholderText="选择你的游戏核心"
+					  SelectedItem="{Binding ActiveGame, Mode=TwoWay}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<Grid Grid.Column="1"
+							  Margin="0 0 0 0"
+							  VerticalAlignment="Center"
+							  RowDefinitions="Auto, Auto">
+							<TextBlock Grid.Row="0"
+									   Classes="BodyStrong"
+									   Text="{Binding Entry.Id}"
+									   TextTrimming="CharacterEllipsis"/>
+
+							<TextBlock Grid.Row="1"
+									   Classes="Caption"
+									   Text="{Binding Entry.Type}"
+									   Foreground="{DynamicResource DefaultBrush400}"/>
+						</Grid>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</Grid>
+	</Grid>
+</UserControl>

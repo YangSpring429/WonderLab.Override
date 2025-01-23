@@ -104,7 +104,7 @@ public sealed class AutoPanelViewer : ContentControl {
             _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
 
             if (_offsetX is 0) {
-                PanelState = _canOpenPanel ? AutoPanelState.Expanded : AutoPanelState.Collapsed;
+                PanelState = AutoPanelState.Expanded;
             }
 
             if (_canOpenPanel) {

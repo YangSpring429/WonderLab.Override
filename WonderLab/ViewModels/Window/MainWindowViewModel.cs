@@ -53,12 +53,9 @@ public sealed partial class MainWindowViewModel : ObservableObject {
                 return;
             }
 
-#if DEBUG
-            if (arg.PageKey.Contains("Game")) {
+            if (arg.PageKey is "GameSetting/Navigation") {
                 PanelState = AutoPanelViewer.AutoPanelState.Expanded;
-                return;
             }
-#endif
 
             AssistantPanelPageKey = arg.PageKey;
         });
@@ -100,9 +97,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
         if (e.PropertyName is nameof(PanelState) && PanelState is AutoPanelViewer.AutoPanelState.Expanded) {
             if (PageKey is "Home") {
-                AssistantPanelPageKey = "GameSetting/ChooseAccount";
-            } else {
-
+                AssistantPanelPageKey = "Dashboard/Home";
             }
         }
     }

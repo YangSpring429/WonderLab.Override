@@ -51,17 +51,21 @@ public sealed class AccountSkinLoadBehavior : Behavior<Border> {
         return skin;
     }
 
-    private async void OnLoaded(object sender, RoutedEventArgs e) {
+    private void OnLoaded(object sender, RoutedEventArgs e) {
         var border = AssociatedObject ?? throw new Exception();
         var service = App.Get<CacheService>();
+
+        if (Account is null) {
+            return;
+        }
 
         if (service.TryGetArea(Account, out var area)) {
             border.Background = area;
             return;
         }
 
-        var skin = new SkinResolver(await GetSkinAsync(Account));
-        await Dispatcher.UIThread.InvokeAsync(() => {
+        Dispatcher.UIThread.Post(async () => {
+            var skin = new SkinResolver(await GetSkinAsync(Account));
             var brush = new ImageBrush(skin.CropSkinHeadBitmap().ToBitmap())
                 .ToImmutable();
 

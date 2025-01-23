@@ -66,6 +66,9 @@ public sealed class Frame : TemplatedControl {
                 _PART_LeftContentPresenter.Content = page;
                 if (PageTransition != null) {
                     await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
+                } else {
+                    _PART_RightContentPresenter.IsVisible = false;
+                    _PART_LeftContentPresenter.IsVisible = true;
                 }
 
                 _controlType = ControlType.Control2;
@@ -73,6 +76,9 @@ public sealed class Frame : TemplatedControl {
                 _PART_RightContentPresenter.Content = page;
                 if (PageTransition != null) {
                     await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
+                } else {
+                    _PART_LeftContentPresenter.IsVisible = false;
+                    _PART_RightContentPresenter.IsVisible = true;
                 }
 
                 _controlType = ControlType.Control1;
