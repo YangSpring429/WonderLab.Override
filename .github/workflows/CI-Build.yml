@@ -154,12 +154,12 @@ jobs:
       - uses: nelonoel/branch-name@v1
   
       - name: Download Windows-x64 Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Windows_x64
   
       - name: Download Windows-arm64 Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Windows_arm64
   
