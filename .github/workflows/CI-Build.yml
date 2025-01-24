@@ -103,7 +103,7 @@ jobs:
     - name: Build
       run: pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: AppImage
         path: Deploy/OUT/*.AppImage
@@ -133,13 +133,13 @@ jobs:
           ./.build/build_osx.sh
 
       - name: Upload x64 build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OSX_x64
           path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/osx-x64/*.zip'
 
       - name: Upload arm64 build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OSX_arm64
           path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/osx-arm64/*.zip'
@@ -164,17 +164,17 @@ jobs:
           name: Windows_arm64
   
       - name: Download AppImage Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
          name: AppImage
   
       - name: Download OSX-x64 Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: OSX_x64
   
       - name: Download OSX-arm64 Build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: OSX_arm64
   
