@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.LinuxFramebuffer;
 using System;
 using System.Runtime.InteropServices;
 
@@ -17,14 +18,14 @@ public static class Program {
                 RenderingMode = RuntimeInformation.ProcessArchitecture == Architecture.Arm || RuntimeInformation.ProcessArchitecture == Architecture.Arm64
                     ? [Win32RenderingMode.Wgl]
                     : [Win32RenderingMode.AngleEgl, Win32RenderingMode.Software]!,
-            })
-            .With(new MacOSPlatformOptions {
+            }).With(new MacOSPlatformOptions {
                 DisableAvaloniaAppDelegate = true,
                 DisableDefaultApplicationMenuItems = true,
-            })
-            .With(new X11PlatformOptions {
+            }).With(new X11PlatformOptions {
                 OverlayPopups = true,
             }).With(new SkiaOptions {
                 MaxGpuResourceSizeBytes = 1073741824L
+            }).With(new LinuxFramebufferPlatformOptions() {
+                Fps = 165
             });
 }
