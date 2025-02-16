@@ -29,6 +29,7 @@
 									Width="{TemplateBinding Width}"
 									Height="{TemplateBinding Height}"
 									Background="{TemplateBinding Background}"
+									Transitions="{TemplateBinding Transitions}"
 									CornerRadius="{TemplateBinding CornerRadius}"
 									BorderBrush="{DynamicResource ContentBrush4}"
 									BorderThickness="{TemplateBinding BorderThickness}"

@@ -27,10 +27,6 @@ public sealed class TitleBarPlus : ContentControl {
         if (VisualRoot is Window window) {
             closeButton.Click += (_, _) => window.Close();
             minimizeButton.Click += (_, _) => window.WindowState = WindowState.Minimized;
-
-            dragLayoutBorder.PointerPressed += (_, args) => {
-                window.BeginMoveDrag(args);
-            };
         }
     }
 }

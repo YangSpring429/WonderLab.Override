@@ -34,14 +34,6 @@ public sealed class RollingBorder : Border {
         Clip = new RectangleGeometry(rect);
     }
 
-
-    //private void UpdateClip() {
-    //    var rate = Percent / 100;
-    //    var rect = Bounds.Inflate(50);
-    //    rect = rect.WithHeight(rect.Height * rate);
-    //    Clip = new RectangleGeometry(rect);
-    //}
-
     protected override void OnSizeChanged(SizeChangedEventArgs e) {
         base.OnSizeChanged(e);
         UpdateClip();

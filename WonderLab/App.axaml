@@ -1,7 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 x:Class="WonderLab.App"
-			 
 			 xmlns:wcc="using:WonderLab.Controls.Media.Converters"
 			 RequestedThemeVariant="Default">
 
@@ -24,6 +23,7 @@
 				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/CarouselTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ExpanderTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>

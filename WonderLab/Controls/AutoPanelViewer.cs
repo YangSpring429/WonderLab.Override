@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Media.Imaging;
 using System;
 
 namespace WonderLab.Controls;
@@ -158,10 +159,10 @@ public sealed class AutoPanelViewer : ContentControl {
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
-
+        
         if (change.Property == PanelStateProperty) {
             var (oldValue, newValue) = change.GetOldAndNewValue<AutoPanelState>();
-
+            
             switch ((oldValue, newValue)) {
                 case (AutoPanelState.Collapsed, AutoPanelState.Expanded):
                     SetPseudoclasses(_isPress, true, false, false, false, false, false);
@@ -182,32 +183,6 @@ public sealed class AutoPanelViewer : ContentControl {
                     SetPseudoclasses(_isPress, false, false, false, false, true, false);
                     break;
             }
-
-
-            //if (change.Property == IsOpenPanelProperty) {
-            //    //if (IsOpenPanel && IsHidePanel) {
-            //    //    IsHidePanel = false;
-            //    //    SetPseudoclasses(_isPress, false, false, false, false, true, false);
-            //    //    return;
-            //    //}else if (!IsOpenPanel && IsHidePanel) {
-            //    //    return;
-            //    //}
-
-            //    SetPseudoclasses(_isPress, IsOpenPanel, !IsOpenPanel, false, false, false, false);
-            //}
-
-            //if (change.Property == IsHidePanelProperty) {
-            //    //if (IsHidePanel && IsOpenPanel) {
-            //    //    SetPseudoclasses(_isPress, false, false, false, false, false, true);
-            //    //    IsOpenPanel = false;
-            //    //    return;
-            //    //}
-
-
-            //    SetPseudoclasses(_isPress, false, false, IsHidePanel, !IsHidePanel, false, false);
-            //}
-
-
         }
     }
 }
