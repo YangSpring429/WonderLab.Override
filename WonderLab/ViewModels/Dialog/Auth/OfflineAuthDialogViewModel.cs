@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
 using System.Linq;
 using WonderLab.Infrastructure.Models.Messaging;
-using WonderLab.Services.Accounts;
+using WonderLab.Services.Account;
 
 namespace WonderLab.ViewModels.Dialog.Auth;
 

@@ -1,6 +1,6 @@
 ﻿using Avalonia.Media;
-using MinecraftLaunch.Classes.Models.Auth;
-using MinecraftLaunch.Classes.Models.Install;
+using MinecraftLaunch.Base.Models.Authentication;
+using MinecraftLaunch.Base.Models.Network;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -9,10 +9,10 @@ namespace WonderLab.Services.Download;
 public sealed class CacheService {
     public List<VersionManifestEntry> MinecraftList { get; } = [];
 
-    public static Dictionary<Account, IImmutableBrush> SkinAreas { get; }
+    public static Dictionary<MinecraftLaunch.Base.Models.Authentication.Account, IImmutableBrush> SkinAreas { get; }
         = new(new AccountEqualityComparer());
 
-    public void AddSkin(Account account, IImmutableBrush area) {
+    public void AddSkin(MinecraftLaunch.Base.Models.Authentication.Account account, IImmutableBrush area) {
         if (account is null || SkinAreas.ContainsKey(account)) {
             return;
         }
@@ -20,7 +20,7 @@ public sealed class CacheService {
         SkinAreas.Add(account, area);
     }
 
-    public bool TryGetArea(Account account, out IImmutableBrush area) {
+    public bool TryGetArea(MinecraftLaunch.Base.Models.Authentication.Account account, out IImmutableBrush area) {
         if (SkinAreas.TryGetValue(account, out var area1)) {
             area = area1;
             return true;
@@ -31,14 +31,14 @@ public sealed class CacheService {
     }
 }
 
-internal sealed class AccountEqualityComparer : IEqualityComparer<Account> {
-    public bool Equals(Account account1, Account account2) {
+internal sealed class AccountEqualityComparer : IEqualityComparer<MinecraftLaunch.Base.Models.Authentication.Account> {
+    public bool Equals(MinecraftLaunch.Base.Models.Authentication.Account account1, MinecraftLaunch.Base.Models.Authentication.Account account2) {
         return account1.Type == account2.Type
             && account1.Name == account2.Name
             && account1.Uuid == account2.Uuid;
     }
 
-    public int GetHashCode([DisallowNull] Account obj) {
+    public int GetHashCode([DisallowNull] MinecraftLaunch.Base.Models.Authentication.Account obj) {
         return obj.GetHashCode();
     }
 }

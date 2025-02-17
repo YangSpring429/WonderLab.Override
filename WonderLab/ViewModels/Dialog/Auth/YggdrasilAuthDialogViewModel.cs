@@ -6,7 +6,7 @@ using DialogHostAvalonia;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Messaging;
-using WonderLab.Services.Accounts;
+using WonderLab.Services.Account;
 
 namespace WonderLab.ViewModels.Dialog.Auth;
 

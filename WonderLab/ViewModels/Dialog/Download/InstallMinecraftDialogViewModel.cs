@@ -4,14 +4,15 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
-using MinecraftLaunch.Classes.Enums;
-using MinecraftLaunch.Classes.Models.Install;
 using MinecraftLaunch.Components.Installer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
+using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Network;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services.Download;
@@ -21,7 +22,7 @@ namespace WonderLab.ViewModels.Dialog.Download;
 public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     private readonly DownloadService _downloadService;
 
-    private LoaderType _loaderType;
+    private ModLoaderType _loaderType;
 
     public string GameCoreId { get; set; }
 
@@ -91,50 +92,50 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
     [RelayCommand]
     private void SelectedModLoader(string type) {
         _loaderType = type switch {
-            "Not" => LoaderType.Any,
-            "Forge" => LoaderType.Forge,
-            "Quilt" => LoaderType.Quilt,
-            "Fabric" => LoaderType.Fabric,
-            "Neoforge" => LoaderType.Neoforge,
-            _ => LoaderType.Any,
+            "Not" => ModLoaderType.Any,
+            "Forge" => ModLoaderType.Forge,
+            "Quilt" => ModLoaderType.Quilt,
+            "Fabric" => ModLoaderType.Fabric,
+            "Neoforge" => ModLoaderType.NeoForge,
+            _ => ModLoaderType.Any,
         };
     }
 
     private Task LoadModLoaders() {
         var tasks = new List<Task>() {
-            Task.Run(() => LoadModLoader(LoaderType.Quilt)),
-            Task.Run(() => LoadModLoader(LoaderType.Forge)),
-            Task.Run(() => LoadModLoader(LoaderType.Fabric)),
-            Task.Run(() => LoadModLoader(LoaderType.Neoforge)),
-            Task.Run(() => LoadModLoader(LoaderType.OptiFine)),
+            Task.Run(() => LoadModLoader(ModLoaderType.Quilt)),
+            Task.Run(() => LoadModLoader(ModLoaderType.Forge)),
+            Task.Run(() => LoadModLoader(ModLoaderType.Fabric)),
+            Task.Run(() => LoadModLoader(ModLoaderType.NeoForge)),
+            Task.Run(() => LoadModLoader(ModLoaderType.OptiFine)),
         };
 
         return Task.WhenAll(tasks);
 
-        async void LoadModLoader(LoaderType type) {
+        async void LoadModLoader(ModLoaderType type) {
             IEnumerable<object> loaders = type switch {
-                LoaderType.Forge => await ForgeInstaller.EnumerableFromVersionAsync(GameCoreId),
-                LoaderType.Quilt => await QuiltInstaller.EnumerableFromVersionAsync(GameCoreId),
-                LoaderType.Fabric => await FabricInstaller.EnumerableFromVersionAsync(GameCoreId),
-                LoaderType.OptiFine => await OptifineInstaller.EnumerableFromVersionAsync(GameCoreId),
+                ModLoaderType.Forge => await ForgeInstaller.EnumerableForgeAsync(GameCoreId).ToListAsync(),
+                ModLoaderType.Quilt => await QuiltInstaller.EnumerableQuiltAsync(GameCoreId).ToListAsync(),
+                ModLoaderType.Fabric => await FabricInstaller.EnumerableFabricAsync(GameCoreId).ToListAsync(),
+                ModLoaderType.OptiFine => await OptifineInstaller.EnumerableOptifineAsync(GameCoreId).ToListAsync(),
                 _ => null
             };
 
             Dispatcher.UIThread.Post(() => {
                 switch (type) {
-                    case LoaderType.Forge:
+                    case ModLoaderType.Forge:
                         Forges = loaders.ToObservableList();
                         break;
-                    case LoaderType.Quilt:
+                    case ModLoaderType.Quilt:
                         Quilts = loaders.ToObservableList();
                         break;
-                    case LoaderType.Fabric:
+                    case ModLoaderType.Fabric:
                         Fabrics = loaders.ToObservableList();
                         break;
-                    case LoaderType.OptiFine:
+                    case ModLoaderType.OptiFine:
                         Optifines = loaders.ToObservableList();
                         break;
-                    case LoaderType.Neoforge:
+                    case ModLoaderType.NeoForge:
                         //Forges = loaders.ToObservableList();
                         break;
                 }
@@ -149,9 +150,9 @@ public sealed partial class InstallMinecraftDialogViewModel : ObservableObject {
             var loader = CurrentModLoader;
 
             string loaderInfo = _loaderType switch {
-                LoaderType.Forge => $"{((ForgeInstallEntry)loader).ForgeVersion}{(string.IsNullOrEmpty(((ForgeInstallEntry)loader).Branch) ? string.Empty : $"-{((ForgeInstallEntry)loader).Branch}")}",
-                LoaderType.Quilt => ((QuiltBuildEntry)loader).Loader.Version,
-                LoaderType.Fabric => ((FabricBuildEntry)loader).Loader.Version,
+                ModLoaderType.Forge => $"{((ForgeInstallEntry)loader).ForgeVersion}{(string.IsNullOrEmpty(((ForgeInstallEntry)loader).Branch) ? string.Empty : $"-{((ForgeInstallEntry)loader).Branch}")}",
+                ModLoaderType.Quilt => ((QuiltInstallEntry)loader).Loader.Version,
+                ModLoaderType.Fabric => ((FabricInstallEntry)loader).Loader.Version,
                 _ => throw new NotSupportedException()
             };
 

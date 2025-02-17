@@ -380,11 +380,6 @@
 										<ItemsPresenter Name="PART_ItemsPresenter"
 														ItemsPanel="{TemplateBinding ItemsPanel}"
 														Margin="{DynamicResource ComboBoxDropdownContentMargin}">
-											<ItemsPresenter.ItemsPanel>
-												<ItemsPanelTemplate>
-													<VirtualizingStackPanel/>
-												</ItemsPanelTemplate>
-											</ItemsPresenter.ItemsPanel>
 										</ItemsPresenter>
 									</ScrollViewer>
 								</Border>

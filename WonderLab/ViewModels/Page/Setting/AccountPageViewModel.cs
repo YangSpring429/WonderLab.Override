@@ -2,11 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
-using MinecraftLaunch.Classes.Models.Auth;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using WonderLab.Services.Accounts;
+using MinecraftLaunch.Base.Models.Authentication;
+using WonderLab.Services.Account;
 using WonderLab.ViewModels.Dialog;
 
 namespace WonderLab.ViewModels.Page.Setting;

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
-using MinecraftLaunch.Classes.Models.Install;
 using MinecraftLaunch.Components.Installer;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
@@ -10,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MinecraftLaunch.Base.Models.Network;
 using WonderLab.Extensions;
 using WonderLab.Infrastructure.Enums;
 using WonderLab.Services.Download;
@@ -44,7 +44,9 @@ public sealed partial class MinecraftListPageViewModel : ObservableObject {
             return;
         }
 
-        var result = await VanillaInstaller.EnumerableGameCoreAsync(_cancellationTokenSource.Token);
+        var result = await VanillaInstaller.EnumerableMinecraftAsync(_cancellationTokenSource.Token)
+            .ToListAsync(_cancellationTokenSource.Token);
+        
         _cacheService.MinecraftList.AddRange(result.ToImmutableList());
         MinecraftList = new(_allMinecraftList);
         ActiveVersion = VersionType.Release;

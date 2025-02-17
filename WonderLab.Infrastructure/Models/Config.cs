@@ -1,6 +1,5 @@
-﻿using MinecraftLaunch.Classes.Models.Game;
-using System.Text.Json.Serialization;
-using MinecraftLaunch.Classes.Models.Auth;
+﻿using MinecraftLaunch.Base.Models.Authentication;
+using MinecraftLaunch.Base.Models.Game;
 using WonderLab.Infrastructure.Enums;
 
 namespace WonderLab.Infrastructure.Models;
@@ -14,7 +13,7 @@ public record Config {
 
     public int MaxMemory { get; set; }
     public int ThreadCount { get; set; }
-    
+
     public bool IsDebugMode { get; set; }
     public bool IsFullScreen { get; set; }
     public bool IsAutoSelectJava { get; set; }

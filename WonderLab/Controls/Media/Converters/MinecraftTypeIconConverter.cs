@@ -1,5 +1,6 @@
 ﻿using Avalonia.Data.Converters;
-using MinecraftLaunch.Classes.Models.Install;
+using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Network;
 using System;
 using System.Globalization;
 using WonderLab.Infrastructure.Models.Launch;
@@ -11,11 +12,11 @@ public sealed class MinecraftTypeIconConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
         if (value is GameModel) {
             var model = value as GameModel;
-            return model.Entry.IsVanilla ? model.Entry.Type switch {
-                "old_beta" => ThemeService.OldMinecraftIcon.Value,
-                "old_alpha" => ThemeService.OldMinecraftIcon.Value,
-                "release" => ThemeService.ReleaseMinecraftIcon.Value,
-                "snapshot" => ThemeService.SnapshotMinecraftIcon.Value,
+            return model.Entry.IsVanilla ? model.Entry.Version.Type switch {
+                MinecraftVersionType.OldBeta => ThemeService.OldMinecraftIcon.Value,
+                MinecraftVersionType.OldAlpha => ThemeService.OldMinecraftIcon.Value,
+                MinecraftVersionType.Release => ThemeService.ReleaseMinecraftIcon.Value,
+                MinecraftVersionType.Snapshot => ThemeService.SnapshotMinecraftIcon.Value,
                 _ => null
             } : ThemeService.LoaderMinecraftIcon.Value;
         }

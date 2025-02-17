@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bless.Monet", "refs\Monet\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftLaunch", "refs\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj", "{BF54650F-D1A4-4791-A3FB-13D1A8D3BC2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftLaunch.Base", "refs\MinecraftLaunch\MinecraftLaunch.Base\MinecraftLaunch.Base.csproj", "{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{BF54650F-D1A4-4791-A3FB-13D1A8D3BC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF54650F-D1A4-4791-A3FB-13D1A8D3BC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF54650F-D1A4-4791-A3FB-13D1A8D3BC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4A7E8989-B5F9-43DB-ACD9-CF0D6A66933B} = {112FC393-5D77-4A54-9A41-ACFB0F965A10}
 		{BF54650F-D1A4-4791-A3FB-13D1A8D3BC2E} = {112FC393-5D77-4A54-9A41-ACFB0F965A10}
+		{A56AF467-5D9E-4446-83F0-6BF32ABEF4A2} = {112FC393-5D77-4A54-9A41-ACFB0F965A10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C808D3E-F7AB-41DF-B008-C4C9026BCDCE}

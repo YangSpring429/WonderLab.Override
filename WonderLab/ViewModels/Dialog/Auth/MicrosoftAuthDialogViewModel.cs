@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Messaging;
-using WonderLab.Services.Accounts;
+using WonderLab.Services.Account;
 
 namespace WonderLab.ViewModels.Dialog.Auth;
 
@@ -37,7 +37,7 @@ public sealed partial class MicrosoftAuthDialogViewModel : ObservableObject {
         var account = await _accountService.CreateMicrosoftAccount(x => {
             UserCode = x.UserCode;
             VerificationUrl = x.VerificationUrl;
-        }, _cancellationTokenSource);
+        }, _cancellationTokenSource.Token);
 
         Close();
         WeakReferenceMessenger.Default.Send(new NotificationMessage($"已将微软账户\"{account.Name}\"添加至 WonderLab！", NotificationType.Warning));

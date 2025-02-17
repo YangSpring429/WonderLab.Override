@@ -1,12 +1,12 @@
-﻿using MinecraftLaunch.Classes.Models.Game;
+﻿using MinecraftLaunch.Base.Models.Game;
 
 namespace WonderLab.Infrastructure.Models.Launch;
 
 public record GameModel {
-    public GameEntry Entry { get; }
+    public MinecraftEntry Entry { get; }
     public GameJsonModel Model { set; get; }
 
-    public GameModel(GameEntry entry, GameJsonModel model) {
+    public GameModel(MinecraftEntry entry, GameJsonModel model) {
         Entry = entry;
         Model = model;
     }

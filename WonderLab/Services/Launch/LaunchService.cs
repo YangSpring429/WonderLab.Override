@@ -1,11 +1,6 @@
 ﻿using Avalonia.Threading;
-using MinecraftLaunch.Classes.Enums;
-using MinecraftLaunch.Classes.Models.Download;
-using MinecraftLaunch.Classes.Models.Launch;
 using MinecraftLaunch.Components.Authenticator;
-using MinecraftLaunch.Components.Checker;
 using MinecraftLaunch.Components.Downloader;
-using MinecraftLaunch.Components.Launcher;
 using MinecraftLaunch.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -14,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
-using WonderLab.Services.Accounts;
+using WonderLab.Services.Account;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Tasks;
 
@@ -54,7 +49,7 @@ public sealed class LaunchService {
     }
 
     private async Task LaunchAsync(
-        MinecraftLaunch.Classes.Models.Auth.Account account,
+        MinecraftLaunch.Base.Models.Authentication.Account account,
         IProgress<TaskProgress> progress,
         CancellationToken cancellationToken) {
         double progressCache = 0d;
@@ -91,19 +86,19 @@ public sealed class LaunchService {
             //Complete
             progress.Report(new(3, 0d));
 
-            var checker = new ResourceChecker(_gameService.ActiveGame.Entry);
-            var canComplete = await checker.CheckAsync();
-            if (!canComplete) {
-                dispatcherTimer.Start();
-                await checker.MissingResources.DownloadResourceEntrysAsync(new DownloaderConfiguration {
-                    IsEnableFragmentedDownload = true,
-                    MaxThread = 256,
-                }, e => {
-                    speed = e.Speed;
-                    progressCache = (double)e.CompletedCount / (double)checker.MissingResources.Count;
-                }, cancellationToken);
-                dispatcherTimer.Stop();
-            }
+            // var checker = new ResourceChecker(_gameService.ActiveGame.Entry);
+            // var canComplete = await checker.CheckAsync();
+            // if (!canComplete) {
+            //     dispatcherTimer.Start();
+            //     await checker.MissingResources.DownloadResourceEntrysAsync(new DownloaderConfiguration {
+            //         IsEnableFragmentedDownload = true,
+            //         MaxThread = 256,
+            //     }, e => {
+            //         speed = e.Speed;
+            //         progressCache = (double)e.CompletedCount / (double)checker.MissingResources.Count;
+            //     }, cancellationToken);
+            //     dispatcherTimer.Stop();
+            // }
 
 
             progress.Report(new(3, 1d));
@@ -112,26 +107,26 @@ public sealed class LaunchService {
             //Launch
             progress.Report(new(4, 0d));
 
-            Launcher launcher = new(_gameService.GameResolver, new() {
-                JvmConfig = new JvmConfig(javaPath.JavaPath) {
-                    MaxMemory = config.MaxMemory,
-                },
-                Account = account ?? new OfflineAuthenticator("Steve").Authenticate(),
-                IsEnableIndependencyCore = config.IsGameIndependent,
-                LauncherName = "WonderLab"
-            });
-
-            var gameProcessWatcher = await launcher.LaunchAsync(_gameService.ActiveGame.Entry.Id);
-            var gameProcess = new GameProcess {
-                Game = _gameService.ActiveGame,
-                ProcessWatcher = gameProcessWatcher,
-            };
-
-            gameProcess.ProcessWatcher.Exited += (_, _) => {
-                GameProcesses.Remove(gameProcess);
-            };
-
-            GameProcesses.Add(gameProcess);
+            // Launcher launcher = new(_gameService.GameResolver, new() {
+            //     JvmConfig = new JvmConfig(javaPath.JavaPath) {
+            //         MaxMemory = config.MaxMemory,
+            //     },
+            //     Account = account ?? new OfflineAuthenticator("Steve").Authenticate(),
+            //     IsEnableIndependencyCore = config.IsGameIndependent,
+            //     LauncherName = "WonderLab"
+            // });
+            //
+            // var gameProcessWatcher = await launcher.LaunchAsync(_gameService.ActiveGame.Entry.Id);
+            // var gameProcess = new GameProcess {
+            //     Game = _gameService.ActiveGame,
+            //     ProcessWatcher = gameProcessWatcher,
+            // };
+            //
+            // gameProcess.ProcessWatcher.Exited += (_, _) => {
+            //     GameProcesses.Remove(gameProcess);
+            // };
+            //
+            // GameProcesses.Add(gameProcess);
 
             progress.Report(new(4, 1d));
         } catch (Exception ex) {

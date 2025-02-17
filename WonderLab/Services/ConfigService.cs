@@ -22,8 +22,8 @@ public sealed class ConfigService {
         _logger.LogInformation("Loading config json");
 
         try {
-            string json = File.ReadAllText(CONFIG_FILENAME);
-            Entries = json.AsJsonEntry<Config>();
+            var json = File.ReadAllText(CONFIG_FILENAME);
+            Entries = JsonSerializer.Deserialize<Config>(json);
         } catch (Exception ex) {
             _logger.LogError("Failed to load config json.\n{Trace}", ex.ToString());
 
@@ -47,7 +47,7 @@ public sealed class ConfigService {
         _logger.LogInformation("Saving config json");
 
         try {
-            string json = Entries.AsJson();
+            var json = JsonSerializer.Serialize(Entries);
             File.WriteAllText(CONFIG_FILENAME, json);
         } catch (Exception ex) {
             _logger.LogError("Failed to save config json.\n{Trace}", ex.ToString());

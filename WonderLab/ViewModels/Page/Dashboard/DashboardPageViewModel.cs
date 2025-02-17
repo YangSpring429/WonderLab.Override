@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using MinecraftLaunch.Classes.Models.Auth;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using MinecraftLaunch.Base.Models.Authentication;
 using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Infrastructure.Models.Messaging;
 using WonderLab.Services;
-using WonderLab.Services.Accounts;
+using WonderLab.Services.Account;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Page.Dashboard;

@@ -1,10 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using MinecraftLaunch.Classes.Interfaces;
-using MinecraftLaunch.Classes.Models.Game;
-using MinecraftLaunch.Components.Checker;
-using MinecraftLaunch.Components.Resolver;
 using MinecraftLaunch.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MinecraftLaunch.Base.Models.Game;
+using MinecraftLaunch.Components.Parser;
 using WonderLab.Infrastructure.Models.Launch;
 
 namespace WonderLab.Services.Launch;
@@ -25,7 +23,7 @@ public sealed class GameService {
     public event EventHandler ActiveGameChanged;
 
     public GameModel ActiveGame { get; private set; }
-    public IGameResolver GameResolver { get; private set; }
+    public MinecraftParser MinecraftParser { get; private set; }
     public ReadOnlyObservableCollection<GameModel> Games { get; }
 
 
@@ -50,39 +48,20 @@ public sealed class GameService {
             return;
         }
         
-        GameResolver = new GameResolver(_configService?.Entries?.ActiveMinecraftFolder);
-        var games = GameResolver.GetGameEntitys();
-        var root = Path.Combine(GameResolver.Root.FullName, "gamedata.json");
+        MinecraftParser = _configService?.Entries?.ActiveMinecraftFolder;
+        var games = MinecraftParser.GetMinecrafts();
+        var root = Path.Combine(MinecraftParser.Root.FullName, "gamedata.json");
 
         if (!File.Exists(root)) {
-            File.WriteAllText(root, games.Select(x => new GameJsonModel() {
-                IsCollection = false,
-                Id = x.Id,
-                MinecraftFolder = x.GameFolderPath
-            }).AsJson());
+            // File.WriteAllText(root, games.Select(x => new GameJsonModel() {
+            //     IsCollection = false,
+            //     Id = x.Id,
+            //     MinecraftFolder = x.MinecraftFolderPath
+            // }).());
         }
 
-        var jsonModels = File.ReadAllText(root).AsJsonEntry<List<GameJsonModel>>();
-        var models = games.Select(x => ParseGameModel(x, jsonModels)).ToList();
-
-        if (!models.Any()) {
-            return;
-        }
-
-        foreach (var game in models) {
-            _gameEntries.Add(game);
-        }
-
-        if (!string.IsNullOrEmpty(_configService?.Entries?.ActiveGameId)) {
-            var game = GameResolver.GetGameEntity(_configService.Entries.ActiveGameId);
-            if (game != null) {
-                ActivateGame(ParseGameModel(game, jsonModels));
-            } else {
-                Empty();
-            }
-        } else {
-            Empty();
-        }
+       // var jsonModels = File.ReadAllText(root).AsJsonEntry<List<GameJsonModel>>();
+        //var models = games.Select(x => ParseGameModel(x, jsonModels)).ToList();
 
         if (_gameEntries.Any() && ActiveGame == null) {
             ActivateGame(_gameEntries.First());
@@ -108,14 +87,14 @@ public sealed class GameService {
 
     public void Save() {
         var root = Path.Combine(_configService?.Entries?.ActiveMinecraftFolder, "gamedata.json");
-        File.WriteAllText(root, Games.Select(x => x.Model).AsJson());
+        //File.WriteAllText(root, Games.Select(x => x.Model).AsJson());
     }
 
-    private GameModel ParseGameModel(GameEntry entry, List<GameJsonModel> gameJsonModels) {
+    private GameModel ParseGameModel(MinecraftEntry entry, List<GameJsonModel> gameJsonModels) {
         var model = gameJsonModels?.FirstOrDefault(x => x.Id == entry.Id) ?? new GameJsonModel() {
             Id = entry.Id,
             IsCollection = false,
-            MinecraftFolder = entry.GameFolderPath
+            MinecraftFolder = entry.MinecraftFolderPath
         };
 
         return new GameModel(entry, model);

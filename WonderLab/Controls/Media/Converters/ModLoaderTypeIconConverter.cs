@@ -1,5 +1,5 @@
 ﻿using Avalonia.Data.Converters;
-using MinecraftLaunch.Classes.Models.Install;
+using MinecraftLaunch.Base.Models.Network;
 using System;
 using System.Globalization;
 using WonderLab.Services.UI;
@@ -11,9 +11,9 @@ public sealed class ModLoaderTypeIconConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
         if (value is ForgeInstallEntry) {
             return ThemeService.LoaderForgeIcon.Value;
-        } else if (value is FabricBuildEntry) {
+        } else if (value is FabricInstallEntry) {
             return ThemeService.LoaderFabricIcon.Value;
-        } else if (value is QuiltBuildEntry) {
+        } else if (value is QuiltInstallEntry) {
             return ThemeService.LoaderQuiltIcon.Value;
         }
 

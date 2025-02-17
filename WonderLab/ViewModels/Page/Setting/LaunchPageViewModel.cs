@@ -2,14 +2,13 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MinecraftLaunch.Classes.Models.Game;
-using MinecraftLaunch.Components.Fetcher;
 using MinecraftLaunch.Utilities;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Threading;
+using MinecraftLaunch.Base.Models.Game;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
@@ -20,7 +19,6 @@ namespace WonderLab.ViewModels.Page.Setting;
 public sealed partial class LaunchPageViewModel : ObservableObject {
     private readonly GameService _gameService;
     private readonly ConfigService _configService;
-    private readonly JavaFetcher _javaFetcher = new();
 
     private ObservableCollection<JavaEntry> _javaEntrys;
     private ObservableCollection<string> _minecraftFolders;
@@ -69,8 +67,9 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task SearchJava() => Task.Run(async () => {
-        var result = await _javaFetcher.FetchAsync();
+    private Task SearchJava() => Task.Run(async () =>
+    {
+        var result = await JavaUtil.EnumerableJavaAsync().ToListAsync();
         var javas = _javaEntrys.Union(result);
 
         _javaEntrys.Clear();
@@ -93,7 +92,7 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
                 return;
             }
 
-            _javaEntrys.Add(JavaUtil.GetJavaInfo(result[0].Path.LocalPath));
+            _javaEntrys.Add(await JavaUtil.GetJavaInfoAsync(result[0].Path.LocalPath));
             Config.ActiveJava = ActiveJava = _javaEntrys.Last();
 
             Config.Javas.Add(ActiveJava);

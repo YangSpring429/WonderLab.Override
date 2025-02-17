@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using MinecraftLaunch.Classes.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -89,7 +88,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private void KillGameProcess(GameProcess gameProcess) {
-        gameProcess.ProcessWatcher.Process.Kill();
+        //gameProcess.ProcessWatcher.Process.Kill();
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {

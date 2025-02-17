@@ -1,25 +1,25 @@
-﻿using MinecraftLaunch.Classes.Models.Auth;
-using MinecraftLaunch.Components.Authenticator;
+﻿using MinecraftLaunch.Components.Authenticator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MinecraftLaunch.Base.Models.Authentication;
 
-namespace WonderLab.Services.Accounts;
+namespace WonderLab.Services.Account;
 
 public sealed class AccountService {
-    private const string CLIENT_ID = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
+    public const string CLIENT_ID = "9fd44410-8ed7-4eb3-a160-9f1cc62c824c";
 
     private readonly ConfigService _configService;
     private readonly MicrosoftAuthenticator _microsoftAuthenticator;
 
-    private ObservableCollection<Account> _accounts;
+    private ObservableCollection<MinecraftLaunch.Base.Models.Authentication.Account> _accounts;
 
     public event EventHandler CollectionChanged;
 
-    public ReadOnlyObservableCollection<Account> Accounts { get; set; }
+    public ReadOnlyObservableCollection<MinecraftLaunch.Base.Models.Authentication.Account> Accounts { get; set; }
 
     public AccountService(ConfigService configService) {
         _configService = configService;
@@ -32,8 +32,8 @@ public sealed class AccountService {
     }
 
     public OfflineAccount CreateOfflineAccount(string name) {
-        var account = new OfflineAuthenticator(name)
-            .Authenticate();
+        var account = new OfflineAuthenticator()
+            .Authenticate(name);
 
         _accounts.Add(account);
         _configService.Entries.Accounts.Add(account);
@@ -42,9 +42,11 @@ public sealed class AccountService {
         return account;
     }
 
-    public async ValueTask<IEnumerable<YggdrasilAccount>> CreateYggdrasilAccounts(string email, string password, string url = "https://littleskin.cn/api/yggdrasil") {
-        var accounts = (await new YggdrasilAuthenticator(url, email, password)
-            .AuthenticateAsync()).ToList();
+    public async ValueTask<IEnumerable<YggdrasilAccount>> CreateYggdrasilAccounts(string email, string password, string url = "https://littleskin.cn/api/yggdrasil")
+    {
+        var accounts = await new YggdrasilAuthenticator(url, email, password)
+            .AuthenticateAsync()
+            .ToListAsync();
 
         accounts.ForEach(_accounts.Add);
         _configService.Entries.Accounts.AddRange(accounts);
@@ -53,11 +55,11 @@ public sealed class AccountService {
         return accounts;
     }
 
-    public async Task<MicrosoftAccount> CreateMicrosoftAccount(Action<DeviceCodeResponse> action, CancellationTokenSource cancellationTokenSource) {
+    public async Task<MicrosoftAccount> CreateMicrosoftAccount(Action<DeviceCodeResponse> action, CancellationToken cancellationToken) {
         var resultOAuth2 = await _microsoftAuthenticator
-            .DeviceFlowAuthAsync(action, cancellationTokenSource);
+            .DeviceFlowAuthAsync(action, cancellationToken);
 
-        var account = await _microsoftAuthenticator.AuthenticateAsync();
+        var account = await _microsoftAuthenticator.AuthenticateAsync(resultOAuth2, cancellationToken);
 
         _accounts.Add(account);
         _configService.Entries.Accounts.Add(account);

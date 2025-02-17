@@ -1,7 +1,7 @@
 ﻿using Avalonia.Data.Converters;
-using MinecraftLaunch.Classes.Models.Install;
 using System;
 using System.Globalization;
+using MinecraftLaunch.Base.Models.Network;
 
 namespace WonderLab.Controls.Media.Converters;
 
@@ -9,9 +9,9 @@ public sealed class ModLoaderTypeTextConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
         if (value is ForgeInstallEntry forgeInstallEntry) {
             return $"{forgeInstallEntry.ForgeVersion}{(string.IsNullOrEmpty(forgeInstallEntry.Branch) ? string.Empty : $"-{forgeInstallEntry.Branch}")}";
-        } else if (value is FabricBuildEntry fabricBuildEntry) {
+        } else if (value is FabricInstallEntry fabricBuildEntry) {
             return fabricBuildEntry.Loader.Version;
-        } else if (value is QuiltBuildEntry quiltBuildEntry) {
+        } else if (value is QuiltInstallEntry quiltBuildEntry) {
             return quiltBuildEntry.Loader.Version;
         }
 

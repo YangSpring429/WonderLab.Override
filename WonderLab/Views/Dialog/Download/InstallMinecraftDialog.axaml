@@ -86,7 +86,7 @@
 				<DataTemplate>
 					<TextBlock Classes="Body"
 							   TextTrimming="CharacterEllipsis"
-							   Text="{Binding, Converter={StaticResource ModLoaderTypeTextConverter}}"/>
+							   Text="{Binding $self, Converter={StaticResource ModLoaderTypeTextConverter}}"/>
 					<!--<Grid MinWidth="180"
 						  ColumnDefinitions="Auto, Auto">
 						<Border Width="35"
