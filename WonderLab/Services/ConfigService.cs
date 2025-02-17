@@ -23,18 +23,20 @@ public sealed class ConfigService {
 
         try {
             var json = File.ReadAllText(CONFIG_FILENAME);
-            Entries = JsonSerializer.Deserialize<Config>(json);
+            Entries = json.Deserialize(ConfigContext.Default.Config);
         } catch (Exception ex) {
             _logger.LogError("Failed to load config json.\n{Trace}", ex.ToString());
 
+            Save();
             Entries = new Config();
         }
 
+        _logger.LogInformation("Check if the data is available");
         if (Entries.MaxMemory == 0) {
             Entries.MaxMemory = 1024;
         }
 
-        if (string.IsNullOrEmpty(Entries.ActiveLanguage)) {
+        if (string.IsNullOrWhiteSpace(Entries.ActiveLanguage)) {
             Entries.ActiveLanguage = "zh-Hans";
         }
 
@@ -47,7 +49,7 @@ public sealed class ConfigService {
         _logger.LogInformation("Saving config json");
 
         try {
-            var json = JsonSerializer.Serialize(Entries);
+            var json = Entries.Serialize(ConfigContext.Default.Config);
             File.WriteAllText(CONFIG_FILENAME, json);
         } catch (Exception ex) {
             _logger.LogError("Failed to save config json.\n{Trace}", ex.ToString());

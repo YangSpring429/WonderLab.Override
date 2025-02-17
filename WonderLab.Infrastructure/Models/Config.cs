@@ -1,5 +1,6 @@
 ﻿using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Base.Models.Game;
+using System.Text.Json.Serialization;
 using WonderLab.Infrastructure.Enums;
 
 namespace WonderLab.Infrastructure.Models;
@@ -30,3 +31,6 @@ public record Config {
     public List<Account> Accounts { get; set; }
     public List<string> MinecraftFolders { get; set; }
 }
+
+[JsonSerializable(typeof(Config))]
+public sealed partial class ConfigContext : JsonSerializerContext;

@@ -67,7 +67,7 @@
 										BorderThickness="2"
 										BorderBrush="{DynamicResource ContentBrush4}">
 									<Border.Background>
-										<ImageBrush Source="{Binding$parent[Button].DataContext, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+										<ImageBrush Source="{Binding $parent[Button].DataContext, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 									</Border.Background>
 								</Border>
 

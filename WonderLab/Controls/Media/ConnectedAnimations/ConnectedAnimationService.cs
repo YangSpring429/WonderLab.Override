@@ -19,7 +19,7 @@ public class ConnectedAnimationService {
 
     internal ConnectedAnimationService(TopLevel topLevel) {
         _topLevel = new WeakReference<TopLevel>(topLevel);
-        _animations = new Dictionary<string, ConnectedAnimation>();
+        _animations = [];
         DefaultDuration = TimeSpan.FromMilliseconds(300);
         DefaultEasingFunction = new SplineEasing(0.8, 0, 0.2, 1);
     }
@@ -52,10 +52,8 @@ public class ConnectedAnimationService {
 
         // If the specified key already exists, just replace the ConnectedAnimation as its
         // likely the animation never got called for some reason and is now invalid. 
-        if (_animations.ContainsKey(key)) {
+        if (!_animations.TryAdd(key, animation)) {
             _animations[key] = animation;
-        } else {
-            _animations.Add(key, animation);
         }
 
         return animation;

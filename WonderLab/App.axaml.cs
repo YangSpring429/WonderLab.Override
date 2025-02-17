@@ -38,7 +38,7 @@ public sealed class App : Application {
 
     private static IServiceProvider ServiceProvider { get; set; }
 
-    public static TKey Get<TKey>() {
+    public static TKey Get<TKey>() where TKey : class {
         return ServiceProvider.GetRequiredService<TKey>();
     }
 
@@ -70,12 +70,13 @@ public sealed class App : Application {
 
     private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
         var logger = ServiceProvider.GetRequiredService<ILogger<Application>>();
-        logger.LogError((e.ExceptionObject as Exception).Message);
+        if (e.ExceptionObject is Exception ex) {
+            logger.LogError(ex, "Unhandled exception occurred: {Message}", ex.Message);
+        }
     }
 
     private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
-        var configService = Get<ConfigService>();
-        configService.Save();
+        Get<ConfigService>().Save();
 
         var logger = Get<ILogger<Application>>();
         logger.LogInformation("Exiting, exitcode is {exitCode}", e.ApplicationExitCode);

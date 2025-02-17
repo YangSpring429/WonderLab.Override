@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Base.Models.Network;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

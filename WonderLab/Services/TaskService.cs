@@ -16,7 +16,6 @@ public sealed class TaskService {
     public TaskService(ILogger<TaskService> logger) {
         _tasks = [];
         _logger = logger;
-
         Tasks = new(_tasks);
     }
 
@@ -27,7 +26,7 @@ public sealed class TaskService {
 
         await Dispatcher.UIThread.InvokeAsync(() => {
             _tasks.Add(new(job));
-            _logger.LogDebug("The job name is {}", job.JobName);
+            _logger.LogInformation("The job name is {jobName}", job.JobName);
         }, DispatcherPriority.Background);
     });
 }
