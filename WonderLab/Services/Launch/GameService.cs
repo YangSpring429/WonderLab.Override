@@ -1,125 +1,102 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Collections;
 using Microsoft.Extensions.Logging;
-using MinecraftLaunch.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Parser;
-using WonderLab.Infrastructure.Models.Launch;
+using System;
 
 namespace WonderLab.Services.Launch;
 
 public sealed class GameService {
-    private readonly ConfigService _configService;
     private readonly ILogger<GameService> _logger;
-    private readonly ObservableCollection<GameModel> _gameEntries = new();
+    private readonly ConfigService _configService;
+    private readonly ObservableGroupedCollection<MinecraftEntry, GameProfileEntry> _minecrafts;
 
-    public event EventHandler CollectionChanged;
+    public MinecraftParser MinecraftParser;
+    public ObservableGroup<MinecraftEntry, GameProfileEntry> ActiveGame { get; private set; }
+    public ReadOnlyObservableGroupedCollection<MinecraftEntry, GameProfileEntry> Minecrafts { get; }
+
     public event EventHandler ActiveGameChanged;
 
-    public GameModel ActiveGame { get; private set; }
-    public MinecraftParser MinecraftParser { get; private set; }
-    public ReadOnlyObservableCollection<GameModel> Games { get; }
-
-
-    public GameService(ConfigService configService, ILogger<GameService> logger) {
+    public GameService(ILogger<GameService> logger, ConfigService configService) {
         _logger = logger;
         _configService = configService;
-        Games = new ReadOnlyObservableCollection<GameModel>(_gameEntries);
 
-        if (!string.IsNullOrEmpty(_configService?.Entries?.ActiveMinecraftFolder)) {
-            _ = Task.Run(Initialize);
-        }
-    }
+        //if (string.IsNullOrWhiteSpace(_configService.Entries.ActiveMinecraftFolder) ||
+        //    !_configService.Entries.MinecraftFolders
+        //        .Contains(_configService.Entries.ActiveMinecraftFolder)) {
+        //    MinecraftParser = _configService.Entries.ActiveMinecraftFolder;
+        //}
 
-    public void Initialize() {
-        _logger.LogInformation("Initializing game service.");
-        RefreshGames();
+        _minecrafts = [];
+        //MinecraftParser ??= @".minecraft";
+        //foreach (var minecraft in MinecraftParser.GetMinecrafts()) {
+        //    if (MinecraftParser.LauncherProfileParser.Profiles.TryGetValue(minecraft.Id, out var profile))
+        //        _minecrafts.AddItem(minecraft, profile);
+        //}
+
+        Minecrafts = new(_minecrafts);
     }
 
     public void RefreshGames() {
-        _gameEntries.Clear();
-        if (string.IsNullOrEmpty(_configService?.Entries?.ActiveMinecraftFolder)) {
+        _minecrafts.Clear();
+
+        if (MinecraftParser is null)
+            throw new InvalidOperationException("The minecraft parser is not initialized.");
+
+        foreach (var minecraft in MinecraftParser.GetMinecrafts())
+            if (MinecraftParser.LauncherProfileParser.Profiles.TryGetValue(minecraft.Id, out var profile))
+                _minecrafts.AddItem(minecraft, profile);
+
+        if (_minecrafts.Count == 0)
             return;
-        }
-        
-        MinecraftParser = _configService?.Entries?.ActiveMinecraftFolder;
-        var games = MinecraftParser.GetMinecrafts();
-        var root = Path.Combine(MinecraftParser.Root.FullName, "gamedata.json");
 
-        if (!File.Exists(root)) {
-            // File.WriteAllText(root, games.Select(x => new GameJsonModel() {
-            //     IsCollection = false,
-            //     Id = x.Id,
-            //     MinecraftFolder = x.MinecraftFolderPath
-            // }).());
-        }
-
-       // var jsonModels = File.ReadAllText(root).AsJsonEntry<List<GameJsonModel>>();
-        //var models = games.Select(x => ParseGameModel(x, jsonModels)).ToList();
-
-        if (_gameEntries.Any() && ActiveGame == null) {
-            ActivateGame(_gameEntries.First());
-        }
-
-        Save();
-        CollectionChanged?.Invoke(this, EventArgs.Empty);
+        ActivateMinecraft(_minecrafts[0].Key);
     }
 
-    private void Empty() {
-        ActiveGame = null!;
-        _configService.Entries.ActiveGameId = null!;
+    public void ActivateMinecraftFolder(string dir) {
+        if (!_configService.Entries.MinecraftFolders.Contains(dir))
+            throw new ArgumentException("The specified minecraft folder does not exist.");
+
+        MinecraftParser = _configService.Entries.ActiveMinecraftFolder = dir;
+        RefreshGames();
     }
 
-    public void ActivateGame(GameModel gameModel) {
-        if (ActiveGame == null || !ActiveGame.Equals(gameModel)) {
-            ActiveGame = gameModel ?? ActiveGame;
-            _configService.Entries.ActiveGameId = gameModel?.Entry.Id ?? ActiveGame.Entry.Id;
-        }
+    public void ActivateMinecraft(MinecraftEntry entry) {
+        if (entry != null && !ContainsKey(entry))
+            throw new ArgumentException("The specified minecraft entry does not exist.");
 
         ActiveGameChanged?.Invoke(this, EventArgs.Empty);
+        ActiveGame = _minecrafts.FirstGroupByKey(entry);
     }
 
-    public void Save() {
-        var root = Path.Combine(_configService?.Entries?.ActiveMinecraftFolder, "gamedata.json");
-        //File.WriteAllText(root, Games.Select(x => x.Model).AsJson());
-    }
+    private bool ContainsKey(MinecraftEntry minecraft) {
+        foreach (var item in _minecrafts)
+            if (item.Key == minecraft)
+                return true;
 
-    private GameModel ParseGameModel(MinecraftEntry entry, List<GameJsonModel> gameJsonModels) {
-        var model = gameJsonModels?.FirstOrDefault(x => x.Id == entry.Id) ?? new GameJsonModel() {
-            Id = entry.Id,
-            IsCollection = false,
-            MinecraftFolder = entry.MinecraftFolderPath
-        };
-
-        return new GameModel(entry, model);
+        return false;
     }
 }
 
-public sealed partial class GameViewModel : ObservableObject {
-    private readonly GameService _gameService;
+//public sealed partial class GameViewModel : ObservableObject {
+//    private readonly GameService _gameService;
 
-    public GameModel Model { get; }
+//    public GameModel Model { get; }
 
-    public GameViewModel(GameModel gameModel, GameService gameService) {
-        Model = gameModel;
-        _gameService = gameService;
-    }
+//    public GameViewModel(GameModel gameModel, GameService gameService) {
+//        Model = gameModel;
+//        _gameService = gameService;
+//    }
 
-    [RelayCommand]
-    private void Delete() {
-        _gameService.Save();
-    }
+//    [RelayCommand]
+//    private void Delete() {
+//        _gameService.Save();
+//    }
 
 
-    [RelayCommand]
-    private void Collect() {
-        Model.Model.IsCollection = true;
-        _gameService.Save();
-    }
-}
+//    [RelayCommand]
+//    private void Collect() {
+//        Model.Model.IsCollection = true;
+//        _gameService.Save();
+//    }
+//}

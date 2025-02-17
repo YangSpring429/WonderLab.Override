@@ -33,10 +33,10 @@ public sealed partial class DashboardPageViewModel : ObservableObject {
     [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
         await Task.Delay(TimeSpan.FromSeconds(0.45));
-        Games = _gameService.Games;
+        //Games = _gameService.Minecrafts;
         Accounts = _accountService.Accounts;
         ActiveAccount = Accounts.FirstOrDefault(x => _configService.Entries.ActiveAccount?.Uuid == x.Uuid);
-        ActiveGame = Games.FirstOrDefault(x => _gameService.ActiveGame.Entry.Id == x.Entry.Id);
+        //ActiveGame = Games.FirstOrDefault(x => _gameService.ActiveGame.Entry.Id == x.Entry.Id);
     });
 
     [RelayCommand]
@@ -45,7 +45,7 @@ public sealed partial class DashboardPageViewModel : ObservableObject {
     }
 
     partial void OnActiveGameChanged(GameModel value) {
-        _gameService.ActivateGame(value);
+       // _gameService.ActivateGame(value);
     }
 
     partial void OnActiveAccountChanged(Account value) {

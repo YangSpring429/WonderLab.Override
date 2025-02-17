@@ -1,18 +1,17 @@
 ﻿using Avalonia.Data.Converters;
 using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Base.Models.Network;
 using System;
 using System.Globalization;
-using WonderLab.Infrastructure.Models.Launch;
 using WonderLab.Services.UI;
 
 namespace WonderLab.Controls.Media.Converters;
 
 public sealed class MinecraftTypeIconConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-        if (value is GameModel) {
-            var model = value as GameModel;
-            return model.Entry.IsVanilla ? model.Entry.Version.Type switch {
+        if (value is MinecraftEntry minecraft) {
+            return minecraft.IsVanilla ? minecraft.Version.Type switch {
                 MinecraftVersionType.OldBeta => ThemeService.OldMinecraftIcon.Value,
                 MinecraftVersionType.OldAlpha => ThemeService.OldMinecraftIcon.Value,
                 MinecraftVersionType.Release => ThemeService.ReleaseMinecraftIcon.Value,

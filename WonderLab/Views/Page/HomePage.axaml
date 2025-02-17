@@ -26,13 +26,13 @@
 				<Grid RowDefinitions="Auto, Auto">
 					<TextBlock FontSize="16"
 							   Classes="BodyStrong"
-							   Text="{Binding ActiveGame.Entry.Id}"/>
+							   Text="{Binding ActiveGame.Key.Id}"/>
 					
 					<TextBlock Grid.Row="1"
 							   Margin="0 2 0 0"
 							   Classes="Caption"
 							   Foreground="{DynamicResource DefaultBrush500}"
-							   Text="{Binding ActiveGame.Entry.Version}"/>
+							   Text="{Binding ActiveGame.Key.Version.VersionId}"/>
 				</Grid>
 			</Border>
 		</Button>

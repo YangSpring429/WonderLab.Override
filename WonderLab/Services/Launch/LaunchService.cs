@@ -1,4 +1,5 @@
 ﻿using Avalonia.Threading;
+using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Downloader;
 using MinecraftLaunch.Extensions;
@@ -39,9 +40,9 @@ public sealed class LaunchService {
         GameProcesses = [];
     }
 
-    public async Task LaunchTaskAsync(GameModel game) {
+    public async Task LaunchTaskAsync(MinecraftEntry minecraft) {
         LaunchTaskViewModel task = new() {
-            JobName = $"游戏 {game.Entry.Id} 的启动任务"
+            JobName = $"游戏 {minecraft.Id} 的启动任务"
         };
 
         _taskService.QueueJob(task);

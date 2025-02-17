@@ -86,7 +86,6 @@ public sealed class App : Application {
         var configService = Get<ConfigService>();
         configService.Load();
 
-        Get<GameService>().Initialize();
         Get<AccountService>().Initialize();
 
         //Override AccentColors

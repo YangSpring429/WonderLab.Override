@@ -111,8 +111,8 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
             }
 
             _minecraftFolders.Add(result[0].Path.LocalPath);
-            Config.ActiveMinecraftFolder = ActiveFolder = _minecraftFolders.Last();
-            Config.MinecraftFolders.Add(ActiveFolder);
+            Config.MinecraftFolders.Add(_minecraftFolders.Last());
+            ActiveFolder = _minecraftFolders.Last();
         }
     });
 
@@ -121,8 +121,7 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
 
         switch (e.PropertyName) {
             case nameof(ActiveFolder):
-                Config.ActiveMinecraftFolder = ActiveFolder;
-                _gameService.RefreshGames();
+                _gameService.ActivateMinecraftFolder(ActiveFolder);
                 break;
             case nameof(MaxMemory):
                 Config.MaxMemory = MaxMemory;

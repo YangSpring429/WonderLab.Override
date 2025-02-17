@@ -25,7 +25,7 @@
 							<Button Classes="ripple"
 									Name="PART_LayoutButtton"
 									HorizontalAlignment="Stretch"
-									CommandParameter="{Binding}"
+									CommandParameter="{Binding Key}"
 									Width="{TemplateBinding Width}"
 									Height="{TemplateBinding Height}"
 									Background="{TemplateBinding Background}"
@@ -53,7 +53,7 @@
 											BorderBrush="{DynamicResource ContentBrush4}">
 										<Border.Background>
 											<ImageBrush Stretch="UniformToFill"
-														Source="{Binding Converter={StaticResource MinecraftTypeIconConverter}}"/>
+														Source="{Binding Key, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 										</Border.Background>
 									</Border>
 
@@ -63,37 +63,18 @@
 										  RowDefinitions="Auto, Auto">
 										<TextBlock Grid.Row="0"
 												   Classes="BodyStrong"
-												   Text="{Binding Entry.Id}"
+												   Text="{Binding Key.Id}"
 												   TextTrimming="CharacterEllipsis"/>
 
 										<TextBlock Grid.Row="1"
 												   Classes="Caption"
-												   Text="{Binding Entry.Version}"
+												   Text="{Binding Key.Version.VersionId}"
 												   Foreground="{DynamicResource DefaultBrush400}"/>
 									</Grid>
 
 									<StackPanel Spacing="8"
 												Grid.Column="4"
 												Orientation="Horizontal">
-										<Button Classes="icon"
-												FontSize="14"
-												Content="&#xE735;"
-												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Fav_Cancel}}"
-												ToolTip.ShowDelay="0"
-												ToolTip.Placement="Pointer"
-												CommandParameter="{Binding}"
-												IsVisible="{Binding Model.IsCollection}"
-												Command="{Binding $parent[ListBox].DataContext.UncollectCommand}"/>
-
-										<Button Classes="icon"
-												Content="&#xE734;"
-												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Fav_Add}}"
-												ToolTip.ShowDelay="0"
-												ToolTip.Placement="Pointer"
-												CommandParameter="{Binding}"
-												Command="{Binding $parent[ListBox].DataContext.CollectCommand}"
-												IsVisible="{Binding Model.IsCollection, Converter={StaticResource BooleanReverseConverter}}"/>
-
 										<Button Classes="icon"
 												Content="&#xE74D;"
 												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Remove}}"
@@ -156,16 +137,6 @@
 								 Content="{Binding MinecraftFolderPath}"
 								 Foreground="{DynamicResource NormalAccentBrush}"/>
 			</WrapPanel>
-
-			<TextBlock Classes="BodyStrong"
-					   Text="{I18N {x:Static w:LanguageKeys.Game_Starred}}"
-					   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
-
-			<ListBox Margin="0 12 0 24"
-					 CornerRadius="8"
-					 Background="Transparent"
-					 ItemsSource="{Binding CollectionGames}"
-					 IsVisible="{Binding IsCollectionGamesVisible}"/>
 
 			<TextBlock Classes="BodyStrong"
 					   Text="{I18N {x:Static w:LanguageKeys.Game_ALL}}"/>

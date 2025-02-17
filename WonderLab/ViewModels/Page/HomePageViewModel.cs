@@ -1,10 +1,12 @@
 ﻿using Avalonia.Controls.Notifications;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Threading;
+using CommunityToolkit.Mvvm.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
+using MinecraftLaunch.Base.Models.Game;
 using System;
 using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Launch;
@@ -22,7 +24,7 @@ public sealed partial class HomePageViewModel : ObservableObject {
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(LaunchCommand))]
-    private GameModel _activeGame;
+    private ObservableGroup<MinecraftEntry, GameProfileEntry> _activeGame;
 
     public HomePageViewModel(GameService gameService, LaunchService launchService, ConfigService configService, ILogger<HomePageViewModel> logger) {
         _logger = logger;
@@ -41,12 +43,12 @@ public sealed partial class HomePageViewModel : ObservableObject {
     private Task Launch() => Task.Run(async () => {
         var text = I18NExtension.Translate(LanguageKeys.Launch_Notification);
 
-        WeakReferenceMessenger.Default.Send(new NotificationMessage(string.Format(text, ActiveGame.Entry.Id),
+        WeakReferenceMessenger.Default.Send(new NotificationMessage(string.Format(text, ActiveGame.Key.Id),
             NotificationType.Information, () => {
                 WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("TaskList"));
             }));
 
-        await _launchService.LaunchTaskAsync(ActiveGame);
+        await _launchService.LaunchTaskAsync(ActiveGame.Key);
     });
 
     [RelayCommand]
