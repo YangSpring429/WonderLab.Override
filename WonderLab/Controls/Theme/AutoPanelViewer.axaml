@@ -16,8 +16,8 @@
 		<Setter Property="CornerRadius" Value="8"/>
 		<Setter Property="BorderThickness" Value="2"/>
 		<Setter Property="ClipToBounds" Value="False"/>
-		<Setter Property="BorderBrush" Value="{DynamicResource NormalAccentBrush}"/>
-		<Setter Property="Background" Value="{DynamicResource TitleBarBackground}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor80}"/>
+		<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="HorizontalAlignment" Value="Right"/>
 		

@@ -3,9 +3,12 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using Bless.Monet;
+using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MinecraftLaunch.Utilities;
 using Serilog;
 using System;
 using System.IO;
@@ -38,12 +41,15 @@ public sealed class App : Application {
 
     private static IServiceProvider ServiceProvider { get; set; }
 
+    public static Monet Monet { get; private set; }
+
     public static TKey Get<TKey>() where TKey : class {
         return ServiceProvider.GetRequiredService<TKey>();
     }
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
+        Monet = Styles[0] as Monet;
     }
 
     public override void RegisterServices() {
@@ -56,6 +62,7 @@ public sealed class App : Application {
     public override void OnFrameworkInitializationCompleted() {
         BindingPlugins.DataValidators.RemoveAt(0);
 
+        Get<ConfigService>().Load();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             desktop.Exit += OnExit;
             desktop.Startup += OnStartup;
@@ -83,38 +90,43 @@ public sealed class App : Application {
     }
 
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
-        var configService = Get<ConfigService>();
-        configService.Load();
-
         Get<AccountService>().Initialize();
 
         //Override AccentColors
-        Current.Resources["NormalAccentColor"] =
-            configService.Entries.ActiveAccentColor.ToColor();
+        //Current.Resources["NormalAccentColor"] =
+        //    configService.Entries.ActiveAccentColor.ToColor();
 
-        Current.Resources["DarkAccentColor1"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.15f);
+        //Current.Resources["DarkAccentColor1"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.15f);
 
-        Current.Resources["DarkAccentColor2"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.30f);
+        //Current.Resources["DarkAccentColor2"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.30f);
 
-        Current.Resources["DarkAccentColor3"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.45f);
+        //Current.Resources["DarkAccentColor3"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.45f);
 
-        Current.Resources["LightAccentColor1"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.15f);
+        //Current.Resources["LightAccentColor1"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.15f);
 
-        Current.Resources["LightAccentColor2"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.30f);
+        //Current.Resources["LightAccentColor2"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.30f);
 
-        Current.Resources["LightAccentColor3"] =
-            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.45f);
+        //Current.Resources["LightAccentColor3"] =
+        //    configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.45f);
 
-        I18NExtension.Culture = new(configService.Entries.ActiveLanguage);
+        I18NExtension.Culture = new(Get<ConfigService>().Entries.ActiveLanguage);
 
         var themeService = Get<ThemeService>();
-        themeService.ApplyTheme(configService.Entries.ThemeType);
-        themeService.ApplyWindowEffect(configService.Entries.BackgroundType);
+        themeService.ApplyTheme(Get<ConfigService>().Entries.ThemeType);
+        themeService.ApplyWindowEffect(Get<ConfigService>().Entries.BackgroundType);
+        HttpUtil.Initialize(new FlurlClient {
+            Settings = {
+                Timeout = TimeSpan.FromMinutes(1),
+            },
+            Headers = {
+                { "User-Agent", "WonderLab/2.0" },
+            },
+        });
     }
 
     private static IHost ConfigureIoC(out IHost host) {

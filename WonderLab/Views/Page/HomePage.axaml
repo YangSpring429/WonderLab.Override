@@ -7,6 +7,12 @@
 			 xmlns:w="using:WonderLab"
 			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 			 x:Class="WonderLab.Views.Page.HomePage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
 	<Grid VerticalAlignment="Bottom"
 		  HorizontalAlignment="Left"
 		  RowDefinitions="Auto, 10, Auto">
@@ -21,31 +27,32 @@
 					HorizontalAlignment="Left"
 					VerticalAlignment="Bottom"
 					Effect="{StaticResource TextBlockShadow}"
-					BorderBrush="{DynamicResource NormalAccentBrush}"
-					Background="{DynamicResource GameManagerPanelBackground}">
+					BorderBrush="{DynamicResource PrimaryBrush}"
+					Background="{DynamicResource BackgroundBrush}">
 				<Grid RowDefinitions="Auto, Auto">
 					<TextBlock FontSize="16"
 							   Classes="BodyStrong"
-							   Text="{Binding ActiveGame.Key.Id}"/>
+							   Foreground="{DynamicResource SelectorBarItemForeground}"
+							   Text="{Binding ActiveGame.Id}"/>
 					
 					<TextBlock Grid.Row="1"
 							   Margin="0 2 0 0"
 							   Classes="Caption"
-							   Foreground="{DynamicResource DefaultBrush500}"
-							   Text="{Binding ActiveGame.Key.Version.VersionId}"/>
+							   Foreground="{DynamicResource SelectorBarItemForeground}"
+							   Text="{Binding ActiveGame.Version.VersionId}"/>
 				</Grid>
 			</Border>
 		</Button>
 
 		<Button Grid.Row="2"
-				Height="45"
-				Width="155"
+				Height="40"
+				Width="135"
 				Classes="launch"
-				CornerRadius="16"
+				CornerRadius="12"
 				Command="{Binding LaunchCommand}"
 				Effect="{StaticResource TextBlockShadow}">
 			<TextBlock Classes="BodyStrong"
-					   Foreground="{DynamicResource ContentBrush1}"
+					   Foreground="{DynamicResource OnPrimaryBrush}"
 					   Text="{I18N {x:Static w:LanguageKeys.Home_Launch}}"/>
 		</Button>
 	</Grid>

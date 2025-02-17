@@ -19,7 +19,7 @@ public sealed partial class GamePageViewModel : ObservableObject {
     private readonly GameService _gameService;
 
     [ObservableProperty] private ObservableGroup<MinecraftEntry, GameProfileEntry> _activeGame;
-    [ObservableProperty] private ReadOnlyObservableGroupedCollection<MinecraftEntry, GameProfileEntry> _games;
+    [ObservableProperty] private ReadOnlyObservableCollection<MinecraftEntry> _games;
 
     public string MinecraftFolderPath => _gameService.MinecraftParser?.Root.FullName ?? "Not Found";
 
@@ -30,12 +30,11 @@ public sealed partial class GamePageViewModel : ObservableObject {
     [RelayCommand]
     private Task OnLoaded() => Task.Run(() => {
         Games = _gameService.Minecrafts;
-        ActiveGame = _gameService.ActiveGame;
+        //ActiveGame = _gameService.ActiveGame;
     });
 
     [RelayCommand]
     private void Delete() {
-
     }
 
     [RelayCommand]

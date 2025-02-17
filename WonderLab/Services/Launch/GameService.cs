@@ -1,19 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.Collections;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Parser;
 using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 
 namespace WonderLab.Services.Launch;
 
 public sealed class GameService {
     private readonly ILogger<GameService> _logger;
     private readonly ConfigService _configService;
-    private readonly ObservableGroupedCollection<MinecraftEntry, GameProfileEntry> _minecrafts;
+    private readonly ObservableCollection<MinecraftEntry> _minecrafts;
 
-    public MinecraftParser MinecraftParser;
-    public ObservableGroup<MinecraftEntry, GameProfileEntry> ActiveGame { get; private set; }
-    public ReadOnlyObservableGroupedCollection<MinecraftEntry, GameProfileEntry> Minecrafts { get; }
+    public MinecraftParser MinecraftParser { get; set; }
+    public MinecraftEntry ActiveGame { get; private set; }
+    public ReadOnlyObservableCollection<MinecraftEntry> Minecrafts { get; }
 
     public event EventHandler ActiveGameChanged;
 
@@ -45,13 +49,16 @@ public sealed class GameService {
 
         MinecraftParser ??= _configService.Entries.ActiveMinecraftFolder;
         foreach (var minecraft in MinecraftParser.GetMinecrafts())
-            if (MinecraftParser.LauncherProfileParser.Profiles.TryGetValue(minecraft.Id, out var profile))
-                _minecrafts.AddItem(minecraft, profile);
+            _minecrafts.Add(minecraft);
 
         if (_minecrafts.Count == 0)
             return;
 
-        ActivateMinecraft(_minecrafts[0].Key);
+        var entry = _configService.Entries.ActiveGameId is not null
+            ? _minecrafts.FirstOrDefault(x => x.Id == _configService.Entries.ActiveGameId)
+            : _minecrafts.FirstOrDefault();
+
+        ActivateMinecraft(entry);
     }
 
     public void ActivateMinecraftFolder(string dir) {
@@ -63,41 +70,12 @@ public sealed class GameService {
     }
 
     public void ActivateMinecraft(MinecraftEntry entry) {
-        if (entry != null && !ContainsKey(entry))
+        if (entry != null && !_minecrafts.Contains(entry))
             throw new ArgumentException("The specified minecraft entry does not exist.");
 
-        ActiveGameChanged?.Invoke(this, EventArgs.Empty);
-        ActiveGame = _minecrafts.FirstGroupByKey(entry);
-    }
-
-    private bool ContainsKey(MinecraftEntry minecraft) {
-        foreach (var item in _minecrafts)
-            if (item.Key == minecraft)
-                return true;
-
-        return false;
+        WeakReferenceMessenger.Default.Send(new ActiveMinecraftChangedMessage());
+        ActiveGame = entry;
     }
 }
 
-//public sealed partial class GameViewModel : ObservableObject {
-//    private readonly GameService _gameService;
-
-//    public GameModel Model { get; }
-
-//    public GameViewModel(GameModel gameModel, GameService gameService) {
-//        Model = gameModel;
-//        _gameService = gameService;
-//    }
-
-//    [RelayCommand]
-//    private void Delete() {
-//        _gameService.Save();
-//    }
-
-
-//    [RelayCommand]
-//    private void Collect() {
-//        Model.Model.IsCollection = true;
-//        _gameService.Save();
-//    }
-//}
+internal record ActiveMinecraftChangedMessage;

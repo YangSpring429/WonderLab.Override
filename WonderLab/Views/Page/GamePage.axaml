@@ -25,7 +25,7 @@
 							<Button Classes="ripple"
 									Name="PART_LayoutButtton"
 									HorizontalAlignment="Stretch"
-									CommandParameter="{Binding Key}"
+									CommandParameter="{Binding}"
 									Width="{TemplateBinding Width}"
 									Height="{TemplateBinding Height}"
 									Background="{TemplateBinding Background}"
@@ -53,7 +53,7 @@
 											BorderBrush="{DynamicResource ContentBrush4}">
 										<Border.Background>
 											<ImageBrush Stretch="UniformToFill"
-														Source="{Binding Key, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+														Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 										</Border.Background>
 									</Border>
 
@@ -63,12 +63,12 @@
 										  RowDefinitions="Auto, Auto">
 										<TextBlock Grid.Row="0"
 												   Classes="BodyStrong"
-												   Text="{Binding Key.Id}"
+												   Text="{Binding Id}"
 												   TextTrimming="CharacterEllipsis"/>
 
 										<TextBlock Grid.Row="1"
 												   Classes="Caption"
-												   Text="{Binding Key.Version.VersionId}"
+												   Text="{Binding Version.VersionId}"
 												   Foreground="{DynamicResource DefaultBrush400}"/>
 									</Grid>
 

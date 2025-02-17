@@ -22,12 +22,12 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; }
     public ReadOnlyObservableCollection<GameProcess> GameProcesses { get; }
 
-    [ObservableProperty] private AutoPanelViewer.AutoPanelState _panelState;
+    [ObservableProperty] private AutoPanelViewer.AutoPanelState _panelState = AutoPanelViewer.AutoPanelState.Collapsed;
     [ObservableProperty] private string _assistantPanelPageKey;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BackgroundOpacity))]
-    private int _activePageIndex;
+    private int _activePageIndex = -1;
 
     [ObservableProperty]
     private string _pageKey;
@@ -37,6 +37,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         PageProvider = avaloniaPageProvider;
         Tasks = _taskService.Tasks;
         GameProcesses = new(launchService.GameProcesses);
+        App.Get<GameService>().RefreshGames();
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : -1;
@@ -59,6 +60,11 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
             AssistantPanelPageKey = arg.PageKey;
         });
+    }
+
+    [RelayCommand]
+    private void OnLoaded() {
+        ActivePageIndex = 0;
     }
 
     [RelayCommand]

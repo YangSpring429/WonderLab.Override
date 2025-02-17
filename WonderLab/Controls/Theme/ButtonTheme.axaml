@@ -67,12 +67,10 @@
 		<!--Launch Button-->
 		<Style Selector="^.launch">
 			<Setter Property="CornerRadius" Value="10"/>
-			<Setter Property="BorderThickness" Value="1.5 1.5 1.5 2"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
-			<Setter Property="Foreground" Value="{DynamicResource LayoutForeground}"/>
-			<Setter Property="Background" Value="{DynamicResource NormalAccentBrush}"/>
-			<Setter Property="BorderBrush" Value="{DynamicResource DarkAccentBrush2}"/>
+			<Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource OnPrimaryBrush}"/>
 
 			<Setter Property="Template">
 				<ControlTemplate>

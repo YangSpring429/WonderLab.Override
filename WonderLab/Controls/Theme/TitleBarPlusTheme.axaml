@@ -5,13 +5,11 @@
 		<Setter Property="MinWidth" Value="300" />
 		<Setter Property="Height" Value="28" />
 		<Setter Property="CornerRadius" Value="16" />
-		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Margin" Value="8 0" />
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="IsHitTestVisible" Value="True" />
-		<Setter Property="BorderBrush" Value="{DynamicResource ContentBrush4}" />
-		<Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
-		<Setter Property="Background" Value="{DynamicResource TitleBarBackground}" />
+		<Setter Property="Foreground" Value="{DynamicResource SelectorBarItemForeground}" />
+		<Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Grid ColumnDefinitions="Auto, 1*, Auto"
@@ -39,6 +37,7 @@
                                    Name="TitleTextBlock"
                                    VerticalAlignment="Center"
                                    Text="{TemplateBinding Title}"
+								   Foreground="{DynamicResource OnSurfaceBrush}"
 								   HorizontalAlignment="{OnPlatform macOS=Center, Windows=Left, Linux=Left}"/>
 					</Border>
 
