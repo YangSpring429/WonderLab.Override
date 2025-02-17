@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Infrastructure.Models;
@@ -40,10 +39,12 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         GameProcesses = new(launchService.GameProcesses);
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
-            ActivePageIndex = arg.PageKey is "Home" ? 0 : - 1;
+            ActivePageIndex = arg.PageKey is "Home" ? 0 : -1;
             PageKey = arg.PageKey;
 
-            PanelState = AutoPanelViewer.AutoPanelState.Hidden;
+            PanelState = ActivePageIndex is -1
+                ? AutoPanelViewer.AutoPanelState.Hidden
+                : AutoPanelViewer.AutoPanelState.Collapsed;
         });
 
         WeakReferenceMessenger.Default.Register<PanelPageNotificationMessage>(this, (_, arg) => {

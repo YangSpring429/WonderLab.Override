@@ -33,8 +33,7 @@ public sealed partial class HomePageViewModel : ObservableObject {
         _launchService = launchService;
 
         _gameService.ActiveGameChanged += OnActiveGameChanged;
-        ActiveGame = _gameService.ActiveGame;
-        //_gameService.RefreshGames();
+        _gameService.RefreshGames();
     }
 
     private bool CanLaunch() => ActiveGame is not null;

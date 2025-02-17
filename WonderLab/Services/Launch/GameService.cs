@@ -40,9 +40,10 @@ public sealed class GameService {
     public void RefreshGames() {
         _minecrafts.Clear();
 
-        if (MinecraftParser is null)
+        if (MinecraftParser is null && string.IsNullOrEmpty(_configService.Entries?.ActiveMinecraftFolder))
             throw new InvalidOperationException("The minecraft parser is not initialized.");
 
+        MinecraftParser ??= _configService.Entries.ActiveMinecraftFolder;
         foreach (var minecraft in MinecraftParser.GetMinecrafts())
             if (MinecraftParser.LauncherProfileParser.Profiles.TryGetValue(minecraft.Id, out var profile))
                 _minecrafts.AddItem(minecraft, profile);
