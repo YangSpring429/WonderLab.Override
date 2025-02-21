@@ -1,0 +1,55 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Background="Green" Padding="20">
+			<wc:Tile/>
+		</Border>
+	</Design.PreviewWith>
+	
+	<ControlTheme TargetType="wc:Tile" x:Key="{x:Type wc:Tile}">
+		<Setter Property="MinWidth" Value="100"/>
+		<Setter Property="MinHeight" Value="100"/>
+		<Setter Property="CornerRadius" Value="16"/>
+		<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Button Classes="ripple"
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						MinWidth="{TemplateBinding MinWidth}"
+						MinHeight="{TemplateBinding MinHeight}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+					<ContentPresenter Padding="{TemplateBinding Padding}"
+									  Content="{TemplateBinding Content}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</Button>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^.horizontal">
+			<Setter Property="MinHeight" Value="65"/>
+		</Style>
+		
+		<Style Selector="^.empty">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<ContentPresenter Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Content="{TemplateBinding Content}"
+									  Background="{TemplateBinding Background}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+									  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

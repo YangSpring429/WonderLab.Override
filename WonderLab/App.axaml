@@ -21,8 +21,8 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/Theme/TileTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/DynamicColorTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
@@ -33,6 +33,7 @@
 				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/AutoPanelViewer.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TitleBarPlusTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/DynamicColorTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DropDownButtonTheme.axaml"/>

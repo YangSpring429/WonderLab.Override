@@ -51,7 +51,8 @@ public sealed class RippleControl : ContentControl {
     }
 
     private void PointerPressedHandler(object sender, PointerPressedEventArgs e) {
-        if (_pointers != 0) return;
+        if (_pointers != 0 || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            return;
         
         _pointers++;
         Ripple ripple = _last = CreateRipple(e, RaiseRippleCenter);

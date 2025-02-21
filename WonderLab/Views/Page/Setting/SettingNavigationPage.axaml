@@ -10,13 +10,13 @@
 			 xmlns:wt="using:WonderLab.Controls.Media.Transitions"
 			 xmlns:wa="using:WonderLab.Controls.Media.Attachments"
 			 x:Class="WonderLab.Views.Page.Setting.SettingNavigationPage">
-	<Interaction.Behaviors>
+	<!--<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
-	</Interaction.Behaviors>
+	</Interaction.Behaviors>-->
 	
-	<Border CornerRadius="12"
+	<!--<Border CornerRadius="12"
 			ClipToBounds="True"
 			BorderThickness="1.5"
 			Background="{DynamicResource ContentBrush2}"
@@ -66,5 +66,191 @@
 				</wc:Frame.PageTransition>
 			</wc:Frame>
 		</Grid>
-	</Border>
+	</Border>-->
+
+	<Grid Margin="16 0 0 0"
+		  RowDefinitions="Auto 1*">
+		<TextBlock Classes="Title"
+				   Margin="0 12 0 16"
+				   VerticalAlignment="Top"
+				   HorizontalAlignment="Left"
+				   Text="设置"
+				   Foreground="{DynamicResource SettingPageTitleForeground}"/>
+
+		<ListBox Grid.Row="1"
+				 Name="PART_TileListBox"
+				 Background="Transparent"
+				 ScrollViewer.VerticalScrollBarVisibility="Hidden">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+			
+			<wc:Tile Padding="8 0"
+					 Classes="horizontal"
+					 IsAnimationTurn="True"
+					 HorizontalAlignment="Stretch"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Stretch">
+				<Grid ColumnDefinitions="Auto Auto 1* Auto">
+					<wc:FontIcon FontSize="24"
+								 Glyph="&#xE945;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+					<Grid Grid.Column="1"
+						  Margin="12 0 0 0"
+						  RowDefinitions="Auto Auto">
+						<TextBlock Classes="Body"
+								   Text="Launch Settings"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+						<TextBlock Grid.Row="1"
+								   Classes="Caption"
+								   Text="Set up your global game settings"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+					</Grid>
+
+					<wc:FontIcon FontSize="16"
+								 Grid.Column="3"
+								 Glyph="&#xE76C;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+				</Grid>
+			</wc:Tile>
+
+			<wc:Tile Padding="8 0"
+					 Classes="horizontal"
+					 IsAnimationTurn="True"
+					 HorizontalAlignment="Stretch"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Stretch">
+				<Grid ColumnDefinitions="Auto Auto 1* Auto">
+					<wc:FontIcon FontSize="24"
+								 Glyph="&#xE716;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+					<Grid Grid.Column="1"
+						  Margin="12 0 0 0"
+						  RowDefinitions="Auto Auto">
+						<TextBlock Classes="Body"
+								   Text="Account Settings"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+						<TextBlock Grid.Row="1"
+								   Classes="Caption"
+								   Text="Manage your accounts"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+					</Grid>
+
+					<wc:FontIcon FontSize="16"
+								 Grid.Column="3"
+								 Glyph="&#xE76C;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+				</Grid>
+			</wc:Tile>
+
+			<wc:Tile Padding="8 0"
+					 Classes="horizontal"
+					 IsAnimationTurn="True"
+					 HorizontalAlignment="Stretch"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Stretch">
+				<Grid ColumnDefinitions="Auto Auto 1* Auto">
+					<wc:FontIcon FontSize="24"
+								 Glyph="&#xE701;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+					<Grid Grid.Column="1"
+						  Margin="12 0 0 0"
+						  RowDefinitions="Auto Auto">
+						<TextBlock Classes="Body"
+								   Text="Network Settings"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+						<TextBlock Grid.Row="1"
+								   Classes="Caption"
+								   Text="Adjust WonderLab's maximum number of connections and set the download source"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+					</Grid>
+
+					<wc:FontIcon FontSize="16"
+								 Grid.Column="3"
+								 Glyph="&#xE76C;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+				</Grid>
+			</wc:Tile>
+
+			<wc:Tile Padding="8 0"
+					 Classes="horizontal"
+					 IsAnimationTurn="True"
+					 HorizontalAlignment="Stretch"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Stretch">
+				<Grid ColumnDefinitions="Auto Auto 1* Auto">
+					<wc:FontIcon FontSize="24"
+								 Glyph="&#xE790;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+					<Grid Grid.Column="1"
+						  Margin="12 0 0 0"
+						  RowDefinitions="Auto Auto">
+						<TextBlock Classes="Body"
+								   Text="Appearance Settings"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+						<TextBlock Grid.Row="1"
+								   Classes="Caption"
+								   Text="Set WonderLab background and set the dark/light mode"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+					</Grid>
+
+					<wc:FontIcon FontSize="16"
+								 Grid.Column="3"
+								 Glyph="&#xE76C;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+				</Grid>
+			</wc:Tile>
+
+			<wc:Tile Padding="8 0"
+					 Classes="horizontal"
+					 IsAnimationTurn="True"
+					 HorizontalAlignment="Stretch"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Stretch">
+				<Grid ColumnDefinitions="Auto Auto 1* Auto">
+					<wc:FontIcon FontSize="24"
+								 Glyph="&#xE736;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+					<Grid Grid.Column="1"
+						  Margin="12 0 0 0"
+						  RowDefinitions="Auto Auto">
+						<TextBlock Classes="Body"
+								   Text="About"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+
+						<TextBlock Grid.Row="1"
+								   Classes="Caption"
+								   Text="Chicken, you're too beautiful"
+								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+					</Grid>
+
+					<wc:FontIcon FontSize="16"
+								 Grid.Column="3"
+								 Glyph="&#xE76C;"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource SettingListBoxItemForeground}"/>
+				</Grid>
+			</wc:Tile>
+		</ListBox>
+	</Grid>
 </UserControl>

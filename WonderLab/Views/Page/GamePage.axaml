@@ -6,110 +6,6 @@
 			 xmlns:w="using:WonderLab"
 			 xmlns:wc="using:WonderLab.Controls"
 			 x:Class="WonderLab.Views.Page.GamePage">
-	<UserControl.Styles>
-		<Style Selector="ListBox">
-			<Setter Property="Margin" Value="0 8"/>
-			<Setter Property="CornerRadius" Value="8"/>
-			<Setter Property="Background" Value="Transparent"/>
-
-			<Setter Property="ItemContainerTheme">
-				<ControlTheme TargetType="ListBoxItem">
-					<Setter Property="CornerRadius" Value="12"/>
-					<Setter Property="Margin" Value="0 0 0 4"/>
-					<Setter Property="ClipToBounds" Value="True"/>
-					<Setter Property="BorderThickness" Value="1.5"/>
-					<Setter Property="Background" Value="{DynamicResource SelectorBarBackground}"/>
-
-					<Setter Property="Template">
-						<ControlTemplate>
-							<Button Classes="ripple"
-									Name="PART_LayoutButtton"
-									HorizontalAlignment="Stretch"
-									CommandParameter="{Binding}"
-									Width="{TemplateBinding Width}"
-									Height="{TemplateBinding Height}"
-									Background="{TemplateBinding Background}"
-									Transitions="{TemplateBinding Transitions}"
-									CornerRadius="{TemplateBinding CornerRadius}"
-									BorderBrush="{DynamicResource ContentBrush4}"
-									BorderThickness="{TemplateBinding BorderThickness}"
-									Command="{Binding $parent[ListBox].DataContext.SelectGameCommand}">
-								<Grid Margin="-8 8 8 8"
-									  ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
-									<Border Width="4"
-											Height="0"
-											CornerRadius="20"
-											Name="PART_SelectorBorder"
-											HorizontalAlignment="Left"
-											Background="{DynamicResource NormalAccentBrush}"/>
-									
-									<Border Width="36"
-											Height="36"
-											Grid.Column="1"
-											Margin="16 0 0 0"
-											CornerRadius="5"
-											ClipToBounds="True"
-											BorderThickness="2"
-											BorderBrush="{DynamicResource ContentBrush4}">
-										<Border.Background>
-											<ImageBrush Stretch="UniformToFill"
-														Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
-										</Border.Background>
-									</Border>
-
-									<Grid Grid.Column="2"
-										  Margin="8 0 0 0"
-										  VerticalAlignment="Center"
-										  RowDefinitions="Auto, Auto">
-										<TextBlock Grid.Row="0"
-												   Classes="BodyStrong"
-												   Text="{Binding Id}"
-												   TextTrimming="CharacterEllipsis"/>
-
-										<TextBlock Grid.Row="1"
-												   Classes="Caption"
-												   Text="{Binding Version.VersionId}"
-												   Foreground="{DynamicResource DefaultBrush400}"/>
-									</Grid>
-
-									<StackPanel Spacing="8"
-												Grid.Column="4"
-												Orientation="Horizontal">
-										<Button Classes="icon"
-												Content="&#xE74D;"
-												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Remove}}"
-												ToolTip.ShowDelay="0"
-												ToolTip.Placement="Pointer"
-												Command="{Binding $parent[ListBox].DataContext.DeleteCommand}"/>
-
-										<Button Classes="icon"
-												Content="&#xE713;"
-												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Detail}}"
-												ToolTip.ShowDelay="0"
-												ToolTip.Placement="Pointer"
-												Command="{Binding $parent[ListBox].DataContext.GoToGameSettingCommand}"/>
-									</StackPanel>
-								</Grid>
-							</Button>
-						</ControlTemplate>
-					</Setter>
-
-					<Style Selector="^:pointerover /template/ Button#PART_LayoutButtton">
-						<Setter Property="Background" Value="#36000000"/>
-					</Style>
-
-					<Style Selector="^:selected /template/ Border#PART_SelectorBorder">
-						<Setter Property="Height" Value="25"/>
-					</Style>
-
-					<Style Selector="^:selected:pressed /template/ Border#PART_SelectorBorder">
-						<Setter Property="Height" Value="20"/>
-					</Style>
-				</ControlTheme>
-			</Setter>
-		</Style>
-	</UserControl.Styles>
-
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
@@ -122,7 +18,7 @@
 					   Margin="0 12 0 0"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
-					   Effect="{StaticResource LowTextBlockShadow}"
+					   Foreground="{DynamicResource OnSurfaceBrush}"
 					   Text="{I18N {x:Static w:LanguageKeys.Game_Manager}}"/>
 
 			<WrapPanel Margin="0 12"
@@ -130,21 +26,93 @@
 				<Button FontSize="14"
 						Margin="0 0 8 0"
 						FontWeight="Regular"
+						Foreground="{DynamicResource OnSurfaceBrush}"
 						Content="{I18N {x:Static w:LanguageKeys.Game_Install}}"/>
 
 				<HyperlinkButton FontSize="14"
 								 FontWeight="Regular"
 								 Content="{Binding MinecraftFolderPath}"
-								 Foreground="{DynamicResource NormalAccentBrush}"/>
+								 Foreground="{DynamicResource OnSurfaceBrush}"/>
 			</WrapPanel>
 
 			<TextBlock Classes="BodyStrong"
 					   Text="{I18N {x:Static w:LanguageKeys.Game_ALL}}"/>
 
-			<ListBox Margin="0 12"
-					 CornerRadius="8"
-					 Background="Transparent"
-					 ItemsSource="{Binding Games}"/>
+			<ItemsRepeater Margin="0 12"
+						   Background="Transparent"
+						   ItemsSource="{Binding Games}">
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<Button Margin="0 0 0 4"
+								Classes="ripple"
+								Name="PART_LayoutButtton"
+								CommandParameter="{Binding}"
+								HorizontalAlignment="Stretch"
+								Background="{DynamicResource BackgroundBrush}"
+								Command="{Binding $parent[ItemsRepeater].DataContext.SelectGameCommand}">
+							<Grid Margin="-8 8 8 8"
+								  ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
+								<Border Width="4"
+										Height="0"
+										CornerRadius="20"
+										Name="PART_SelectorBorder"
+										HorizontalAlignment="Left"
+										Background="{DynamicResource NormalAccentBrush}"/>
+
+								<Border Width="36"
+										Height="36"
+										Grid.Column="1"
+										Margin="16 0 0 0"
+										CornerRadius="5"
+										ClipToBounds="True"
+										BorderThickness="2"
+										BorderBrush="{DynamicResource ContentBrush4}">
+									<Border.Background>
+										<ImageBrush Stretch="UniformToFill"
+													Source="{Binding, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+									</Border.Background>
+								</Border>
+
+								<Grid Grid.Column="2"
+									  Margin="8 0 0 0"
+									  VerticalAlignment="Center"
+									  RowDefinitions="Auto, Auto">
+									<TextBlock Grid.Row="0"
+											   Classes="BodyStrong"
+											   Text="{Binding Id}"
+											   TextTrimming="CharacterEllipsis"
+											   Foreground="{DynamicResource OnSurfaceBrush}"/>
+
+									<TextBlock Grid.Row="1"
+											   Classes="Caption"
+											   Text="{Binding Version.VersionId}"
+											   Foreground="{DynamicResource SelectorBarItemForeground}"/>
+								</Grid>
+
+								<StackPanel Spacing="8"
+											Grid.Column="4"
+											Orientation="Horizontal">
+									<Button Classes="icon"
+											Content="&#xE74D;"
+											ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Remove}}"
+											ToolTip.ShowDelay="0"
+											ToolTip.Placement="Pointer"
+											Foreground="{DynamicResource OnSurfaceBrush}"
+											Command="{Binding $parent[ItemsRepeater].DataContext.DeleteCommand}"/>
+
+									<Button Classes="icon"
+											Content="&#xE713;"
+											ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Detail}}"
+											ToolTip.ShowDelay="0"
+											ToolTip.Placement="Pointer"
+											Foreground="{DynamicResource OnSurfaceBrush}"
+											Command="{Binding $parent[ItemsRepeater].DataContext.GoToGameSettingCommand}"/>
+								</StackPanel>
+							</Grid>
+						</Button>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
 		</ItemsControl>
 	</ScrollViewer>
 </UserControl>

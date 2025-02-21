@@ -56,6 +56,9 @@
 			
 			<SolidColorBrush x:Key="SelectorBarItemBackground" Color="{DynamicResource SecondaryColor30}"/>
 			<SolidColorBrush x:Key="SelectorBarItemForeground" Color="{DynamicResource NectralVariantColor80}"/>
+
+			<SolidColorBrush x:Key="SettingPageTitleForeground" Color="{DynamicResource NectralColor90}"/>
+			<SolidColorBrush x:Key="SettingListBoxItemForeground" Color="{DynamicResource NectralColor90}"/>
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

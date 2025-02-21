@@ -31,7 +31,10 @@
 		<AvaloniaResource Remove="Assets\Image\Icon\loader_forge.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\loader_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\loader_quilt.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\logo_curseforge.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\logo_modrinth.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\old_minecraft.png" />
+		<AvaloniaResource Remove="Assets\Image\Icon\overall_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\release_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\Icon\snapshot_minecraft.png" />
 		<AvaloniaResource Remove="Assets\Image\steve.png" />
@@ -63,7 +66,10 @@
 		<EmbeddedResource Include="Assets\Image\Icon\loader_forge.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\loader_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\loader_quilt.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\logo_curseforge.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\logo_modrinth.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\old_minecraft.png" />
+		<EmbeddedResource Include="Assets\Image\Icon\overall_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\release_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\Icon\snapshot_minecraft.png" />
 		<EmbeddedResource Include="Assets\Image\steve.png" />

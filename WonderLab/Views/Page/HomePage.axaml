@@ -32,7 +32,7 @@
 				<Grid RowDefinitions="Auto, Auto">
 					<TextBlock FontSize="16"
 							   Classes="BodyStrong"
-							   Foreground="{DynamicResource SelectorBarItemForeground}"
+							   Foreground="{DynamicResource OnSurfaceBrush}"
 							   Text="{Binding ActiveGame.Id}"/>
 					
 					<TextBlock Grid.Row="1"
