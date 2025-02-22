@@ -13,19 +13,12 @@
 	</Interaction.Behaviors>
 	
 	<ScrollViewer>
-		<ItemsControl Margin="0 24 0 16">
+		<ItemsControl>
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<StackPanel Spacing="4"/>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
-
-			<TextBlock Classes="Title"
-					   Margin="0 0 0 12"
-					   VerticalAlignment="Top"
-					   HorizontalAlignment="Left"
-					   Effect="{StaticResource LowTextBlockShadow}"
-					   Text="{I18N {x:Static w:LanguageKeys.Settings_Launch_Title}}"/>
 
 			<wc:SettingExpander Glyph="&#xE8B7;"
 								Header="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder}}">

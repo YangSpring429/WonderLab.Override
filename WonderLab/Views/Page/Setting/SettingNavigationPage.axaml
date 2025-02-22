@@ -11,89 +11,37 @@
 			 xmlns:wa="using:WonderLab.Controls.Media.Attachments"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
 			 x:Class="WonderLab.Views.Page.Setting.SettingNavigationPage">
-	<!--<Interaction.Behaviors>
-		<EventTriggerBehavior EventName="Loaded">
-			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
-		</EventTriggerBehavior>
-	</Interaction.Behaviors>-->
-	
-	<!--<Border CornerRadius="12"
-			ClipToBounds="True"
-			BorderThickness="1.5"
-			Background="{DynamicResource ContentBrush2}"
-			BorderBrush="{DynamicResource ContentBrush4}">
-		<Grid ColumnDefinitions="Auto, 1*">
-			<ListBox Width="155"
-					 Padding="4 10"
-					 Classes="sidebar"
-					 CornerRadius="12 0 0 12"
-					 BorderThickness="0 0 1 0"
-					 SelectedIndex="{Binding ActivePageIndex}"
-					 BorderBrush="{DynamicResource ContentBrush4}">
-				<Interaction.Behaviors>
-					<EventTriggerBehavior EventName="SelectionChanged" >
-						<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
-					</EventTriggerBehavior>
-				</Interaction.Behaviors>
-
-				<ListBoxItem Tag="&#xE945;"
-							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Launch}}"/>
-
-				<ListBoxItem Tag="&#xE716;"
-							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Account}}"/>
-
-				<ListBoxItem Tag="&#xE701;"
-							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Network}}"/>
-
-				<ListBoxItem Tag="&#xE790;"
-							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Appearance}}"/>
-
-				<ListBoxItem Tag="&#xE736;"
-							 Foreground="{DynamicResource NormalAccentBrush}"
-							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_About}}"/>
-			</ListBox>
-
-			<wc:Frame Margin="36 0"
-					  Grid.Column="1"
-					  PageKey="{Binding ActivePageKey}"
-					  PageProvider="{Binding PageProvider}">
-				<wc:Frame.PageTransition>
-					<wt:EntrancePageTransition Duration="0:0:0.5"
-											   Easing="ExponentialEaseInOut"/>
-				</wc:Frame.PageTransition>
-			</wc:Frame>
-		</Grid>
-	</Border>-->
-
 	<Grid Margin="16 0 0 0"
 		  RowDefinitions="Auto 1*">
-		<TextBlock Classes="Title"
-				   Margin="0 12 0 16"
-				   VerticalAlignment="Top"
-				   HorizontalAlignment="Left"
-				   Text="设置"
-				   Foreground="{DynamicResource SettingPageTitleForeground}"/>
-
-		<wce:BreadcrumbBar HorizontalAlignment="Right" ItemsSource="{Binding TestList}">
+		<wce:BreadcrumbBar Grid.Column="0"
+						   Margin="0 12 0 16"
+						   VerticalAlignment="Top"
+						   HorizontalAlignment="Left"
+						   ItemsSource="{Binding TestList}">
 			<wce:BreadcrumbBar.ItemTemplate>
 				<DataTemplate>
-					<wce:BreadcrumbBarItem Content="{Binding}" FontSize="28" FontWeight="SemiBold">
-						<!--<TextBlock Classes="Title"
-								   Text="{Binding}"
-								   Foreground="{Binding $parent[wce:BreadcrumbBarItem].Foreground}"/>-->
-					</wce:BreadcrumbBarItem>
+					<wce:BreadcrumbBarItem FontSize="28" 
+										   FontWeight="SemiBold"
+										   Content="{Binding}"/>
 				</DataTemplate>
 			</wce:BreadcrumbBar.ItemTemplate>
+
+			<Interaction.Behaviors>
+				<EventTriggerBehavior EventName="ItemClicked">
+					<InvokeCommandAction Command="{Binding ItemClickedCommand}"/>
+				</EventTriggerBehavior>
+			</Interaction.Behaviors>
 		</wce:BreadcrumbBar>
 		
 		<ListBox Grid.Row="1"
+				 Grid.Column="0"
 				 Name="PART_TileListBox"
 				 Background="Transparent"
 				 ScrollViewer.VerticalScrollBarVisibility="Hidden">
+			<Interaction.Behaviors>
+				<wb:SettingNavigationAnimationBehavior IsHide="{Binding IsHide, Converter={StaticResource BooleanReverseConverter}}"/>
+			</Interaction.Behaviors>
+
 			<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
 					<StackPanel Spacing="8"/>
@@ -101,11 +49,13 @@
 			</ListBox.ItemsPanel>
 			
 			<wc:Tile Padding="8 0"
+					 CommandParameter="0"
 					 Classes="horizontal"
 					 IsAnimationTurn="True"
 					 HorizontalAlignment="Stretch"
 					 VerticalContentAlignment="Center"
-					 HorizontalContentAlignment="Stretch">
+					 HorizontalContentAlignment="Stretch"
+					 Command="{Binding ChangeActivePageCommand}">
 				<Grid ColumnDefinitions="Auto Auto 1* Auto">
 					<wc:FontIcon FontSize="24"
 								 Glyph="&#xE945;"
@@ -135,10 +85,12 @@
 
 			<wc:Tile Padding="8 0"
 					 Classes="horizontal"
+					 CommandParameter="1"
 					 IsAnimationTurn="True"
 					 HorizontalAlignment="Stretch"
 					 VerticalContentAlignment="Center"
-					 HorizontalContentAlignment="Stretch">
+					 HorizontalContentAlignment="Stretch"
+					 Command="{Binding ChangeActivePageCommand}">
 				<Grid ColumnDefinitions="Auto Auto 1* Auto">
 					<wc:FontIcon FontSize="24"
 								 Glyph="&#xE716;"
@@ -168,10 +120,12 @@
 
 			<wc:Tile Padding="8 0"
 					 Classes="horizontal"
+					 CommandParameter="2"
 					 IsAnimationTurn="True"
 					 HorizontalAlignment="Stretch"
 					 VerticalContentAlignment="Center"
-					 HorizontalContentAlignment="Stretch">
+					 HorizontalContentAlignment="Stretch"
+					 Command="{Binding ChangeActivePageCommand}">
 				<Grid ColumnDefinitions="Auto Auto 1* Auto">
 					<wc:FontIcon FontSize="24"
 								 Glyph="&#xE701;"
@@ -187,6 +141,7 @@
 
 						<TextBlock Grid.Row="1"
 								   Classes="Caption"
+								   TextWrapping="WrapWithOverflow"
 								   Text="Adjust WonderLab's maximum number of connections and set the download source"
 								   Foreground="{DynamicResource SettingListBoxItemForeground}"/>
 					</Grid>
@@ -201,10 +156,12 @@
 
 			<wc:Tile Padding="8 0"
 					 Classes="horizontal"
+					 CommandParameter="3"
 					 IsAnimationTurn="True"
 					 HorizontalAlignment="Stretch"
 					 VerticalContentAlignment="Center"
-					 HorizontalContentAlignment="Stretch">
+					 HorizontalContentAlignment="Stretch"
+					 Command="{Binding ChangeActivePageCommand}">
 				<Grid ColumnDefinitions="Auto Auto 1* Auto">
 					<wc:FontIcon FontSize="24"
 								 Glyph="&#xE790;"
@@ -234,10 +191,12 @@
 
 			<wc:Tile Padding="8 0"
 					 Classes="horizontal"
+					 CommandParameter="4"
 					 IsAnimationTurn="True"
 					 HorizontalAlignment="Stretch"
 					 VerticalContentAlignment="Center"
-					 HorizontalContentAlignment="Stretch">
+					 HorizontalContentAlignment="Stretch"
+					 Command="{Binding ChangeActivePageCommand}">
 				<Grid ColumnDefinitions="Auto Auto 1* Auto">
 					<wc:FontIcon FontSize="24"
 								 Glyph="&#xE736;"
@@ -265,5 +224,16 @@
 				</Grid>
 			</wc:Tile>
 		</ListBox>
+		
+		<wc:Frame Opacity="0"
+				  Grid.Row="1"
+				  PageTransition="{x:Null}"
+				  PageKey="{Binding ActivePageKey}"
+				  IsHitTestVisible="{Binding IsHide, Converter={StaticResource BooleanReverseConverter}}"
+				  PageProvider="{Binding PageProvider}">
+			<Interaction.Behaviors>
+				<wb:SettingNavigationAnimationBehavior IsHide="{Binding IsHide}"/>
+			</Interaction.Behaviors>
+		</wc:Frame>
 	</Grid>
 </UserControl>

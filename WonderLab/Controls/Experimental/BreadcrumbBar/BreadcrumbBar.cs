@@ -454,7 +454,7 @@ public sealed class BreadcrumbBar : TemplatedControl {
     }
 }
 
-public readonly struct BreadcrumbBarItemClickedEventArgs(int index, object item) {
+public sealed class BreadcrumbBarItemClickedEventArgs(int index, object item) : EventArgs {
     public int Index { get; } = index;
     public object Item { get; } = item;
 }

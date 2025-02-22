@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WonderLab.Controls;
@@ -33,11 +34,14 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private string _pageKey;
 
     public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider, TaskService taskService, LaunchService launchService) {
-        _taskService = taskService;
-        PageProvider = avaloniaPageProvider;
-        Tasks = _taskService.Tasks;
-        GameProcesses = new(launchService.GameProcesses);
-        App.Get<GameService>().RefreshGames();
+        try {
+            _taskService = taskService;
+            PageProvider = avaloniaPageProvider;
+            Tasks = _taskService.Tasks;
+            GameProcesses = new(launchService.GameProcesses);
+
+            App.Get<GameService>().RefreshGames();
+        } catch (Exception) {}
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : -1;

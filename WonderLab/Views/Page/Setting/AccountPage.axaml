@@ -23,12 +23,6 @@
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="Title"
-					   Margin="0 0 0 12"
-					   VerticalAlignment="Top"
-					   HorizontalAlignment="Left"
-					   Text="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}"/>
-
 			<wc:SettingExpander Glyph="&#xE716;"
 								Header="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}">
 				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Account_Add_Description}}">

@@ -18,8 +18,7 @@
 					   Classes="Caption"
 					   Text="{I18N {x:Static w:LanguageKeys.Settings_About_Copyright}}"/>
 
-			<ItemsControl Grid.Row="2"
-						  Margin="0 16 0 0">
+			<ItemsControl Grid.Row="2">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<StackPanel Spacing="4"/>

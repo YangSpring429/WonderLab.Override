@@ -3,10 +3,11 @@ using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Rendering.Composition;
 using Avalonia.Styling;
-using Avalonia.VisualTree;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +22,51 @@ public sealed class EntrancePageTransition : IPageTransition {
     public EntrancePageTransition(TimeSpan duration = default) {
         Duration = duration;
     }
+
+    //public async Task Start(Visual from, Visual to, bool forward, CancellationToken cancellationToken = default) {
+    //    if (cancellationToken.IsCancellationRequested) {
+    //        return;
+    //    }
+
+    //    if (from is not null) {
+    //        var fromComposition = ElementComposition.GetElementVisual(from);
+    //        var fromCompositor = fromComposition.Compositor;
+
+    //        var opacityAni = fromCompositor.CreateScalarKeyFrameAnimation();
+    //        opacityAni.Duration = Duration;
+    //        opacityAni.Target = "Opacity";
+
+    //        opacityAni.InsertKeyFrame(0f, 1f);
+    //        opacityAni.InsertKeyFrame(1f, 0f, Easing);
+
+    //        fromComposition.StartAnimation("Opacity", opacityAni);
+    //    }
+
+    //    if (to is not null) {
+    //        var toComposition = ElementComposition.GetElementVisual(to);
+    //        var toCompositor = toComposition.Compositor;
+
+    //        var opacityAni = toCompositor.CreateScalarKeyFrameAnimation();
+    //        opacityAni.Duration = Duration;
+    //        opacityAni.Target = "Opacity";
+
+    //        opacityAni.InsertKeyFrame(0f, 0f);
+    //        opacityAni.InsertKeyFrame(1f, 1f, Easing);
+
+    //        var offsetAni = toCompositor.CreateVector3KeyFrameAnimation();
+    //        offsetAni.Duration = Duration;
+    //        offsetAni.Target = "Offset";
+
+    //        offsetAni.InsertKeyFrame(0f, new(0, 130, 0));
+    //        offsetAni.InsertKeyFrame(1f, Vector3.Zero, Easing);
+
+    //        var aniGroup = toCompositor.CreateAnimationGroup();
+    //        aniGroup.Add(opacityAni);
+    //        aniGroup.Add(offsetAni);
+
+    //        toComposition.StartAnimationGroup(aniGroup);
+    //    }
+    //}
 
     public async Task Start(Visual from, Visual to, bool forward, CancellationToken cancellationToken) {
         if (cancellationToken.IsCancellationRequested) {
@@ -103,16 +149,5 @@ public sealed class EntrancePageTransition : IPageTransition {
 
         (from as Control).IsHitTestVisible = false;
         (to as Control).IsHitTestVisible = true;
-    }
-
-    private static Visual GetVisualParent(Visual from, Visual to) {
-        Visual p1 = (from ?? to)!.GetVisualParent(),
-            p2 = (to ?? from)!.GetVisualParent();
-
-        if (p1 != null && p2 != null && p1 != p2) {
-            throw new ArgumentException("Controls for Very must have same parent.");
-        }
-
-        return p1 ?? throw new InvalidOperationException("Cannot determine visual parent.");
     }
 }

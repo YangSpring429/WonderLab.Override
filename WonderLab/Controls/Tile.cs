@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -6,9 +7,12 @@ using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
+using Avalonia.Styling;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WonderLab.Controls;
 
@@ -21,9 +25,25 @@ public sealed class Tile : ListBoxItem {
     public static readonly StyledProperty<bool> IsAnimationTurnProperty =
         AvaloniaProperty.Register<Tile, bool>(nameof(IsAnimationTurn), false);
 
+    public static readonly StyledProperty<ICommand> CommandProperty =
+        AvaloniaProperty.Register<Tile, ICommand>(nameof(Command));
+
+    public static readonly StyledProperty<object> CommandParameterProperty =
+        AvaloniaProperty.Register<Tile, object>(nameof(CommandParameter));
+
     public bool IsAnimationTurn {
         get => GetValue(IsAnimationTurnProperty);
         set => SetValue(IsAnimationTurnProperty, value);
+    }
+
+    public ICommand Command {
+        get => GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
+    public object CommandParameter {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     public static void RunParentPanelAnimation(Visual visual, bool isAniTurn = false) {
@@ -48,7 +68,7 @@ public sealed class Tile : ListBoxItem {
         var compositionVisual = ElementComposition.GetElementVisual(this);
         if (compositionVisual is null)
             return;
-
+        
         var compositor = compositionVisual.Compositor;
 
         var scaleAni = compositor!.CreateVector3KeyFrameAnimation();

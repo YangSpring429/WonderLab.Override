@@ -81,7 +81,7 @@
 	</Interaction.Behaviors>
 	
 	<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
-		<ItemsControl Margin="0 24 0 16">
+		<ItemsControl>
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<StackPanel Spacing="4"/>

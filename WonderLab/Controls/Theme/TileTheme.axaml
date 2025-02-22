@@ -17,10 +17,12 @@
 				<Button Classes="ripple"
 						Width="{TemplateBinding Width}"
 						Height="{TemplateBinding Height}"
+						Command="{TemplateBinding Command}"
 						MinWidth="{TemplateBinding MinWidth}"
 						MinHeight="{TemplateBinding MinHeight}"
 						Background="{TemplateBinding Background}"
 						CornerRadius="{TemplateBinding CornerRadius}"
+						CommandParameter="{TemplateBinding CommandParameter}"
 						VerticalAlignment="{TemplateBinding VerticalAlignment}"
 						HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
 					<ContentPresenter Padding="{TemplateBinding Padding}"
