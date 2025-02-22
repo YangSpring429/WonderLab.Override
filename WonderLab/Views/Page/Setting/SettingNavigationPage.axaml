@@ -9,6 +9,7 @@
 			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
 			 xmlns:wt="using:WonderLab.Controls.Media.Transitions"
 			 xmlns:wa="using:WonderLab.Controls.Media.Attachments"
+			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
 			 x:Class="WonderLab.Views.Page.Setting.SettingNavigationPage">
 	<!--<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -77,6 +78,18 @@
 				   Text="设置"
 				   Foreground="{DynamicResource SettingPageTitleForeground}"/>
 
+		<wce:BreadcrumbBar HorizontalAlignment="Right" ItemsSource="{Binding TestList}">
+			<wce:BreadcrumbBar.ItemTemplate>
+				<DataTemplate>
+					<wce:BreadcrumbBarItem Content="{Binding}" FontSize="28" FontWeight="SemiBold">
+						<!--<TextBlock Classes="Title"
+								   Text="{Binding}"
+								   Foreground="{Binding $parent[wce:BreadcrumbBarItem].Foreground}"/>-->
+					</wce:BreadcrumbBarItem>
+				</DataTemplate>
+			</wce:BreadcrumbBar.ItemTemplate>
+		</wce:BreadcrumbBar>
+		
 		<ListBox Grid.Row="1"
 				 Name="PART_TileListBox"
 				 Background="Transparent"

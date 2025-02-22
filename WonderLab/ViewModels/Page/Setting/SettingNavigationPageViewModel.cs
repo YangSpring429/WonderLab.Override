@@ -10,6 +10,8 @@ public sealed partial class SettingNavigationPageViewModel : ObservableObject {
     [ObservableProperty] private string _activePageKey;
     [ObservableProperty] private int _activePageIndex = -1;
 
+    [ObservableProperty] private string[] _testList = ["Setting", "Account"];
+
     public SettingNavigationPageViewModel(AvaloniaPageProvider avaloniaPageProvider) {
         PageProvider = avaloniaPageProvider;
     }

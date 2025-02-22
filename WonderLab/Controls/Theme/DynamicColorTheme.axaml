@@ -59,6 +59,10 @@
 
 			<SolidColorBrush x:Key="SettingPageTitleForeground" Color="{DynamicResource NectralColor90}"/>
 			<SolidColorBrush x:Key="SettingListBoxItemForeground" Color="{DynamicResource NectralColor90}"/>
+
+			<SolidColorBrush x:Key="BreadcrumbBarItemForeground" Color="{DynamicResource NectralColor90}"/>
+			<SolidColorBrush x:Key="BreadcrumbBarItemPressedForeground" Color="{DynamicResource NectralColor70}"/>
+			<SolidColorBrush x:Key="BreadcrumbBarItemPointOverForeground" Color="{DynamicResource NectralColor80}"/>
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

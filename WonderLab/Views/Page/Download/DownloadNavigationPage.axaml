@@ -20,8 +20,8 @@
 				   Margin="0 12 0 16"
 				   VerticalAlignment="Top"
 				   HorizontalAlignment="Left"
-				   Effect="{StaticResource LowTextBlockShadow}"
-				   Text="资源中心"/>
+				   Text="资源中心"
+				   Foreground="{DynamicResource OnSurfaceBrush}"/>
 		
 		<ListBox Grid.Row="1"
 				 Name="PART_TileListBox"

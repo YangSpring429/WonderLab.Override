@@ -42,6 +42,7 @@
 				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ItemsFlyoutPresenterTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ColorPicker/ColorPickerStyles.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/Experimental/BreadcrumbBarItemTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			
 			<ResourceDictionary.ThemeDictionaries>
