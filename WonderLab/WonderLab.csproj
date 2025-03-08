@@ -100,7 +100,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\refs\Monet\Bless.Monet\Bless.Monet.csproj" />
+		<ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
 		<ProjectReference Include="..\WonderLab.Infrastructure\WonderLab.Infrastructure.csproj" />
 	</ItemGroup>
 

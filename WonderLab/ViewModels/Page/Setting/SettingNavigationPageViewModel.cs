@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using WonderLab.Controls.Experimental.BreadcrumbBar;
 using WonderLab.Extensions.Hosting.UI;
@@ -53,8 +54,8 @@ public sealed partial class SettingNavigationPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void OnItemClicked() {
-        if (TestList.Count != 2)
+    private void OnItemClicked(BreadcrumbBarItemClickedEventArgs arg) {
+        if (TestList.Count != 2 || arg.Index != 0)
             return;
         
         IsHide = true;

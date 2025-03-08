@@ -3,12 +3,12 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.MarkupExtensions;
-using Bless.Monet;
 using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Utilities;
+using Monet.Avalonia;
 using Serilog;
 using System;
 using System.IO;
@@ -39,7 +39,7 @@ namespace WonderLab;
 public sealed class App : Application {
     private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
 
-    public static Monet Monet { get; private set; }
+    public static MonetColors Monet { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
 
     public static TKey Get<TKey>() where TKey : class {
@@ -48,7 +48,7 @@ public sealed class App : Application {
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
-        Monet = Styles[0] as Monet;
+        Monet = Styles[1] as MonetColors;
     }
 
     public override void RegisterServices() {
@@ -90,9 +90,9 @@ public sealed class App : Application {
 
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
         Get<AccountService>().Initialize();
-        I18NExtension.Culture = new("zh-CHS");
-        //I18NExtension.Culture = new(Get<ConfigService>().Entries.ActiveLanguage);
+        I18NExtension.Culture = new("zh-Hans");
 
+        Monet.Initialize();
         var themeService = Get<ThemeService>();
         themeService.ApplyTheme(Get<ConfigService>().Entries.ThemeType);
         themeService.ApplyWindowEffect(Get<ConfigService>().Entries.BackgroundType);

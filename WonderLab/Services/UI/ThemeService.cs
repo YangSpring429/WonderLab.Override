@@ -39,7 +39,7 @@ public sealed class ThemeService {
     }
 
     public void ApplyAccentColor(Color color) {
-        App.Monet.RefreshDynamicColors(color);
+        //App.Monet.RefreshDynamicColors(color);
         Application.Current.Resources["NormalAccentColor"] = color;
 
         Application.Current.Resources["DarkAccentColor1"] =
@@ -75,7 +75,7 @@ public sealed class ThemeService {
                         if (string.IsNullOrEmpty(_configService.Entries.ActiveImagePath)) {
                             return;
                         }
-                        App.Monet.RefreshDynamicColorsFromBitmap(_configService.Entries.ActiveImagePath);
+                        //App.Monet.RefreshDynamicColorsFromBitmap(_configService.Entries.ActiveImagePath);
                         window.Background = new ImageBrush {
                             Stretch = Stretch.UniformToFill,
                             Source = new Bitmap(_configService.Entries.ActiveImagePath),
