@@ -6,10 +6,9 @@ on:
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  dotnet-version: "8.0"
-  target-version: "net8.0"
+  dotnet-version: "9.0.100-preview.1.24101.2"  # 更新为 .NET 9.0 预览版
+  target-version: "net9.0"  # 更新目标框架版本
   compile-flags: "--self-contained=true -c Release -p:UseAppHost=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true"
-jobs:
   test:
     runs-on: ubuntu-latest
     steps:
