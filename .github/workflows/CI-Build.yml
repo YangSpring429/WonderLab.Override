@@ -27,6 +27,7 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   test_build:
@@ -45,6 +46,7 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   build_Windows:
@@ -66,6 +68,7 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
+          dotnet restore
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -98,7 +101,7 @@ jobs:
         dotnet-version: "${{env.dotnet-version}}"
     - name: Install pupnet
       run: dotnet tool install -g KuiperZone.PupNet
-    - name: Install Linrary
+    - name: Install Library
       run: |
           sudo add-apt-repository universe
           sudo apt install libfuse2
@@ -110,7 +113,8 @@ jobs:
     - name: Build
       run: |
         # 检查项目依赖的目标框架版本
-        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj
         pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -139,6 +143,7 @@ jobs:
         shell: bash
         working-directory: ./
         run: |
+          dotnet restore
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
 
