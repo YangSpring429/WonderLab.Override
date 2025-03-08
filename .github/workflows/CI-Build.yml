@@ -106,9 +106,12 @@ jobs:
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
       with:
-        file: WonderLab/WonderLab.csproj
+        file: WonderLab.Desktop/WonderLab.Desktop.csproj
     - name: Build
-      run: pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
+      run: |
+        # 检查项目依赖的目标框架版本
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
+        pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
