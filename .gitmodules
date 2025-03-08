@@ -1,6 +1,0 @@
-[submodule "refs/MinecraftLaunch"]
-	path = refs/MinecraftLaunch
-	url = https://github.com/Blessing-Studio/MinecraftLaunch
-[submodule "refs/Monet"]
-	path = refs/Monet
-	url = https://github.com/Blessing-Studio/Monet.git
