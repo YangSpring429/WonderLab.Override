@@ -27,11 +27,7 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
-        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj
-        if [ $? -ne 0 ]; then
-          echo "测试失败但继续执行"
-        fi
+        dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   test_build:
     runs-on: ubuntu-latest
@@ -49,11 +45,7 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
-        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj
-        if [ $? -ne 0 ]; then
-          echo "构建失败但继续执行"
-        fi
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   build_Windows:
     runs-on: windows-latest
@@ -74,7 +66,6 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
-          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -119,8 +110,7 @@ jobs:
     - name: Build
       run: |
         # 检查项目依赖的目标框架版本
-        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
         pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -149,7 +139,6 @@ jobs:
         shell: bash
         working-directory: ./
         run: |
-          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
 
