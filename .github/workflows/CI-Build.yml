@@ -30,7 +30,6 @@ jobs:
         # 恢复 NuGet 包
         dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
-
   test_build:
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +49,6 @@ jobs:
         # 恢复 NuGet 包
         dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
-
   build_Windows:
     runs-on: windows-latest
     needs: [test, test_build]
@@ -73,7 +71,6 @@ jobs:
           # 恢复 NuGet 包
           dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           ./.build/build_windows.ps1
-
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -151,7 +148,6 @@ jobs:
           dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
-
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v4
         with:
