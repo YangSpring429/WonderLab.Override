@@ -27,6 +27,8 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   test_build:
@@ -45,6 +47,8 @@ jobs:
       run: |
         # 设置正确的 .NET SDK 版本
         dotnet --list-sdks
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   build_Windows:
@@ -66,6 +70,8 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -109,6 +115,8 @@ jobs:
         file: WonderLab.Desktop/WonderLab.Desktop.csproj
     - name: Build
       run: |
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         # 检查项目依赖的目标框架版本
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
         pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
@@ -139,6 +147,8 @@ jobs:
         shell: bash
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
 
