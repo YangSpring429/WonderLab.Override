@@ -29,13 +29,6 @@ jobs:
         dotnet --list-sdks
         # 恢复 NuGet 包
         dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        # 清理项目
-        dotnet clean WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet clean WonderLab/WonderLab.csproj
-        dotnet clean WonderLab.Infrastructure/WonderLab.Infrastructure.csproj
-        # 构建依赖项目
-        dotnet build WonderLab.Infrastructure/WonderLab.Infrastructure.csproj -c Release
-        dotnet build WonderLab/WonderLab.csproj -c Release
         dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   test_build:
@@ -56,13 +49,6 @@ jobs:
         dotnet --list-sdks
         # 恢复 NuGet 包
         dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        # 清理项目
-        dotnet clean WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet clean WonderLab/WonderLab.csproj
-        dotnet clean WonderLab.Infrastructure/WonderLab.Infrastructure.csproj
-        # 构建依赖项目
-        dotnet build WonderLab.Infrastructure/WonderLab.Infrastructure.csproj -c Release
-        dotnet build WonderLab/WonderLab.csproj -c Release
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
 
   build_Windows:
@@ -86,13 +72,6 @@ jobs:
         run: |
           # 恢复 NuGet 包
           dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-          # 清理项目
-          dotnet clean WonderLab.Desktop/WonderLab.Desktop.csproj
-          dotnet clean WonderLab/WonderLab.csproj
-          dotnet clean WonderLab.Infrastructure/WonderLab.Infrastructure.csproj
-          # 构建依赖项目
-          dotnet build WonderLab.Infrastructure/WonderLab.Infrastructure.csproj -c Release
-          dotnet build WonderLab/WonderLab.csproj -c Release
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -138,13 +117,6 @@ jobs:
       run: |
         # 恢复 NuGet 包
         dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-        # 清理项目
-        dotnet clean WonderLab.Desktop/WonderLab.Desktop.csproj
-        dotnet clean WonderLab/WonderLab.csproj
-        dotnet clean WonderLab.Infrastructure/WonderLab.Infrastructure.csproj
-        # 构建依赖项目
-        dotnet build WonderLab.Infrastructure/WonderLab.Infrastructure.csproj -c Release
-        dotnet build WonderLab/WonderLab.csproj -c Release
         # 检查项目依赖的目标框架版本
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
         pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
@@ -177,13 +149,6 @@ jobs:
         run: |
           # 恢复 NuGet 包
           dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
-          # 清理项目
-          dotnet clean WonderLab.Desktop/WonderLab.Desktop.csproj
-          dotnet clean WonderLab/WonderLab.csproj
-          dotnet clean WonderLab.Infrastructure/WonderLab.Infrastructure.csproj
-          # 构建依赖项目
-          dotnet build WonderLab.Infrastructure/WonderLab.Infrastructure.csproj -c Release
-          dotnet build WonderLab/WonderLab.csproj -c Release
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
 
