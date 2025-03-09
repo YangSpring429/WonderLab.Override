@@ -7,6 +7,7 @@ on:
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   dotnet-version: "9.0"
+  linux-dotnet-version: "8.0"
   target-version: "net9.0"
   compile-flags: "--self-contained=true -c Release -p:UseAppHost=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true"
 
@@ -95,7 +96,7 @@ jobs:
     - name: "Setup Dotnet"
       uses: "actions/setup-dotnet@v3"
       with:
-        dotnet-version: "${{env.dotnet-version}}"
+        dotnet-version: "${{env.linux-dotnet-version}}"
     - name: Install pupnet
       run: dotnet tool install -g KuiperZone.PupNet
     - name: Install Linrary
