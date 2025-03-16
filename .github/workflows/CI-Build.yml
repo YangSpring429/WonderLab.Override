@@ -107,7 +107,7 @@ jobs:
           sudo apt install libfuse2
     - name: Get version
       id: package_version
-      uses: Blessing-Studio/get-csproj-version@main
+      uses: Lunova-Studio/get-csproj-version@main
       with:
         file: WonderLab.Desktop/WonderLab.Desktop.csproj
     - name: Build
