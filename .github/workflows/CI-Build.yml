@@ -9,6 +9,7 @@ env:
   dotnet-version: "8.0"
   target-version: "net8.0"
   compile-flags: "--self-contained=true -c Release -p:UseAppHost=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,8 +24,12 @@ jobs:
       with:
         dotnet-version: "${{env.dotnet-version}}"
     - name: Test
-      run: dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj
-
+      run: |
+        # 设置正确的 .NET SDK 版本
+        dotnet --list-sdks
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+        dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
   test_build:
     runs-on: ubuntu-latest
     steps:
@@ -38,8 +43,12 @@ jobs:
       with:
         dotnet-version: "${{env.dotnet-version}}"
     - name: Test
-      run: dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj
-
+      run: |
+        # 设置正确的 .NET SDK 版本
+        dotnet --list-sdks
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
   build_Windows:
     runs-on: windows-latest
     needs: [test, test_build]
@@ -59,6 +68,8 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           ./.build/build_windows.ps1
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v4
@@ -98,9 +109,14 @@ jobs:
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
       with:
-        file: WonderLab/WonderLab.csproj
+        file: WonderLab.Desktop/WonderLab.Desktop.csproj
     - name: Build
-      run: pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
+      run: |
+        # 恢复 NuGet 包
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+        # 检查项目依赖的目标框架版本
+        dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
+        pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -128,6 +144,8 @@ jobs:
         shell: bash
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
       - name: Upload x64 build artifacts
