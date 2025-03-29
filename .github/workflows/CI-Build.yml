@@ -4,10 +4,10 @@ on:
   push:
     branches: [ "feature" ]
     paths:
-      - '.github/workflows/*'
-      - '.gitmodules'
-      - 'WonderLab*'
-      - '*.props'
+      - '!.github/ISSUE_TEMPLATE'
+      - '!.gitignore'
+      - '!LICENSE'
+      - '!**.md'
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
