@@ -31,7 +31,7 @@
 						<HyperlinkButton Content="2.0.0"
 										 Command="{Binding JumpToLinkCommand}"
 										 Foreground="{DynamicResource SecondaryBrush600}"
-										 CommandParameter="https://github.com/Blessing-Studio/WonderLab.Override/"/>
+										 CommandParameter="https://github.com/Lunova-Studio/WonderLab.Override/"/>
 					</wc:SettingExpanderItem>
 
 					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Donate}}">
@@ -181,7 +181,7 @@
 							<HyperlinkButton Content="Github"
 											 Command="{Binding JumpToLinkCommand}"
 											 Foreground="{DynamicResource SecondaryBrush600}"
-											 CommandParameter="https://github.com/Blessing-Studio/MinecraftLaunch"/>
+											 CommandParameter="https://github.com/Lunova-Studio/MinecraftLaunch"/>
 						</StackPanel>
 					</wc:SettingExpanderItem>
 				</wc:SettingExpander>

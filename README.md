@@ -8,9 +8,9 @@
 
 真正的下一代跨平台 Minecraft 启动器
 
-![Downloads](https://img.shields.io/github/downloads/Blessing-Studio/WonderLab.Override/total?logo=github&label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=for-the-badge&color=44cc11)
-![Star](https://img.shields.io/github/stars/Blessing-Studio/WonderLab.Override?logo=github&label=Star&style=for-the-badge)
-![License](https://img.shields.io/github/license/Blessing-Studio/WonderLab.Override?logo=github&label=开源协议&style=for-the-badge&color=ff7a35)
+![Downloads](https://img.shields.io/github/downloads/Lunova-Studio/WonderLab.Override/total?logo=github&label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=for-the-badge&color=44cc11)
+![Star](https://img.shields.io/github/stars/Lunova-Studio/WonderLab.Override?logo=github&label=Star&style=for-the-badge)
+![License](https://img.shields.io/github/license/Lunova-Studio/WonderLab.Override?logo=github&label=开源协议&style=for-the-badge&color=ff7a35)
 
 [![QQ1](https://img.shields.io/badge/一群-722391932-81A1C1.svg?style=for-the-badge&logo=QQ&logoColor=white)](https://jq.qq.com/?_wv=1027&k=kU7khFu6)
 [![QQ2](https://img.shields.io/badge/二群-789238146-81A1C1.svg?style=for-the-badge&logo=QQ&logoColor=white)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=vxXeM940Sa8EPK0ddxDr7J-7RCxkConY&authKey=NlLAobL2hA0y5SqUgYwycJpnXsN%2F%2BGpCqqt2V%2BuiUgx%2B%2Fy8cFbvKk%2FnRg1Ezql9y&noverify=0&group_code=789238146)
@@ -19,11 +19,6 @@
 [![README_en](https://img.shields.io/badge/English-4169E1?style=for-the-badge&logoColor=white)](/README_en.md)
 
 </div>
-<p align="center">
-
-<img Height="58.2" Width="292.8" href="https://blessing-studio.cn/BSO-302/" src="https://blessing-studio.cn/WL-BQ/B.svg"/>
-</p>
-
 
 ## 自我介绍
 
@@ -32,29 +27,28 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 支持的语言：简体中文、繁体中文、文言華夏、English(US)、Русский язык、日本語
 
 > [!WARNING]
+>
 > 当前分支为 `feature` 测试分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
 
-## 测试版UI展示
-
-
+## 测试版 UI 展示
 
 > [!WARNING]
-> 当前分支为 `feature` 测试分支，以下展示的UI为240214-1023版本。在未来，实际显示可能会有所差别，请以实际为准
+>
+> 以下展示的 UI 为 240214-1023 版本。在未来，实际可能会有所差别，请以实际为准
 
 <img src="https://s21.ax1x.com/2024/11/17/pARPOBt.md.png" alt="pARPOBt.png" border="0" />
 
 <img src="https://s21.ax1x.com/2024/11/17/pARPbjA.png" alt="pARPbjA.png" border="0" />
 
-
 ## 食用文档
 
-请移步至 [此处](https://wiki.blessing-studio.cn/zh_CN/wonderlab/index.html) 查看如何食用
+请移步至 [此处](https://docs.lunova.studio/docs/WonderLab) 查看如何食用
 
 ## 反馈问题
 
-可以在本仓库的 [`Issues`](https://github.com/Blessing-Studio/WonderLab.Override/issues) 或 [`Discussion`](https://github.com/Blessing-Studio/WonderLab.Override/discussions) 中提出你的建议和疑惑
+可以在本仓库的 [`Issues`](https://github.com/Lunova-Studio/WonderLab.Override/issues) 或 [`Discussion`](https://github.com/Lunova-Studio/WonderLab.Override/discussions) 中提出你的建议和疑惑
 
-当然，您的 [`PR`](https://github.com/Blessing-Studio/WonderLab.Override/pulls) 也是受欢迎的
+当然，您的 [`PR`](https://github.com/Lunova-Studio/WonderLab.Override/pulls) 也是受欢迎的
 
 ## 引用项目
 
@@ -62,7 +56,7 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 
-[MinecraftLaunch](https://github.com/Blessing-Studio/MinecraftLaunch)
+[MinecraftLaunch](https://github.com/Lunova-Studio/MinecraftLaunch)
 
 ## 鸣谢
 
@@ -80,7 +74,7 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 [Bilibili](https://space.bilibili.com/1098028524)
 [爱发电](https://afdian.net/a/WonderLab)
-[blog](https://baka_hs.gitee.io/xilu-baka/)
+[Blog](https://baka_hs.gitee.io/xilu-baka)
 
 ### [Ddggdd135](https://github.com/JWJUN233233)
 
