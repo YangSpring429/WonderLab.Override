@@ -1,11 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: WonderLab 文档反馈
-    url: https://github.com/Blessing-Studio/WonderLab.Override/issues/new/choose
-    about: 您发现了WonderLab文档的问题？点我反馈！
   - name: 讨论区
-    url: https://github.com/Blessing-Studio/WonderLab.Override/discussions
-    about: 使用中若遇到问题或有新点子新需求，请先在这里求助和征求意见。
+    url: https://github.com/Lunova-Studio/WonderLab.Override/discussions
+    about: 使用中若遇到问题或有新点子新需求，请先在这里求助和征求意见
   - name: 加入内测用户 QQ 群
-    url: 点击链接加入群聊【WonderLab 内部测试】：http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=DPckFEoH0xV4GNrrmgDyZLKMnB5WVwNE&authKey=tfhkyDv5sOSINzwpWhsmzM8IOpoxYaqO9FwHZaGcXjJIAvioBxlzEhl9CdmgB0i%2F&noverify=0&group_code=688942089
-    about: 在 QQ 群和开发者以及其它用户交流讨论。
+    url: http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=DPckFEoH0xV4GNrrmgDyZLKMnB5WVwNE&authKey=tfhkyDv5sOSINzwpWhsmzM8IOpoxYaqO9FwHZaGcXjJIAvioBxlzEhl9CdmgB0i%2F&noverify=0&group_code=688942089
+    about: 在 QQ 群和开发者以及其它用户交流讨论
