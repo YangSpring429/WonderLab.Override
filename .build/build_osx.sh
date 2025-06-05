@@ -36,7 +36,7 @@ build_osx() {
     app_dir="$base_app_dir/MacOS"
     mkdir $app_dir
 
-    for line in ${files[@]}
+    for line in "${files[@]}"
     do
         cp $base_dir/$line \
             $app_dir/$line

@@ -1,58 +1,63 @@
-name: CI-Build
+name: WonderLab DEV 自动编译
 on:
   workflow_dispatch:
   push:
     branches: [ "feature" ]
+    paths:
+      - '!.github/ISSUE_TEMPLATE'
+      - '!.gitignore'
+      - '!LICENSE'
+      - '!**.md'
 
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  dotnet-version: "9.0"
-  target-version: "net9.0"
+  dotnet-version: "8.0"
+  target-version: "net8.0"
   compile-flags: "--self-contained=true -c Release -p:UseAppHost=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true"
 
 jobs:
+  
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
         submodules: recursive
-    - name: "Setup Dotnet"
-      uses: "actions/setup-dotnet@v3"
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: "${{env.dotnet-version}}"
     - name: Test
       run: |
-        # 设置正确的 .NET SDK 版本
-        dotnet --list-sdks
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet test WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
-
+  
   test_build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
         submodules: recursive
-    - name: "Setup Dotnet"
-      uses: "actions/setup-dotnet@v3"
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: "${{env.dotnet-version}}"
+    
     - name: Test
       run: |
-        # 设置正确的 .NET SDK 版本
-        dotnet --list-sdks
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj || exit 0
-
+  
   build_Windows:
     runs-on: windows-latest
     needs: [test, test_build]
     steps:
-      - uses: actions/checkout@v3
-      - name: Set .NET
+      - uses: actions/checkout@v4
+        with: 
+          submodules: recursive
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "${{env.dotnet-version}}"
@@ -66,8 +71,9 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           ./.build/build_windows.ps1
-
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -88,20 +94,18 @@ jobs:
     needs: [test, test_build]
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
-        fetch-depth: 0
         submodules: recursive
-    - name: "Setup Dotnet"
-      uses: "actions/setup-dotnet@v3"
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: "${{env.dotnet-version}}"
-    - name: Install pupnet
-      run: dotnet tool install -g KuiperZone.PupNet
-    - name: Install Linrary
+    - name: Install dependences
       run: |
-          sudo add-apt-repository universe
-          sudo apt install libfuse2
+        dotnet tool install -g KuiperZone.PupNet
+        sudo add-apt-repository universe
+        sudo apt install libfuse2
     - name: Get version
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
@@ -109,7 +113,7 @@ jobs:
         file: WonderLab.Desktop/WonderLab.Desktop.csproj
     - name: Build
       run: |
-        # 检查项目依赖的目标框架版本
+        dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
         dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
         pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
@@ -122,7 +126,9 @@ jobs:
     runs-on: macos-latest
     needs: [test, test_build]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with: 
+          submodules: recursive
       - name: Set .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -132,16 +138,17 @@ jobs:
         shell: bash
         working-directory: ./
         run: |
-          chmod a+x ./.build/update_code.sh
+          chmod +x ./.build/update_code.sh
           ./.build/update_code.sh
   
       - name: Build
         shell: bash
         working-directory: ./
         run: |
+          # 恢复 NuGet 包
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
           chmod a+x ./.build/build_osx.sh
           ./.build/build_osx.sh
-
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -158,44 +165,43 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     env:
-      GITHUB_REF: $ github.ref   
+      GITHUB_REF: ${{ github.ref }}
     needs: [build_Windows, build_MacOS, build_Linux]
     steps:
       - uses: nelonoel/branch-name@v1
-  
+        id: branch_name
+        with:
+          strip: true
+      - run: echo "BRANCH_NAME=${{ steps.branch_name.ref }}" >> $GITHUB_ENV
       - name: Download Windows-x64 Build
         uses: actions/download-artifact@v4
         with:
           name: Windows_x64
-  
       - name: Download Windows-arm64 Build
         uses: actions/download-artifact@v4
         with:
           name: Windows_arm64
-  
       - name: Download AppImage Build
         uses: actions/download-artifact@v4
         with:
-         name: AppImage
-  
+          name: AppImage
       - name: Download OSX-x64 Build
         uses: actions/download-artifact@v4
         with:
           name: OSX_x64
-  
       - name: Download OSX-arm64 Build
         uses: actions/download-artifact@v4
         with:
           name: OSX_arm64
-  
       - name: Create Release
-        if: github.event_name != 'pull_request' 
-        uses: "marvinpinto/action-automatic-releases@latest"
+        if: ${{ github.event_name == 'push' }}
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: AutoBuild_${{ env.BRANCH_NAME }}
-          title: "${{ env.BRANCH_NAME }} 分支 - 测试渠道"
+          make_latest: true
+          tag_name: "AutoBuild_${{ env.BRANCH_NAME }}"
+          name: "${{ env.BRANCH_NAME }} 分支 - 测试渠道"
           files: |
               *.zip
               *.AppImage
@@ -205,27 +211,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Release]
     steps:
-    - name: Delete Windows-x64 Artifact
-      uses: geekyeggo/delete-artifact@v2
+    - uses: geekyeggo/delete-artifact@v2
       with:
           name: Windows_x64
-
-    - name: Delete Windows-arm64 Artifact
-      uses: geekyeggo/delete-artifact@v2
+    - uses: geekyeggo/delete-artifact@v2
       with:
           name: Windows_arm64
-
-    - name: Delete OSX-x64 Artifact
-      uses: geekyeggo/delete-artifact@v2
+    - uses: geekyeggo/delete-artifact@v2
       with:
           name: OSX_x64
-
-    - name: Delete OSX-arm64 Artifact
-      uses: geekyeggo/delete-artifact@v2
+    - uses: geekyeggo/delete-artifact@v2
       with:
           name: OSX_arm64
-
-    - name: Delete AppImage Artifact
-      uses: geekyeggo/delete-artifact@v2
+    - uses: geekyeggo/delete-artifact@v2
       with:
           name: AppImage
