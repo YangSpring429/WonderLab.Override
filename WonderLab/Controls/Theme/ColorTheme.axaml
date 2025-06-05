@@ -1,0 +1,129 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.ThemeDictionaries>
+		<ResourceDictionary x:Key="Light">
+			<SolidColorBrush x:Key="DynamicBarBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+
+			<SolidColorBrush x:Key="BackgroundMaskBrush" Color="#65FFFFFF"/>
+			<SolidColorBrush x:Key="RippleEffectFillBrush" Color="#20000000"/>
+			<SolidColorBrush x:Key="BottomBarItemPointeroverBackgroundBrush" Color="#20000000"/>
+			
+			<SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="#25000000"/>
+			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#20000000"/>
+			<SolidColorBrush x:Key="ListBoxItemPointerPressedBackgroundBrush" Color="#30000000"/>
+			<SolidColorBrush x:Key="ListBoxItemSelectedPointeroverBackgroundBrush" Color="#35000000"/>
+			<SolidColorBrush x:Key="ListBoxItemSelectedPointerPressedBackgroundBrush" Color="#40000000"/>
+
+
+			<DropShadowEffect x:Key="FlyoutDropShadowEffect" BlurRadius="16" OffsetX="0" OffsetY="0" Color="#60000000"/>
+			<DropShadowEffect x:Key="ComboBoxDropShadowEffect" BlurRadius="6" OffsetX="1" OffsetY="1" Color="#60000000"/>
+			<DropShadowEffect x:Key="NotificationCardDropShadowEffect" BlurRadius="6" OffsetX="0" OffsetY="1" Color="#60000000"/>
+		</ResourceDictionary>
+
+		<ResourceDictionary x:Key="Dark">
+			<SolidColorBrush x:Key="DynamicBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+
+			<SolidColorBrush x:Key="BackgroundMaskBrush" Color="#65000000"/>
+			<SolidColorBrush x:Key="RippleEffectFillBrush" Color="#20FFFFFF"/>
+			<SolidColorBrush x:Key="BottomBarItemPointeroverBackgroundBrush" Color="#20FFFFFF"/>
+			
+			<SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="#25FFFFFF"/>
+			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#20FFFFFF"/>
+			<SolidColorBrush x:Key="ListBoxItemPointerPressedBackgroundBrush" Color="#30FFFFFF"/>
+			<SolidColorBrush x:Key="ListBoxItemSelectedPointeroverBackgroundBrush" Color="#35FFFFFF"/>
+			<SolidColorBrush x:Key="ListBoxItemSelectedPointerPressedBackgroundBrush" Color="#40FFFFFF"/>
+
+			<DropShadowEffect x:Key="FlyoutDropShadowEffect" BlurRadius="16" OffsetX="0" OffsetY="0" Color="#60FFFFFF"/>
+			<DropShadowEffect x:Key="ComboBoxDropShadowEffect" BlurRadius="6" OffsetX="1" OffsetY="1" Color="#60FFFFFF"/>
+			<DropShadowEffect x:Key="NotificationCardDropShadowEffect" BlurRadius="6" OffsetX="0" OffsetY="1" Color="#60FFFFFF"/>
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+	
+	<SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
+	<SolidColorBrush x:Key="ApplicationTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ApplicationTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	<SolidColorBrush x:Key="ApplicationSubtitleForegroundBrush" Color="{DynamicResource OutlineColor}"/>
+
+	<SolidColorBrush x:Key="FlyoutBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="FlyoutBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+
+	<SolidColorBrush x:Key="DropDownButtonGlyphForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+
+	<SolidColorBrush x:Key="ListBoxItemIndicatorBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="BottomBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	<SolidColorBrush x:Key="BottomBarItemForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="BottomBarItemSelectedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="BottomBarItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+
+	<SolidColorBrush x:Key="ButtonForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ButtonPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.1"/>
+	<SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="PrimaryButtonForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="PrimaryButtonPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="SecondaryButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="SecondaryButtonForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="ProgressButtonHighlightForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="ProgressButtonIndicatorForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ProgressButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	
+	<SolidColorBrush x:Key="HyperlinkButtonForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+
+	<SolidColorBrush x:Key="ProgressBarForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ProgressBarBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+
+	<SolidColorBrush x:Key="BreadcrumbBarItemForegroundBrush" Color="{DynamicResource OnBackgroundColor}"/>
+	<SolidColorBrush x:Key="BreadcrumbBarItemPressedForegroundBrush" Color="{DynamicResource OnBackgroundColor}" Opacity="0.6"/>
+	<SolidColorBrush x:Key="BreadcrumbBarItemPointOverForegroundBrush" Color="{DynamicResource OnBackgroundColor}" Opacity="0.8"/>
+
+	<SolidColorBrush x:Key="TileForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TileBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TileSelectedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="SettingCardForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="SettingCardBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+
+	<SolidColorBrush x:Key="DynamicBarBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="AccountTileIconBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	
+	<SolidColorBrush x:Key="DialogPopupBackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
+	<SolidColorBrush x:Key="DialogPopupFooterBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	<SolidColorBrush x:Key="DialogPopupFooterBorderBrush" Color="{DynamicResource OutlineColor}" Opacity="0.6"/>
+
+	<SolidColorBrush x:Key="TextBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="TextBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TextBoxSelectionBrush" Color="{DynamicResource OnSecondaryContainerColor}" Opacity="0.4"/>
+	<SolidColorBrush x:Key="TextBoxCaretBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TextBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TextBoxFocusedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ComboBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ComboBoxPointerPressedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="ToggleSwitchKnobOffFillBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="ToggleSwitchCheckedKnobOnFillBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="ToggleSwitchCheckedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ToggleSwitchCheckedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="NotificationCardBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="NotificationCardIconBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="NotificationCardIconForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	
+	<SolidColorBrush x:Key="NotificationCardIconErrorBackgroundBrush" Color="{DynamicResource ErrorColor}"/>
+	<SolidColorBrush x:Key="NotificationCardIconErrorForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
+
+	<SolidColorBrush x:Key="SliderForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="SliderBackgroundBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="SliderIconForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
+
+	<SolidColorBrush x:Key="TabStripBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TabStripItemForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TabStripItemSelectedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TabStripItemSelectedForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+</ResourceDictionary>

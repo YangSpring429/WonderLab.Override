@@ -1,0 +1,53 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Width="400" Padding="20">
+			<wc:SettingCard Background="Red" Foreground="White" Header="Title" Icon="&#xE700;"/>
+		</Border>
+	</Design.PreviewWith>
+	
+	<ControlTheme TargetType="wc:SettingCard" x:Key="{x:Type wc:SettingCard}">
+		<Setter Property="Padding" Value="8"/>
+		<Setter Property="MinWidth" Value="100"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource SettingCardForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource SettingCardBackgroundBrush}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Button Classes="ripple"
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						MinWidth="{TemplateBinding MinWidth}"
+						MinHeight="{TemplateBinding MinHeight}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+						VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+					<Grid Margin="{TemplateBinding Padding}"
+						  ColumnDefinitions="Auto Auto 1* Auto">
+						<wc:FontIcon FontSize="22"
+									 VerticalAlignment="Center"
+									 Glyph="{TemplateBinding Icon}"
+									 Foreground="{TemplateBinding Foreground}"/>
+
+						<TextBlock Classes="Body"
+								   Grid.Column="1"
+								   Margin="12 0 0 0"
+								   VerticalAlignment="Center"
+								   Text="{TemplateBinding Header}"
+								   Foreground="{TemplateBinding Foreground}"/>
+
+						<ContentPresenter Grid.Column="3"
+										  Content="{TemplateBinding Content}"/>
+					</Grid>
+				</Button>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

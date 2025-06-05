@@ -1,0 +1,138 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Media.Behaviors"
+			 xmlns:wt="using:WonderLab.Media.Transitions"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
+             x:Class="WonderLab.Views.Pages.Setting.SettingNavigationPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Grid RowDefinitions="Auto, *">
+		<wce:BreadcrumbBar Grid.Row="0"
+						   Margin="0 12"
+						   VerticalAlignment="Top"
+						   HorizontalAlignment="Left"
+						   ItemsSource="{Binding HeaderItems}">
+			<wce:BreadcrumbBar.ItemTemplate>
+				<DataTemplate>
+					<wce:BreadcrumbBarItem FontSize="28"
+										   FontWeight="SemiBold"
+										   Content="{Binding}"/>
+				</DataTemplate>
+			</wce:BreadcrumbBar.ItemTemplate>
+
+			<Interaction.Behaviors>
+				<EventTriggerBehavior EventName="ItemClicked">
+					<InvokeCommandAction PassEventArgsToCommand="True"
+										 Command="{Binding ItemClickedCommand}"/>
+				</EventTriggerBehavior>
+			</Interaction.Behaviors>
+		</wce:BreadcrumbBar>
+		
+		<Grid Grid.Row="1">
+			<ContentControl Opacity="0"
+							ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}">
+				<Interaction.Behaviors>
+					<wb:SettingNavigationToBehavior IsForward="{Binding IsForward, Converter={StaticResource BoolReverseConverter}}"
+													PageKey="{Binding ActivePageKey}"
+													PageProvider="{Binding PageProvider}"/>
+				</Interaction.Behaviors>
+			</ContentControl>
+
+			<ScrollViewer ZIndex="{Binding ContentBarOpactiy}">
+				<Interaction.Behaviors>
+					<wb:SettingNavigationFromBehavior IsForward="{Binding IsForward}"
+													  PageKey="{Binding ActivePageKey}"/>
+				</Interaction.Behaviors>
+				
+				<ListBox Margin="0 0 8 0"
+						 Name="PART_TileListBox"
+						 VerticalAlignment="Stretch"
+						 HorizontalAlignment="Stretch"
+						 CornerRadius="{DynamicResource StrongCornerRadius}"
+						 wa:ListBoxExtensions.AnimatedScroll="True">
+					<ListBox.Transitions>
+						<Transitions>
+							<DoubleTransition Property="Opacity"
+											  Duration="0:0:.35"
+											  Easing="ExponentialEaseOut"/>
+						</Transitions>
+					</ListBox.Transitions>
+
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Spacing="8"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+
+					<wc:Tile Classes="empty">
+						<TextBlock Classes="BodyStrong"
+								   Text="Game"/>
+					</wc:Tile>
+
+					<wc:NavigationTile Icon="&#xE945;"
+									   CommandParameter="0"
+									   Title="Game Settings"
+									   Command="{Binding ChangeActivePageCommand}"
+									   Description="Set up your global launch settings"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+
+					<wc:NavigationTile Icon="&#xEC32;"
+									   CommandParameter="1"
+									   Title="Java Settings"
+									   Description="Set up your java runtime settings"
+									   Command="{Binding ChangeActivePageCommand}"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+
+					<wc:NavigationTile Icon="&#xE716;"
+									   CommandParameter="2"
+									   Title="Account Settings"
+									   Description="Manage your accounts"
+									   Command="{Binding ChangeActivePageCommand}"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+
+					<wc:Tile Classes="empty"
+							 Margin="0 12 0 0">
+						<TextBlock Classes="BodyStrong"
+								   Text="Launcher"/>
+					</wc:Tile>
+
+					<wc:NavigationTile Icon="&#xE701;"
+									   CommandParameter="3"
+									   Title="Network Settings"
+									   Description="Adjust WonderLab's maximum number of connections and set the download source"
+									   Command="{Binding ChangeActivePageCommand}"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+
+					<wc:NavigationTile Icon="&#xE790;"
+									   CommandParameter="4"
+									   Title="Appearance Settings"
+									   Description="Set WonderLab background and set the dark/light mode"
+									   Command="{Binding ChangeActivePageCommand}"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+
+					<wc:Tile Classes="empty"
+							 Margin="0 12 0 0">
+						<TextBlock Classes="BodyStrong"
+								   Text="About"/>
+					</wc:Tile>
+
+					<wc:NavigationTile Icon="&#xE736;"
+									   CommandParameter="5"
+									   Title="About"
+									   Description="Chicken, you're too beautiful"
+									   Command="{Binding ChangeActivePageCommand}"
+									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
+				</ListBox>
+			</ScrollViewer>
+		</Grid>
+	</Grid>
+</UserControl>

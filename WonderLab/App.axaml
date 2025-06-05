@@ -1,15 +1,63 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="WonderLab.App"
-             xmlns:local="using:WonderLab"
+             xmlns:monet="using:Monet.Avalonia"
+			 xmlns:wc="using:WonderLab.Media.Converters"
+			 xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
-  
     <Application.Styles>
         <FluentTheme />
+		<monet:MonetColors/>
+		<dialogHostAvalonia:DialogHostStyles/>
     </Application.Styles>
+
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/Theme/TileTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/SliderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ListBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TextBlockTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/BlurBorderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ProgressBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ScrollViewerTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/WonderWindowTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ToggleButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ToggleSwitchTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/DropDownButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/HyperlinkButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/SettingExpandCardTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/DialogOverlayPopupHostTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/Experimental/BreadcrumbBarItemTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<CornerRadius x:Key="WeakCornerRadius">4</CornerRadius>
+			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
+			<CornerRadius x:Key="NormalCornerRadius">8</CornerRadius>
+			<CornerRadius x:Key="StrongCornerRadius">12</CornerRadius>
+			
+			<wc:TimeTextConverter x:Key="TimeTextConverter"/>
+			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
+			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
+			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
+			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
+			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>
+			<wc:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+			<wc:SettingCardIsVisibleConverter x:Key="SettingCardIsVisibleConverter"/>
+			<wc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
+		</ResourceDictionary>
+	</Application.Resources>
 </Application>

@@ -1,0 +1,120 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.AboutPage">
+	<ScrollViewer>
+		<ItemsControl Margin="0 0 16 24"
+					  wa:ItemsControlExtensions.AnimatedScroll="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Classes="BodyStrong"
+					   Text="关于"/>
+
+			<wc:SettingCard Icon="&#xE946;"
+							Header="版本">
+				<HyperlinkButton Content="2.0.0"
+								 NavigateUri="C:\Users\wxysd\Downloads\betterncm_installer.exe"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xF133;"
+							Header="赞助我们">
+				<HyperlinkButton Content="爱发电"
+								 NavigateUri="https://afdian.com/a/WonderLab"/>
+			</wc:SettingCard>
+
+			<TextBlock Margin="0 12 0 0"
+					   Classes="BodyStrong"
+					   Text="鸣谢"/>
+
+			<wc:SettingCard Icon="&#xE77B;"
+							Header="技术帮助">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<HyperlinkButton Content="Natsurainko"
+									 NavigateUri="https://github.com/natsurainko"/>
+
+					<HyperlinkButton Content="llr下一你了亲并"
+									 NavigateUri="https://github.com/laolarou726"/>
+				</StackPanel>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE77B;"
+							Header="部分图标引用自">
+				<HyperlinkButton Content="pdimu"
+								 NavigateUri="https://github.com/pdimu"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE77B;"
+							Header="主界面及部分交互逻辑参考自">
+				<HyperlinkButton Content="LauncherX"
+								 NavigateUri="https://www.corona.studio/lx"/>
+			</wc:SettingCard>
+
+			<TextBlock Margin="0 12 0 0"
+					   Classes="BodyStrong"
+					   Text="使用的开源项目"/>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUI/Avalonia"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="AsyncImageLoader.Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="Avalonia.Xaml.Behaviors">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUI/Avalonia.Xaml.Behaviors"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="DialogHost.Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUtils/DialogHost.Avalonia"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="CommunityToolkit.Mvvm">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/CommunityToolkit/dotnet"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="MinecraftLaunch">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/Lunova-Studio/MinecraftLaunch"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="Monet">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/Lunova-Studio/Monet"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="Serilog">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/serilog/serilog"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE7B8;"
+							Header="SkiaSharp">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/mono/SkiaSharp"/>
+			</wc:SettingCard>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

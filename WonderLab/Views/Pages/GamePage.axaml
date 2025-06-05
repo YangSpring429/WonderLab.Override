@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:wb="using:WonderLab.Media.Behaviors"
+             x:Class="WonderLab.Views.Pages.GamePage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+
+	<Grid RowDefinitions="auto auto auto 1*">
+		<TextBlock Classes="Title"
+				   Margin="0 12 0 0"
+				   VerticalAlignment="Top"
+				   HorizontalAlignment="Left"
+				   Foreground="{DynamicResource ApplicationTitleBarForegroundBrush}"
+				   Text="游戏管理"/>
+
+		<WrapPanel Grid.Row="1"
+				   Margin="0 16 0 0"
+				   Orientation="Horizontal">
+			<Button Classes="primary">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<wc:FontIcon FontSize="14"
+								 Glyph="&#xE896;"
+								 VerticalAlignment="Center"/>
+					
+					<TextBlock Classes="Body"
+							   Text="安装"/>
+				</StackPanel>
+			</Button>
+
+			<HyperlinkButton FontSize="14"
+							 Margin="8 0"
+							 Content="Path"
+							 FontWeight="Regular"/>
+		</WrapPanel>
+
+		<TextBlock Grid.Row="2"
+				   Margin="0 12"
+				   Classes="BodyStrong"
+				   Text="所有游戏"/>
+
+		<ScrollViewer Grid.Row="3">
+			<ItemsRepeater Margin="0 0 16 0" 
+						   Background="Transparent"
+						   Name="PART_ItemsRepeater"
+						   ItemsSource="{Binding Minecrafts}"
+						   wa:ItemsRepeaterExtensions.AnimatedScroll="True">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="8"
+								 Orientation="Vertical"/>
+				</ItemsRepeater.Layout>
+
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<wc:NavigationTile Icon="&#xE7FC;"
+										   Title="{Binding Id}"
+										   CommandParameter="{Binding}"
+										   Description="{Binding Version.VersionId}"
+										   Command="{Binding $parent[ItemsRepeater].DataContext.ActiveMinecraftCommand}">
+							<Interaction.Behaviors>
+								<wb:PointerOverVisibleBehavior Target="{Binding ElementName=PART_Footer}"/>
+							</Interaction.Behaviors>
+							
+							<wc:NavigationTile.Footer>
+								<StackPanel Spacing="4"
+											Opacity="0"
+											Name="PART_Footer"
+											Orientation="Horizontal"
+											VerticalAlignment="Center">
+									<Button Width="28"
+											Height="28"
+											FontSize="15"
+											Classes="icon"
+											Content="&#xE74D;"/>
+									
+									<Button Width="28"
+											Height="28"
+											FontSize="15"
+											Classes="icon"
+											Margin="0 0 8 0"
+											Content="&#xE713;"
+											CommandParameter="{Binding}"
+											Command="{Binding $parent[ItemsRepeater].DataContext.OpenGameSettingPageCommand}"/>
+
+									<Button Padding="0"
+											MinWidth="50"
+											MinHeight="28"
+											Classes="primary"
+											Name="PART_LaunchButton"
+											VerticalAlignment="Center"
+											Content="Launch"/>
+								</StackPanel>
+							</wc:NavigationTile.Footer>
+						</wc:NavigationTile>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

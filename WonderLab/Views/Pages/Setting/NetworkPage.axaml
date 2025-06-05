@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:sys="using:System"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             x:Class="WonderLab.Views.Pages.Setting.NetworkPage">
+	<ScrollViewer>
+		<ItemsControl Margin="0 0 16 0"
+					  wa:ItemsControlExtensions.AnimatedScroll="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Classes="BodyStrong"
+					   Text="基础网络设置"/>
+
+			<wc:SettingCard Icon="&#xEBD3;"
+							Header="使用镜像下载源">
+				<StackPanel Spacing="12" 
+							Orientation="Horizontal">
+					<ToggleSwitch IsChecked="{Binding IsEnableMirror}"/>
+				</StackPanel>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xEC4A;"
+							Header="最大下载线程数">
+				<StackPanel Spacing="12"
+							Orientation="Horizontal">
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="{Binding MaxThread}"/>
+
+					<Slider Width="350"
+							Minimum="1"
+							Maximum="256"
+							VerticalAlignment="Center"
+							Value="{Binding MaxThread}"/>
+				</StackPanel>
+			</wc:SettingCard>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

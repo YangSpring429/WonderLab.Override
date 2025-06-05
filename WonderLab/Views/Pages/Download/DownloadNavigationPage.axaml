@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Media.Behaviors"
+			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
+             x:Class="WonderLab.Views.Pages.Download.DownloadNavigationPage">
+	<!--<Border Width="300" 
+			Height="150"
+			CornerRadius="8"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center"
+			Effect="{DynamicResource FlyoutDropShadowEffect}"
+			Background="{DynamicResource FlyoutBackgroundBrush}">
+		<Interaction.Behaviors>
+			<wb:Parallax3dEffectBehavior/>
+		</Interaction.Behaviors>
+		
+		<Grid RowSpacing="8"
+			  RowDefinitions="auto auto" 
+			  VerticalAlignment="Center" 
+			  HorizontalAlignment="Center">
+			<wc:FontIcon FontSize="48"
+						 Glyph="&#xE822;"
+						 HorizontalAlignment="Center"/>
+			
+			<TextBlock Grid.Row="1"
+					   Classes="BodyStrong"
+					   Text="施工中，暂未开放"/>
+		</Grid>
+	</Border>-->
+
+	<Grid RowDefinitions="auto auto *">
+		<wce:BreadcrumbBar Margin="0 12"
+						   VerticalAlignment="Top"
+						   HorizontalAlignment="Left"
+						   ItemsSource="{Binding HeaderItems}"
+						   Grid.Row="0">
+			<wce:BreadcrumbBar.ItemTemplate>
+				<DataTemplate>
+					<wce:BreadcrumbBarItem FontSize="28"
+										   FontWeight="SemiBold"
+										   Content="{Binding}"/>
+				</DataTemplate>
+			</wce:BreadcrumbBar.ItemTemplate>
+
+			<Interaction.Behaviors>
+				<EventTriggerBehavior EventName="ItemClicked">
+					<InvokeCommandAction PassEventArgsToCommand="True"
+										 Command="{Binding ItemClickedCommand}"/>
+				</EventTriggerBehavior>
+			</Interaction.Behaviors>
+		</wce:BreadcrumbBar>
+
+		<WrapPanel Orientation="Horizontal"
+				   HorizontalAlignment="Left"
+				   Grid.Row="1">
+
+			<TabStrip>
+				<TabStripItem FontSize="14" Content="Minecraft"/>
+				<TabStripItem FontSize="14" Content="Modpacks"/>
+				<TabStripItem FontSize="14" Content="Mods"/>
+				<TabStripItem FontSize="14" Content="ResourcePacks"/>
+				<TabStripItem FontSize="14" Content="DataPacks"/>
+				<TabStripItem FontSize="14" Content="Sharders"/>
+			</TabStrip>
+		</WrapPanel>
+	</Grid>
+</UserControl>

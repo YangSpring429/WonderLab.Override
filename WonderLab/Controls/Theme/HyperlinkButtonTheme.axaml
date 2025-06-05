@@ -1,0 +1,62 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wb="using:WonderLab.Media.Behaviors"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<HyperlinkButton Content="dddd"
+							 NavigateUri="x"/>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme TargetType="HyperlinkButton" x:Key="{x:Type HyperlinkButton}">
+		<Setter Property="Padding" Value="8 4"/>
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}"/>
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:0.35"
+								 Property="Background"
+								 Easing="ExponentialEaseOut"/>
+
+				<DoubleTransition Duration="0:0:0.35"
+								  Property="Opacity"
+								  Easing="ExponentialEaseOut"/>
+			</Transitions>
+		</Setter>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl Background="{TemplateBinding Background}"
+								  BorderBrush="{TemplateBinding BorderBrush}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  BorderThickness="{TemplateBinding BorderThickness}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}"
+								  ToolTip.Tip="{TemplateBinding NavigateUri}">
+					<Panel>
+						<Border Name="PART_PointerOverBorder"
+								Background="Transparent"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"/>
+
+						<ContentPresenter RecognizesAccessKey="True"
+										  Name="PART_ContentPresenter"
+										  Padding="{TemplateBinding Padding}"
+										  Content="{TemplateBinding Content}"
+										  Transitions="{TemplateBinding Transitions}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					</Panel>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+
+		<Style Selector="^.ripple:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

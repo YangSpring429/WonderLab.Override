@@ -1,0 +1,90 @@
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Logging;
+using MinecraftLaunch.Base.Models.Game;
+using MinecraftLaunch.Components.Parser;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+namespace WonderLab.Services.Launch;
+
+public sealed class GameService {
+    private readonly ILogger<GameService> _logger;
+    private readonly SettingService _settingService;
+
+    public MinecraftEntry ActiveGameCache { get; set; }
+    public MinecraftParser MinecraftParser { get; set; }
+    public MinecraftEntry ActiveGame { get; private set; }
+    public ObservableCollection<MinecraftEntry> Minecrafts { get; private set; }
+    
+    public event EventHandler ActiveGameChanged;
+
+    public GameService(ILogger<GameService> logger, SettingService settingService) {
+        _logger = logger;
+        _settingService = settingService;
+
+        Minecrafts = [];
+        _logger.LogInformation("初始化 {name}", nameof(GameService));
+    }
+
+    public void RefreshGames() {
+        _logger.LogInformation("刷新游戏列表，指定的文件夹路径为：{folder}",
+            _settingService.Setting?.ActiveMinecraftFolder);
+        Minecrafts.Clear();
+
+        if (MinecraftParser is null && string.IsNullOrEmpty(_settingService.Setting?.ActiveMinecraftFolder))
+            return;
+            //throw new InvalidOperationException("The minecraft parser is not initialized.");
+
+        MinecraftParser ??= _settingService.Setting.ActiveMinecraftFolder;
+        foreach (var minecraft in MinecraftParser.GetMinecrafts())
+            Minecrafts.Add(minecraft);
+
+        if (Minecrafts.Count == 0)
+            return;
+
+        var entry = _settingService.Setting.ActiveGameId is not null
+            ? Minecrafts.FirstOrDefault(x => x.Id == _settingService.Setting.ActiveGameId)
+            : Minecrafts.FirstOrDefault();
+
+        ActivateMinecraft(entry);
+    }
+
+    public void ActivateMinecraftFolder(string dir) {
+        _logger.LogInformation("选择 .minecraft 目录：{folder}", dir);
+
+        if (!_settingService.Setting.MinecraftFolders.Contains(dir))
+            return;
+            //throw new ArgumentException("The specified minecraft folder does not exist.");
+
+        MinecraftParser = _settingService.Setting.ActiveMinecraftFolder = dir;
+    }
+
+    public void ActivateMinecraft(string id) {
+        var minecraft = Minecrafts.FirstOrDefault(x => x.Id == id);
+        if (string.IsNullOrWhiteSpace(id) || minecraft is null)
+            return;
+
+        ActivateMinecraft(minecraft);
+    }
+
+    public void ActivateMinecraft(MinecraftEntry entry) {
+        _logger.LogInformation("选择游戏实例：{entry} - {isVanilla}", entry?.Id, entry?.IsVanilla);
+
+        if (entry != null && !Minecrafts.Contains(entry))
+            throw new ArgumentException("The specified minecraft entry does not exist.");
+
+        WeakReferenceMessenger.Default.Send(new ActiveMinecraftChangedMessage());
+        _settingService.Setting.ActiveGameId = entry?.Id;
+        ActiveGame = entry;
+    }
+
+    public bool TryGetMinecraft(string id, out MinecraftEntry minecraft) {
+        _logger.LogInformation("尝试获取游戏实例：{id}", id);
+
+        minecraft = Minecrafts.FirstOrDefault(x => x.Id == id);
+        return minecraft is null;
+    }
+}
+
+internal record ActiveMinecraftChangedMessage;

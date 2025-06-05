@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             x:Class="WonderLab.Views.Pages.Setting.JavaPage">
+	<ScrollViewer>
+		<ItemsControl Margin="0 0 16 24"
+					  wa:ItemsControlExtensions.AnimatedScroll="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Classes="BodyStrong"
+					   Text="Java 运行时管理"/>
+
+			<wc:SettingCard Icon="&#xE762;"
+							Header="选择 Java 运行时">
+				<ComboBox ItemsSource="{Binding Javas}"
+						  SelectedItem="{Binding ActiveJava}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE721;"
+							Header="搜索 Java">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<Button Classes="secondary"
+							Content="手动添加"
+							Command="{Binding BrowserJavaCommand}"/>
+
+					<Button Classes="secondary"
+							Content="自动搜索"
+							Command="{Binding AutoSearchJavaCommand}"/>
+				</StackPanel>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xECC9;"
+							Header="移除当前 Java 运行时">
+				<Button Content="移除"
+						Classes="secondary"
+						Background="{DynamicResource TertiaryContainerColor}"
+						Foreground="{DynamicResource OnTertiaryContainerColor}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE835;"
+							Header="是否自动选择 Java 运行时">
+				<ToggleSwitch IsChecked="{Binding IsAutoSelectJava}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xF8A6;"
+							Header="配置游戏内存">
+				<NumericUpDown Minimum="512"
+							   Increment="16"
+							   Value="{Binding MaxMemorySize}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE835;"
+							Header="是否自动配置游戏内存">
+				<ToggleSwitch IsEnabled="False"/>
+			</wc:SettingCard>
+
+			<!--<TextBlock Margin="0 12 0 0"
+					   Classes="BodyStrong"
+					   Text="下载新的 Java 运行时"/>
+
+			<wc:SettingCard Icon="&#xEBD3;"
+							Header="下载新的 Java 运行时">
+				<Button Content="下载"
+						Classes="secondary"/>
+			</wc:SettingCard>-->
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

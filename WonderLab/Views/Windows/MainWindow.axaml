@@ -1,0 +1,190 @@
+<wc:WonderWindow xmlns="https://github.com/avaloniaui"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+				 x:Class="WonderLab.Views.Windows.MainWindow" MinWidth="100"
+				 xmlns:wc="using:WonderLab.Controls"
+				 xmlns:wb="using:WonderLab.Media.Behaviors"
+				 xmlns:wt="using:WonderLab.Media.Transitions"
+				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
+				 Title="WonderLab">
+	<wc:WonderWindow.Resources>
+		<DataTemplate x:Key="MinecraftProcessCardItemTemplate">
+			<Button Width="30"
+					Opacity="0"
+					Classes="ripple"
+					Background="Transparent"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Center"
+					VerticalContentAlignment="Center"
+					HorizontalContentAlignment="Center"
+					CornerRadius="{DynamicResource WeakCornerRadius}">
+				<Interaction.Behaviors>
+					<wb:MinecraftProcessCardAnimationBehavior IsExited="{Binding IsExited}"/>
+				</Interaction.Behaviors>
+
+				<Button.Transitions>
+					<Transitions>
+						<DoubleTransition Property="Width"
+										  Duration="0:0:.4"
+										  Easing="CubicEaseOut"/>
+					</Transitions>
+				</Button.Transitions>
+
+				<Button.Flyout>
+					<MenuFlyout Placement="TopEdgeAlignedLeft">
+						<MenuItem Header="关闭" Command="{Binding CloseCommand}"/>
+					</MenuFlyout>
+				</Button.Flyout>
+				
+				<Border Width="20"
+						Height="20"
+						BorderThickness="1"
+						BorderBrush="White"
+						ClipToBounds="True"
+						CornerRadius="{DynamicResource WeakCornerRadius}">
+					<Border.Background>
+						<ImageBrush Stretch="UniformToFill"
+									Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
+					</Border.Background>
+				</Border>
+			</Button>
+		</DataTemplate>
+	</wc:WonderWindow.Resources>
+	
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Grid RowDefinitions="1* Auto">		
+		<wc:Frame Margin="16 12 0 12"
+				  PageKey="{Binding PageKey}"
+				  PageProvider="{Binding PageProvider}"/>
+		
+		<wc:DynamicBar Margin="0 12"
+					   BarState="{Binding BarState, Mode=TwoWay}">
+			<wc:Frame Margin="16 16 0 16"
+					  PageKey="{Binding DynamicPageKey}"
+					  PageProvider="{Binding PageProvider}">
+				<wc:Frame.PageTransition>
+					<wt:EntrancePageTransition/>
+				</wc:Frame.PageTransition>
+			</wc:Frame>
+		</wc:DynamicBar>
+
+		<WindowNotificationManager Margin="12 6 12 0"
+								   Position="TopCenter">
+			<Interaction.Behaviors>
+				<wb:NotificationBehavior/>
+			</Interaction.Behaviors>
+		</WindowNotificationManager>
+		
+		<TextBlock Margin="12 4" Name="Temp"
+				   Classes="Caption"
+				   TextAlignment="Right"
+				   IsHitTestVisible="False"
+				   VerticalAlignment="Bottom"
+				   HorizontalAlignment="Right">
+			<TextBlock.Inlines>
+				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
+				<LineBreak/>
+				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.529.2126"/>
+			</TextBlock.Inlines>
+		</TextBlock>
+		
+		<ListBox Grid.Row="1"
+				 Classes="bottombar"
+				 SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}">
+			<Interaction.Behaviors>
+				<EventTriggerBehavior EventName="SelectionChanged">
+					<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
+				</EventTriggerBehavior>
+			</Interaction.Behaviors>
+			
+			<ListBox.Tag>
+				<Grid ColumnDefinitions="auto auto">
+					<ItemsControl Background="Transparent"
+								  ItemsSource="{Binding MinecraftProcesses}"
+								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<ReversibleStackPanel Spacing="2" 
+													  ReverseOrder="True"
+													  Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+					
+					<Button Margin="8 0"
+							Padding="8 4"
+							Grid.Column="1"
+							Classes="ripple"
+							Background="Transparent"
+							VerticalAlignment="Center"
+							Command="{Binding ShowTaskCenterCommand}">
+						<Grid ColumnDefinitions="Auto, Auto">
+							<wc:FontIcon Glyph="&#xE7C4;"
+										 FontSize="20"
+										 Grid.Column="1"
+										 Margin="8 0 0 0"
+										 VerticalAlignment="Center"
+										 Foreground="{DynamicResource BottomBarItemForegroundBrush}"/>
+
+							<Grid Grid.Column="0"
+								  RowDefinitions="Auto, Auto">
+								<TextBlock Classes="Caption"
+										   HorizontalAlignment="Right"
+										   Foreground="{DynamicResource BottomBarItemForegroundBrush}"
+										   Text="任务中心"/>
+
+								<TextBlock Grid.Row="1"
+										   Classes="Caption"
+										   HorizontalAlignment="Right"
+										   Foreground="{DynamicResource BottomBarItemForegroundBrush}">
+									<Run Text="当前正在执行"/>
+									<Run Text="{Binding Tasks.Count}"/>
+									<Run Text="个任务"/>
+								</TextBlock>
+							</Grid>
+						</Grid>
+					</Button>
+				</Grid>
+			</ListBox.Tag>
+
+			<ListBoxItem Tag="&#xE80F;"
+						 Foreground="{DynamicResource PrimaryBrush}"
+						 Content="主页">
+				<Interaction.Behaviors>
+					<wb:ListBoxAnimationBehavior/>
+				</Interaction.Behaviors>
+			</ListBoxItem>
+
+			<ListBoxItem Tag="&#xE896;"
+						 Foreground="{DynamicResource PrimaryBrush}"
+						 Content="下载">
+				<Interaction.Behaviors>
+					<wb:ListBoxAnimationBehavior/>
+				</Interaction.Behaviors>
+			</ListBoxItem>
+
+			<ListBoxItem Tag="&#xF22C;"
+						 Foreground="{DynamicResource PrimaryBrush}"
+						 Content="联机">
+				<Interaction.Behaviors>
+					<wb:ListBoxAnimationBehavior/>
+				</Interaction.Behaviors>
+			</ListBoxItem>
+
+			<ListBoxItem Tag="&#xE713;"
+						 Foreground="{DynamicResource PrimaryBrush}"
+						 Content="设置">
+				<Interaction.Behaviors>
+					<wb:ListBoxAnimationBehavior/>
+				</Interaction.Behaviors>
+			</ListBoxItem>
+		</ListBox>
+	</Grid>
+</wc:WonderWindow>

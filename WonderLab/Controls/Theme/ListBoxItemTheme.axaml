@@ -1,0 +1,81 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Padding" Value="{DynamicResource ListBoxItemPadding}" />
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<ContentPresenter Name="PART_ContentPresenter"
+									  Content="{TemplateBinding Content}"
+									  Padding="{TemplateBinding Padding}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+
+					<Border Width="3.5"
+							Height="5"
+							Opacity="0"
+							UseLayoutRounding="False"
+							Name="PART_SelectedBorder"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Left"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							Background="{DynamicResource ListBoxItemIndicatorBackgroundBrush}">
+						<Border.Transitions>
+							<Transitions>
+								<DoubleTransition Property="Height"
+												  Duration="0:0:.25"
+												  Easing="ExponentialEaseOut"/>
+
+								<DoubleTransition Property="Opacity"
+												  Duration="0:0:.15"/>
+							</Transitions>
+						</Border.Transitions>
+					</Border>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+
+		<!--  PointerOver State  -->
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}" />
+		</Style>
+
+		<!--  Pressed State  -->
+		<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointerPressedBackgroundBrush}" />
+		</Style>
+
+		<!--  Selected State  -->
+		<Style Selector="^:selected">
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedBackgroundBrush}" />
+			</Style>
+
+			<Style Selector="^ /template/ Border#PART_SelectedBorder">
+				<Setter Property="Height" Value="20" />
+				<Setter Property="Opacity" Value="1" />
+			</Style>
+
+			<!--  Selected PointerOver State  -->
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointeroverBackgroundBrush}" />
+			</Style>
+
+			<!--  Selected Pressed State  -->
+			<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointerPressedBackgroundBrush}" />
+			</Style>
+
+			<Style Selector="^:pressed /template/ Border#PART_SelectedBorder">
+				<Setter Property="Height" Value="14" />
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

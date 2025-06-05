@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             x:Class="WonderLab.Views.Pages.TaskPage">
+	<Grid RowDefinitions="auto 1*">
+		<TextBlock Classes="Subtitle"
+				   VerticalAlignment="Top"
+				   HorizontalAlignment="Left"
+				   Text="任务列表"/>
+
+		<Button Width="25"
+				Height="25"
+				FontSize="16"
+				Classes="icon"
+				Margin="0 0 16 0"
+				Content="&#xE72A;"
+				HorizontalAlignment="Right"
+				Command="{Binding CloseCommand}"/>
+
+		<StackPanel Spacing="8"
+					Grid.Row="0"
+					Grid.RowSpan="2"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					IsVisible="{Binding HasTasks, Converter={StaticResource BoolReverseConverter}}">
+			<wc:FontIcon FontSize="24"
+						 Glyph="&#xF133;"
+						 HorizontalAlignment="Center"/>
+
+			<TextBlock Classes="BodyStrong"
+					   Text="无执行中的任务"/>
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1"
+					  Margin="0 16 0 0">
+			<ItemsRepeater Margin="0 0 16 0"
+						   ItemsSource="{Binding Tasks}"
+						   wa:ItemsRepeaterExtensions.AnimatedScroll="True">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="8"/>
+				</ItemsRepeater.Layout>
+				
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<wc:NavigationTile Classes="task" 
+										   Opacity="0"
+										   IsEnableAnimation="False"
+										   Title="{Binding TaskJob.JobName}"
+										   Description="{Binding TaskJob.ProgressText}"
+										   wa:NavigationTileExtensions.Value="{Binding TaskJob.Progress}">
+							<wa:NavigationTileExtensions.Content>
+								<TextBlock Classes="Caption"
+										   TextAlignment="Right">
+									<Run Text="{Binding TaskJob.SpeedText}"/>
+									<Run Text=" "/>
+									<Run Text="{Binding TaskJob.RunningTimeText}"/>
+								</TextBlock>
+							</wa:NavigationTileExtensions.Content>
+							
+							<wc:NavigationTile.Footer>
+								<Button Width="22"
+										Height="22"
+										FontSize="12"
+										Classes="icon"
+										Content="&#xE8BB;"
+										Command="{Binding TaskJob.CancelTaskCommand}"/>
+							</wc:NavigationTile.Footer>
+						</wc:NavigationTile>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

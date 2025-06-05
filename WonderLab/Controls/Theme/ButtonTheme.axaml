@@ -1,0 +1,279 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:wa="using:WonderLab.Media.Attachments">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="8">
+				<Button Content="Click Me"/>
+				<Button Content="Click Me" Classes="process" Background="red"/>
+				<Button Content="Click Me" Classes="primary"/>
+				<ProgressBar Background="Red" Foreground="blue" Value="10"/>
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+	
+	<ControlTheme TargetType="Button" x:Key="{x:Type Button}">
+		<Setter Property="RenderTransform" Value="none"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="{DynamicResource ButtonPadding}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ContentPresenter RecognizesAccessKey="True"
+								  Name="PART_ContentPresenter"
+								  Content="{TemplateBinding Content}"
+								  Padding="{TemplateBinding Padding}"
+								  Background="{TemplateBinding Background}"
+								  Foreground="{TemplateBinding Foreground}"
+								  Transitions="{TemplateBinding Transitions}"
+								  BorderBrush="{TemplateBinding BorderBrush}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  BorderThickness="{TemplateBinding BorderThickness}"
+								  ContentTemplate="{TemplateBinding ContentTemplate}"
+								  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+								  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+				</ContentPresenter>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPointerOver}" />
+		</Style>
+
+		<Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushPressed}" />
+		</Style>
+
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ButtonBackgroundDisabled}" />
+			<Setter Property="Foreground" Value="{DynamicResource ButtonForegroundDisabled}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushDisabled}" />
+		</Style>
+
+		<Style Selector="^.icon">
+			<Setter Property="Width" Value="23"/>
+			<Setter Property="Height" Value="23"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="ClipToBounds" Value="True"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl ClipToBounds="False"
+									  Name="PART_RippleControl"
+									  Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  FontSize="{TemplateBinding FontSize}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}">
+						<wc:RippleControl.Transitions>
+							<Transitions>
+								<BrushTransition Duration="0:0:0.35"
+												 Property="Background"
+												 Easing="CubicEaseOut"/>
+							</Transitions>
+						</wc:RippleControl.Transitions>
+
+						<wc:FontIcon VerticalAlignment="Center"
+									 HorizontalAlignment="Center"
+									 Glyph="{TemplateBinding Content}"
+									 FontSize="{TemplateBinding FontSize}"/>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.icon:pointerover /template/ wc|RippleControl#PART_RippleControl">
+			<Setter Property="Background" Value="#26000000"/>
+		</Style>
+
+		<Style Selector="^.ripple">
+			<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<BrushTransition Duration="0:0:0.35"
+									 Property="Background"
+									 Easing="ExponentialEaseOut"/>
+
+					<DoubleTransition Duration="0:0:0.35"
+									  Property="Opacity"
+									  Easing="ExponentialEaseOut"/>
+				</Transitions>
+			</Setter>
+			
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  RenderTransform="{TemplateBinding RenderTransform}"
+									  RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+						<Panel>
+							<Border Name="PART_PointerOverBorder"
+								    Background="Transparent"
+								    VerticalAlignment="Stretch"
+								    HorizontalAlignment="Stretch"/>
+							
+							<ContentPresenter RecognizesAccessKey="True"
+											  Name="PART_ContentPresenter"
+											  Padding="{TemplateBinding Padding}"
+											  Content="{TemplateBinding Content}"
+											  Transitions="{TemplateBinding Transitions}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.ripple:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/>
+		</Style>
+		
+		<Style Selector="^.primary">
+			<Setter Property="MinWidth" Value="80"/>
+			<Setter Property="MinHeight" Value="30"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Name="PART_RippleControl"
+									  Padding="{TemplateBinding Padding}"
+									  Foreground="{TemplateBinding Foreground}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  Background="{TemplateBinding Background}"
+									  Transitions="{TemplateBinding Transitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Panel>
+							<Border Name="PART_PointerOverBorder"
+									Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"/>
+							
+							<ContentPresenter RecognizesAccessKey="True"
+											  Content="{TemplateBinding Content}"
+											  Padding="{TemplateBinding Padding}"
+											  Transitions="{TemplateBinding Transitions}"
+											  CornerRadius="{TemplateBinding CornerRadius}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.primary:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource PrimaryButtonPointerOverBackgroundBrush}"/>
+		</Style>
+
+		<Style Selector="^.secondary">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="MinWidth" Value="80"/>
+			<Setter Property="MinHeight" Value="30"/>
+			<Setter Property="FontWeight" Value="Regular"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource SecondaryButtonBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource SecondaryButtonForegroundBrush}"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Name="PART_RippleControl"
+									  Padding="{TemplateBinding Padding}"
+									  Foreground="{TemplateBinding Foreground}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  Transitions="{TemplateBinding Transitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Panel>
+							<Border Name="PART_PointerOverBorder"
+									Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"/>
+
+							<ContentPresenter RecognizesAccessKey="True"
+											  Content="{TemplateBinding Content}"
+											  Padding="{TemplateBinding Padding}"
+											  Transitions="{TemplateBinding Transitions}"
+											  CornerRadius="{TemplateBinding CornerRadius}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.progress">
+			<Setter Property="MinWidth" Value="80"/>
+			<Setter Property="MinHeight" Value="30"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource ProgressButtonBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Name="PART_RippleControl"
+									  Padding="{TemplateBinding Padding}"
+									  Foreground="{TemplateBinding Foreground}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  Transitions="{TemplateBinding Transitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Panel>
+							<ProgressBar Minimum="0"
+										 Maximum="1"
+										 MinWidth="0"
+										 CornerRadius="0"
+										 ShowProgressText="True"
+										 VerticalAlignment="Stretch"
+										 HorizontalAlignment="Stretch"
+										 Width="{TemplateBinding Width}"
+										 Background="{TemplateBinding Background}"
+										 Value="{TemplateBinding (wa:ButtonExtensions.Value)}"
+										 Foreground="{DynamicResource ProgressButtonIndicatorForegroundBrush}"
+										 wa:ProgressBarExtensions.Content="{TemplateBinding Content}"/>
+							
+							<Border Name="PART_PointerOverBorder"
+									Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.progress:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource PrimaryButtonPointerOverBackgroundBrush}"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

@@ -14,15 +14,16 @@ internal sealed class Program {
             .UsePlatformDetect()
             .LogToTrace()
             .With(new Win32PlatformOptions {
+                WinUICompositionBackdropCornerRadius = 8,
                 RenderingMode = RuntimeInformation.ProcessArchitecture == Architecture.Arm || RuntimeInformation.ProcessArchitecture == Architecture.Arm64
                     ? [Win32RenderingMode.Wgl]
-                    : [Win32RenderingMode.AngleEgl, Win32RenderingMode.Software]!,
+                    : [Win32RenderingMode.AngleEgl, Win32RenderingMode.Wgl, Win32RenderingMode.Software]!,
             }).With(new MacOSPlatformOptions {
                 DisableAvaloniaAppDelegate = true,
                 DisableDefaultApplicationMenuItems = true,
             }).With(new X11PlatformOptions {
                 OverlayPopups = true,
             }).With(new SkiaOptions {
-                MaxGpuResourceSizeBytes = 1073741824L
+                MaxGpuResourceSizeBytes = null
             });
 }

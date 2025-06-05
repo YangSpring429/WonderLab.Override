@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.LaunchPage">
+	<ScrollViewer>
+		<ItemsControl Margin="0 0 16 24"
+					  wa:ItemsControlExtensions.AnimatedScroll="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Classes="BodyStrong"
+					   Text="Minecraft 目录设置"/>
+			
+			<wc:SettingCard Icon="&#xF89A;"
+							Header="选择目录">
+				<ComboBox ItemsSource="{Binding MinecraftFolders, Mode=Default}"
+						  SelectedItem="{Binding ActiveMinecraftFolder, Mode=Default}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE8F4;"
+							Header="导入目录">
+				<Button Classes="secondary"
+						Content="添加"
+						Command="{Binding BrowserFolderCommand}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE8F6;"
+							Header="移除当前目录">
+				<Button Content="移除"
+						Classes="secondary"
+						Command="{Binding RemoveFolderCommand}"
+						Background="{DynamicResource TertiaryContainerColor}"
+						Foreground="{DynamicResource OnTertiaryContainerColor}"/>
+			</wc:SettingCard>
+
+			<TextBlock Margin="0 12 0 0"
+					   Classes="BodyStrong"
+					   Text="全局启动设置"/>
+
+			<wc:SettingCard Icon="&#xF0B2;"
+							Header="版本隔离">
+				<ToggleSwitch IsChecked="{Binding IsEnableIndependency}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE740;"
+							Header="是否全屏">
+				<ToggleSwitch IsChecked="{Binding IsFullScreen}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xE743;"
+							Header="游戏窗口大小调整">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<TextBox Text="{Binding Width, Mode=TwoWay}"/>
+
+					<wc:FontIcon Glyph="&#xE711;"
+								 VerticalAlignment="Center"/>
+
+					<TextBox Text="{Binding Height, Mode=TwoWay}"/>
+				</StackPanel>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="&#xEB41;"
+							Header="服务器地址">
+				<TextBox Text="{Binding ServerAddress, Mode=TwoWay}"/>
+			</wc:SettingCard>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

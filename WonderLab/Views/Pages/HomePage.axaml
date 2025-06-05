@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:wb="using:WonderLab.Media.Behaviors"
+             x:Class="WonderLab.Views.Pages.HomePage">
+	<Grid VerticalAlignment="Bottom"
+		  HorizontalAlignment="Left"
+		  RowDefinitions="Auto, 10, Auto">
+		<Button Padding="0"
+				Classes="ripple"
+				BorderThickness="1.5"
+				Command="{Binding NavigationToGameCommand}"
+				CornerRadius="{DynamicResource StrongCornerRadius}"
+				BorderBrush="{DynamicResource DynamicBarBorderBrush}"
+				Background="{DynamicResource DynamicBarBackgroundBrush}">
+			<Grid Margin="12 6"
+				  MinWidth="155"
+				  RowDefinitions="Auto, Auto">
+				<TextBlock FontSize="16"
+						   Classes="BodyStrong"
+						   Foreground="{DynamicResource ButtonForegroundBrush}"
+						   Text="{Binding ActiveMinecraft.Id, FallbackValue=Title}"/>
+
+				<TextBlock Grid.Row="1"
+						   Margin="0 2 0 0"
+						   Classes="Caption"
+						   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"
+						   Text="{Binding ActiveMinecraft.Version.VersionId, FallbackValue=description}"/>
+			</Grid>
+		</Button>
+		
+		<!--TODO: I18n-->
+		<Button Width="135"
+				Height="40"
+				Grid.Row="2"
+				Classes="progress"
+				HorizontalAlignment="Left"
+				Command="{Binding LaunchCommand}"
+				Content="启动"
+				wa:ButtonExtensions.Value="{Binding CurrentLaunchTask.Progress, FallbackValue=100}">
+		</Button>
+	</Grid>
+</UserControl>

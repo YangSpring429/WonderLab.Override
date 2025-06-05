@@ -1,0 +1,154 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:wb="using:WonderLab.Media.Behaviors">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<ListBox Classes="bottombar" Height="200" Width="600">
+				<ListBoxItem Content="1"/>
+				<ListBoxItem Content="2"/>
+				<ListBoxItem Content="3"/>
+			</ListBox>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme TargetType="ListBox" x:Key="{x:Type ListBox}">
+		<Setter Property="Background" Value="Transparent"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						ClipToBounds="{TemplateBinding ClipToBounds}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+					<Grid ColumnDefinitions="1*, Auto">
+						<ScrollViewer Name="PART_ScrollViewer"
+									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+									  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+							<ItemsPresenter Name="PART_ItemsPresenter"
+											Margin="{TemplateBinding Padding}"
+											ItemsPanel="{TemplateBinding ItemsPanel}"/>
+						</ScrollViewer>
+
+						<ContentPresenter Grid.Column="1"
+										  Margin="8 0 0 0"
+										  VerticalAlignment="Center"
+										  Content="{TemplateBinding Tag}"/>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+		
+		<Style Selector="^.bottombar">
+			<Setter Property="Height" Value="44"/>
+			<Setter Property="VerticalAlignment" Value="Bottom"/>
+			<Setter Property="Background" Value="{DynamicResource BottomBarBackgroundBrush}"/>
+			<Setter Property="ItemsPanel">
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="8" Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</Setter>
+			
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ListBoxItem">
+					<Setter Property="Height" Value="28"/>
+					<Setter Property="MinWidth" Value="78"/>
+					<Setter Property="VerticalAlignment" Value="Center"/>
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="Transitions">
+						<Transitions>
+							<BrushTransition Duration="0:0:0.25"
+											 Property="Foreground"
+											 Easing="ExponentialEaseOut"/>
+
+							<BrushTransition Duration="0:0:0.15"
+											 Property="Background"/>
+						</Transitions>
+					</Setter>
+					
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Panel>
+								<wc:RippleControl Name="PART_RippleControl"
+												  CornerRadius="{DynamicResource FullCornerRadius}"
+												  RippleFill="{DynamicResource RippleEffectFillBrush}"/>
+								
+								<Border Width="28"
+										Height="28"
+										Opacity="0"
+										Name="PART_LayoutBorder"
+										Transitions="{TemplateBinding Transitions}"
+										CornerRadius="{DynamicResource FullCornerRadius}"
+										Background="{DynamicResource BottomBarItemSelectedBackgroundBrush}">
+									<Border.Transitions>
+										<Transitions>
+											<DoubleTransition Property="Width"
+															  Duration="0:0:.25"
+															  Easing="CubicEaseOut"/>
+											
+											<DoubleTransition Duration="0:0:.2"
+															  Property="Opacity"
+															  Easing="CubicEaseOut"/>
+										</Transitions>
+									</Border.Transitions>
+								</Border>
+
+								<Grid Margin="12 0"
+									  VerticalAlignment="Center"
+									  HorizontalAlignment="Center"
+									  ColumnDefinitions="auto auto">
+									<wc:FontIcon FontSize="14"
+												 Name="PART_FontIcon"
+												 VerticalAlignment="Center"
+												 Glyph="{TemplateBinding Tag}"
+												 Transitions="{TemplateBinding Transitions}"
+												 Foreground="{DynamicResource BottomBarItemForegroundBrush}"/>
+
+									<TextBlock Classes="Body"
+											   Grid.Column="1"
+											   Margin="8 0 0 0"
+											   Name="PART_TextBlock"
+											   VerticalAlignment="Center"
+											   Text="{TemplateBinding Content}"
+											   Transitions="{TemplateBinding Transitions}"
+											   Foreground="{DynamicResource BottomBarItemForegroundBrush}"/>
+								</Grid>
+							</Panel>
+						</ControlTemplate>
+					</Setter>
+
+					<Style Selector="^:selected">
+						<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
+							<Setter Property="Foreground" Value="{DynamicResource BottomBarItemSelectedForegroundBrush}"/>
+						</Style>
+
+						<Style Selector="^ /template/ TextBlock#PART_TextBlock">
+							<Setter Property="Foreground" Value="{DynamicResource BottomBarItemSelectedForegroundBrush}"/>
+						</Style>
+
+						<Style Selector="^ /template/ Border#PART_LayoutBorder">
+							<Setter Property="Opacity" Value="1"/>
+							<Setter Property="Width" Value="{Binding $parent[Panel].Bounds.Width}"/>
+						</Style>
+					</Style>
+
+					<Style Selector="^:pointerover">
+						<Setter Property="Background" Value="{DynamicResource BottomBarItemPointeroverBackgroundBrush}"/>
+					</Style>
+				</ControlTheme>
+			</Setter>
+			
+			<Style Selector="^.bottombar /template/ ScrollViewer#PART_ScrollViewer">
+				<Setter Property="Margin" Value="16 0 0 0"/>
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

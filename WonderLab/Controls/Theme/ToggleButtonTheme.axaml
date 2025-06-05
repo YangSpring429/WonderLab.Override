@@ -1,0 +1,100 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="20">
+				<ToggleButton Content="Click Me!" />
+				<ToggleButton Content="Disabled" IsEnabled="False" />
+				<ToggleButton Content="Three state" IsThreeState="True" />
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton">
+		<Setter Property="Background" Value="{DynamicResource TileBackgroundBrush}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}"/>
+
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:.15"
+								 Property="Background"/>
+			</Transitions>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl ClipToBounds="False"
+								  Name="PART_RippleControl"
+								  Width="{TemplateBinding Width}"
+								  Height="{TemplateBinding Height}"
+								  FontSize="{TemplateBinding FontSize}"
+								  Background="{TemplateBinding Background}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}">
+					<ContentPresenter Background="Transparent"
+									  RecognizesAccessKey="True"
+									  Name="PART_ContentPresenter"
+									  Content="{TemplateBinding Content}"
+									  Padding="{TemplateBinding Padding}"
+									  Transitions="{TemplateBinding Transitions}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+		</Style>
+
+		<Style Selector="^:checked">
+			<Style Selector="^">
+				<Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}" />
+				<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+			</Style>
+			
+			<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedDisabled}" />
+				<Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundCheckedDisabled}" />
+			</Style>
+		</Style>
+
+		<Style Selector="^.Basic">
+			<Setter Property="Padding" Value="12" />
+			<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+			<Setter Property="Background" Value="Transparent"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl ClipToBounds="False"
+									  Name="PART_RippleControl"
+									  Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  FontSize="{TemplateBinding FontSize}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}">
+						<ContentPresenter Name="PART_ContentPresenter"
+										  RecognizesAccessKey="True"
+										  Content="{TemplateBinding Content}"
+										  Padding="{TemplateBinding Padding}"
+										  Background="{TemplateBinding Background}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>
