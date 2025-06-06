@@ -9,6 +9,28 @@
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>       
+    
+    <PropertyGroup> 
+        <PackageIcon>Icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/Lunova-Studio/WonderLab.Override</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Lunova-Studio/WonderLab.Override</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>WonderLab</PackageTags>
+        <PackageReleaseNotes>WonderLab</PackageReleaseNotes>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <CFBundleName>WonderLab</CFBundleName>
+        <CFBundleDisplayName>WonderLab</CFBundleDisplayName>
+        <CFBundleIdentifier>studio.lunova.wonderlab</CFBundleIdentifier>
+        <CFBundleVersion>2.0.0</CFBundleVersion>
+        <CFBundlePackageType>AAPL</CFBundlePackageType>
+        <CFBundleSignature>WonderLab</CFBundleSignature>
+        <CFBundleExecutable>WonderLab</CFBundleExecutable>
+        <CFBundleIconFile>Icon-Border.icns</CFBundleIconFile>
+        <CFBundleShortVersionString>2.0</CFBundleShortVersionString>
+        <NSPrincipalClass>NSApplication</NSPrincipalClass>
+        <NSHighResolutionCapable>true</NSHighResolutionCapable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,7 +65,8 @@
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.9.2" />
-		<PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
+        <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
+        <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.4.25258.110" />
         <PackageReference Include="MinecraftLaunch" Version="4.0.1" />
         <PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
