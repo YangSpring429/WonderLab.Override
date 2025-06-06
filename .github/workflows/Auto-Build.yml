@@ -27,10 +27,10 @@ jobs:
           count=$(git log --since="3 days ago" --oneline | wc -l)
           echo "Recent commit count: $count"
           if [ "$count" -eq 0 ]; then
-            echo "has_recent_commits=false" >> $GITHUB_OUTPUT
+            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: false"
           else
-            echo "has_recent_commits=true" >> $GITHUB_OUTPUT
+            echo "has_recent_commits=1" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: true"
           fi
           echo "has_recent_commits is: ${{ steps.has.outputs.has_recent_commits }}"
