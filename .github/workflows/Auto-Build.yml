@@ -134,6 +134,10 @@ jobs:
         with:
           ref: dev
           fetch-depth: 0
+      - name: Sub-Module
+        run: |
+          git pull
+          git submodule update --init --recursive --remote
       - name: Dependency-InnoSetup
         uses: ConorMacBride/install-package@v1
         with:
@@ -147,7 +151,7 @@ jobs:
         shell: bash
       - name: Build
         run: |
-          cd ./WonderLab.Main/WonderLab.Desktop
+          cd ./WonderLab
           pupnet -r win-x64 -k setup -y -o WonderLab.Desktop.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
           pupnet -r win-x86 -k setup -y -o WonderLab.Desktop.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
           pupnet -r win-arm64 -k setup -y -o WonderLab.Desktop.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
