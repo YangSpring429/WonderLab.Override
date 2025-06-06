@@ -1,0 +1,227 @@
+name: WonderLab 自动构建发布
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+env:
+  version: "2.0"
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+    outputs:
+      has_recent_commits: ${{ steps.has.outputs.has_recent_commits }}
+    steps:
+      - name: Checkout code (dev)
+        uses: actions/checkout@v4
+        id: date
+        with:
+          ref: dev
+          token: ${{ secrets.TOKEN }}
+          fetch-depth: 0
+      - name: Check commits in last 3 days
+        id: has
+        run: |
+          count=$(git log --since="3 days ago" --oneline | wc -l)
+          echo "Recent commit count: $count"
+          if [ "$count" -eq 0 ]; then
+            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
+            echo "has_recent_commits is: false"
+          else
+            echo "has_recent_commits=1" >> $GITHUB_OUTPUT
+            echo "has_recent_commits is: true"
+          fi
+      - name: Echo
+        run: |
+          echo "is: ${{ steps.has.outputs.has_recent_commits }}"
+
+  time:
+    runs-on: ubuntu-latest
+    needs: check-commits
+    if: needs.check-commits.outputs.has_recent_commits == '1'
+    outputs:
+      v: ${{ steps.date.outputs.time }}
+      y: ${{ steps.date.outputs.y }}
+      md: ${{ steps.date.outputs.md }}
+      hm: ${{ steps.date.outputs.hm }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: dev
+      - name: Time
+        id: date
+        run: |
+          echo "time=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+          echo "y=$(date +'%Y')" >> $GITHUB_OUTPUT
+          echo "md=$(date +'%m%d')" >> $GITHUB_OUTPUT
+          echo "hm=$(date +'%H%M')" >> $GITHUB_OUTPUT
+      - name: EchoTime
+        run: |
+          echo "The current time is: ${{ steps.date.outputs.time }}"
+
+  linux:
+    runs-on: ubuntu-22.04
+    needs: time
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: dev
+      - name: Sub-Module
+        run: |
+          git pull
+          git submodule update --init --recursive --remote
+      - name: Dependency
+        run: |
+          dotnet tool install -g KuiperZone.PupNet
+          sudo apt-get update
+          sudo apt-get install fuse
+      - name: Build-AppImage
+        run: |
+          cd ./WonderLab
+          sudo su
+          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+      - name: Build-MacOsApp
+        run: |
+          cd ./WonderLab
+          sudo su
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
+          cp ./Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
+          cd ./bin/Release/net8.0/
+          cd ./osx-x64/publish/
+          zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
+      - name: Build-WinExe
+        run: |
+          cd ./WonderLab
+          sudo su
+          dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
+          dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
+          dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true     
+          mv ./bin/Release/net8.0/win-x86/publish/WonderLab.exe ./bin/Release/net8.0/win-x86/publish/WonderLab.x86.exe
+          mv ./bin/Release/net8.0/win-x64/publish/WonderLab.exe ./bin/Release/net8.0/win-x64/publish/WonderLab.x64.exe
+          mv ./bin/Release/net8.0/win-arm64/publish/WonderLab.exe ./bin/Release/net8.0/win-arm64/publish/WonderLab.arm64.exe
+          cd ./bin/Release/net8.0/
+          cd ./win-x86/
+          zip -9 -r "../WonderLab.win.x86.zip" "./publish"
+          cd ../
+          cd ./win-x64/
+          zip -9 -r "../WonderLab.win.x64.zip" "./publish"
+          cd ../
+          cd ./win-arm64/
+          zip -9 -r "../WonderLab.win.arm64.zip" "./publish"
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-artifacts
+          path: |
+            WonderLab/Deploy/OUT/*
+            WonderLab/bin/Release/net8.0/*.zip
+
+  win:
+    runs-on: windows-latest
+    needs: time
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+      - name: Sub-Module
+        run: |
+          git pull
+          git submodule update --init --recursive --remote
+      - name: Dependency-InnoSetup
+        uses: ConorMacBride/install-package@v1
+        with:
+          choco: innosetup
+      - name: Chinesize-InnoSetup
+        run: |
+          Copy-Item "./Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
+      - name: Dependency-Pupnet
+        run: |
+          dotnet tool install -g KuiperZone.PupNet
+        shell: bash
+      - name: Build
+        run: |
+          cd ./WonderLab
+          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-artifacts
+          path: |
+            ./WonderLab/Deploy/OUT/*
+
+  mac:
+    needs: [linux, win, time]
+    runs-on: macos-latest
+    steps:
+      - name: Download-LinuxArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-artifacts
+          path: ./WonderLab.Release/
+      - name: Unzip
+        run: |
+          unzip -n ./WonderLab.Release/bin/Release/net8.0/WonderLab.osx.mac.x64.app.zip -d ./app.x64
+      - name: Build-MacOsDmg-x64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "WonderLab.osx.mac.x64"
+          src_dir: "./app.x64/WonderLab.app"
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-artifacts
+          path: |
+            ./WonderLab.osx.mac.x64.dmg
+
+  publish:
+    needs: [linux, win, mac, time]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Time
+        id: gdate
+        run: |
+          echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
+          echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+      - name: Download-LinuxArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-artifacts
+          path: ./WonderLab.Release/
+      - name: Download-WindowsArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: win-artifacts
+          path: ./WonderLab.Release/
+      - name: Download-MacArtifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: osx-artifacts
+          path: ./WonderLab.Release/
+      - name: List Files
+        run: |
+          ls -la ./WonderLab.Release/
+      - name: Publish Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          title: "v${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}"
+          automatic_release_tag: "AutoPublish"
+          prerelease: false
+          files: |
+            WonderLab.Release/*.exe
+            WonderLab.Release/*.dmg
+            WonderLab.Release/Deploy/OUT/*.AppImage
+            WonderLab.Release/bin/Release/net8.0/*.zip
