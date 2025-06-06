@@ -1,5 +1,5 @@
-[submodule "refs/Motnet"]
-	path = refs/Motnet
+[submodule "refs/Monet"]
+	path = refs/Monet
 	url = https://github.com/Lunova-Studio/Monet.git
 [submodule "WonderLab.Override.I18n"]
 	path = WonderLab.Override.I18n
