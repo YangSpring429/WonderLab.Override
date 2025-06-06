@@ -33,7 +33,9 @@ jobs:
             echo "has_recent_commits=1" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: true"
           fi
-          echo "has_recent_commits is: ${{ steps.has.outputs.has_recent_commits }}"
+      - name: Echo
+        run: |
+          echo "is: ${{ steps.has.outputs.has_recent_commits }}"
 
   time:
     runs-on: ubuntu-latest
