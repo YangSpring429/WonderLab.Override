@@ -27,17 +27,17 @@ jobs:
           count=$(git log --since="3 days ago" --oneline | wc -l)
           echo "Recent commit count: $count"
           if [ "$count" -eq 0 ]; then
-            echo "::set-output name=has_recent_commits::false"
+            echo "has_recent_commits=false" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: false"
           else
-            echo "::set-output name=has_recent_commits::true"
+            echo "has_recent_commits=true" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: true"
           fi
 
   time:
     runs-on: ubuntu-latest
     needs: check-commits
-    if: needs.check-commits.outputs.has_recent_commits == 'true'
+    if: needs.check-commits.outputs.has_recent_commits == true
     outputs:
       v: ${{ steps.date.outputs.time }}
       y: ${{ steps.date.outputs.y }}
@@ -52,10 +52,10 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "::set-output name=time::$(date +'%Y.%m.%d.%H.%M')"
-          echo "::set-output name=y::$(date +'%Y')"
-          echo "::set-output name=md::$(date +'%m%d')"
-          echo "::set-output name=hm::$(date +'%H%M')"
+          echo "time=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+          echo "y=$(date +'%Y')" >> $GITHUB_OUTPUT
+          echo "md=$(date +'%m%d')" >> $GITHUB_OUTPUT
+          echo "hm=$(date +'%H%M')" >> $GITHUB_OUTPUT
       - name: EchoTime
         run: |
           echo "The current time is: ${{ steps.date.outputs.time }}"
