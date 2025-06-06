@@ -30,6 +30,7 @@ jobs:
           else
             echo "has_recent_commits=true" >> $GITHUB_OUTPUT
           fi
+          echo "::set-output name=has_recent_commits::$(if [ "$count" -gt 0 ]; then echo "true"; else echo "false"; fi)"
 
   time:
     runs-on: ubuntu-latest
