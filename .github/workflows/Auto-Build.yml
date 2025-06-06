@@ -1,0 +1,191 @@
+name: WonderLab 自动构建发布
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+env:
+  dotnet-version: "8.0"
+  target-version: "net8.0"
+  version: "1.0.0"
+  compile-flags: "--self-contained=true -c Release -p:UseAppHost=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -p:PublishSingleFile=true"
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+    outputs:
+      has_recent_commits: ${{ steps.check_commits.outputs.has_recent_commits }}
+    steps:
+      - name: Checkout code (dev)
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.TOKEN }}
+          fetch-depth: 0
+      - name: Check commits in last 3 days
+        id: check_commits
+        run: |
+          count=$(git log --since="3 days ago" --oneline | wc -l)
+          echo "Recent commit count: $count"
+          if [ "$count" -eq 0 ]; then
+            echo "has_recent_commits=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_recent_commits=true" >> $GITHUB_OUTPUT
+          fi
+
+  build_Windows:
+    needs: check-commits
+    if: needs.check-commits.outputs.has_recent_commits == 'true'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.TOKEN }}
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "${{env.dotnet-version}}"
+      - name: Update code
+        shell: cmd
+        run: ./.build/update_code.bat
+      - name: Build
+        shell: powershell
+        run: |
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+          ./.build/build_windows.ps1
+      - name: Upload x64 build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows_x64
+          path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/win-x64/*.zip'
+      - name: Upload arm64 build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows_arm64
+          path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/win-arm64/*.zip'
+
+  build_Linux:
+    needs: check-commits
+    if: needs.check-commits.outputs.has_recent_commits == 'true'
+    strategy:
+      matrix:
+        arch: ["x64", "arm", "arm64"]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.TOKEN }}
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "${{env.dotnet-version}}"
+      - name: Install dependences
+        run: |
+          dotnet tool install -g KuiperZone.PupNet
+          sudo add-apt-repository universe
+          sudo apt install libfuse2
+      - name: Build
+        run: |
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+          dotnet build WonderLab.Desktop/WonderLab.Desktop.csproj --no-restore --no-dependencies
+          pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ env.version }}.$(date +'%Y%m%d').linux-${{ matrix.arch }}.AppImage
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppImage
+          path: Deploy/OUT/*.AppImage
+
+  build_MacOS:
+    needs: check-commits
+    if: needs.check-commits.outputs.has_recent_commits == 'true'
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          token: ${{ secrets.TOKEN }}
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "${{env.dotnet-version}}"
+      - name: Update code
+        shell: bash
+        run: |
+          chmod +x ./.build/update_code.sh
+          ./.build/update_code.sh
+      - name: Build
+        shell: bash
+        run: |
+          dotnet restore WonderLab.Desktop/WonderLab.Desktop.csproj
+          chmod a+x ./.build/build_osx.sh
+          ./.build/build_osx.sh
+      - name: Upload x64 build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OSX_x64
+          path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/osx-x64/*.zip'
+      - name: Upload arm64 build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OSX_arm64
+          path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/osx-arm64/*.zip'
+
+  Release:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    needs: [build_Windows, build_MacOS, build_Linux]
+    if: needs.check-commits.outputs.has_recent_commits == 'true'
+    steps:
+      - name: Get build date
+        id: date
+        run: echo "BUILD_DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
+      - name: Set tag and release name
+        run: |
+          echo "TAG=${{ env.version }}.$BUILD_DATE" >> $GITHUB_ENV
+          echo "RELEASE_NAME=${{ env.version }}.$BUILD_DATE" >> $GITHUB_ENV
+      - name: Delete previous release
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          tag_name: ${{ env.TAG }}
+          github_token: ${{ secrets.TOKEN }}
+        continue-on-error: true
+      - name: Download Windows-x64 Build
+        uses: actions/download-artifact@v4
+        with:
+          name: Windows_x64
+      - name: Download Windows-arm64 Build
+        uses: actions/download-artifact@v4
+        with:
+          name: Windows_arm64
+      - name: Download AppImage Build
+        uses: actions/download-artifact@v4
+        with:
+          name: AppImage
+      - name: Download OSX-x64 Build
+        uses: actions/download-artifact@v4
+        with:
+          name: OSX_x64
+      - name: Download OSX-arm64 Build
+        uses: actions/download-artifact@v4
+        with:
+          name: OSX_arm64
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: "${{ secrets.TOKEN }}"
+          prerelease: false
+          make_latest: true
+          tag_name: ${{ env.TAG }}
+          name: ${{ env.RELEASE_NAME }}
+          files: |
+            *.zip
+            *.AppImage
