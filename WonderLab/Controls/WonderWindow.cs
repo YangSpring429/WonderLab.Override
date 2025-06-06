@@ -7,10 +7,13 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Media.Transformation;
 using Avalonia.Rendering.Composition;
+using Avalonia.Threading;
 using MinecraftLaunch.Base.Utilities;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Controls.Experimental.Effect;
@@ -26,6 +29,7 @@ public class WonderWindow : Window {
     private Border _PART_BackgroundBorder;
     private SkiaShaderRenderer _PART_SkiaShaderRenderer;
     private ExperimentalAcrylicBorder _PART_AcrylicBlurMask;
+    private CancellationTokenSource _cancellationTokenSource = new();
 
     public static readonly StyledProperty<BackgroundType> BackgroundTypeProperty =
         AvaloniaProperty.Register<WonderWindow, BackgroundType>(nameof(BackgroundType), BackgroundType.SolidColor);
@@ -55,15 +59,17 @@ public class WonderWindow : Window {
 
     protected override async void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
-        var compositionVisual = ElementComposition.GetElementVisual(_PART_BackgroundBorder);
-        var size = compositionVisual!.Size;
-        compositionVisual.Scale = new(1.5f, 1.5f, 0);
-        compositionVisual.CenterPoint = new(size.X / 2, size.Y / 2, compositionVisual.CenterPoint.Z);
 
-        _PART_BackgroundBorder.Effect = new BlurEffect() { Radius = 50f };
+        await Task.Delay(10);
+        if (BackgroundType is BackgroundType.Bitmap) {
+            _PART_BackgroundBorder.Margin = new(-50);
+            _PART_BackgroundBorder.Effect = new BlurEffect() {
+                Radius = 50
+            };
 
-        await Task.Delay(TimeSpan.FromSeconds(0.2));
-        RunOpenAnimation(compositionVisual);
+            await Task.Delay(200);
+            RunInitAnimation();
+        }
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
@@ -90,6 +96,15 @@ public class WonderWindow : Window {
 
         if (change.Property == BackgroundTypeProperty && IsLoaded)
             UpdateBackground(change.GetOldAndNewValue<BackgroundType>());
+
+        if(change.Property == ShieldBackgroundOpacityProperty && BackgroundType is BackgroundType.Bitmap) {
+            Dispatcher.UIThread.Post(() => {
+                if (ShieldBackgroundOpacity is 0)
+                    RunClearBlurAnimation();
+                else
+                    RunBlurAnimation();
+            });
+        }
     }
 
     private void UpdateBackground((BackgroundType oldValue, BackgroundType newValue) values) {
@@ -140,18 +155,67 @@ public class WonderWindow : Window {
         }
     }
 
-    private async void RunOpenAnimation(CompositionVisual compositionVisual) {
-        var scaleAni = CompositionAnimationUtil
-            .CreateVector3Animation(compositionVisual, new(1.5f), new(1f),
-                TimeSpan.FromSeconds(1), new ExponentialEaseOut());
-
-        compositionVisual.StartAnimation(CompositionAnimationUtil.PROPERTY_SCALE, scaleAni);
-
-        await _PART_BackgroundBorder.Animate(EffectProperty)
+    private async void RunInitAnimation() {
+        var task = _PART_BackgroundBorder.Animate(MarginProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(1))
-            .From(new BlurEffect() { Radius = 50f })
+            .From(_PART_BackgroundBorder.Margin)
+            .To(new(0))
+            .RunAsync(_cancellationTokenSource.Token);
+
+        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(0.8))
+            .From(_PART_BackgroundBorder.Effect)
             .To(new BlurEffect() { Radius = 0f })
-            .RunAsync();
+            .RunAsync(_cancellationTokenSource.Token);
+
+        await Task.WhenAll(task, task1);
+    }
+
+    private async void RunBlurAnimation() {
+        using (_cancellationTokenSource) {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource = new();
+        }
+
+        var task = _PART_BackgroundBorder.Animate(MarginProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .From(_PART_BackgroundBorder.Margin)
+            .To(new(-50))
+            .RunAsync(_cancellationTokenSource.Token);
+
+        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(0.8))
+            .From(_PART_BackgroundBorder.Effect)
+            .To(new BlurEffect() { Radius = 50f })
+            .RunAsync(_cancellationTokenSource.Token);
+
+        await Task.WhenAll(task, task1);
+    }
+
+    private async void RunClearBlurAnimation() {
+        using (_cancellationTokenSource) {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource = new();
+        }
+
+        var task = _PART_BackgroundBorder.Animate(MarginProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .From(_PART_BackgroundBorder.Margin)
+            .To(new(0))
+            .RunAsync(_cancellationTokenSource.Token);
+
+        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(0.8))
+            .From(_PART_BackgroundBorder.Effect)
+            .To(new BlurEffect() { Radius = 0f })
+            .RunAsync(_cancellationTokenSource.Token);
+
+        await Task.WhenAll(task, task1);
     }
 }

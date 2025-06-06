@@ -56,7 +56,8 @@
 														   Material="{DynamicResource ApplicationAcrylicMaterial}">
 								</ExperimentalAcrylicBorder>
 
-								<Border VerticalAlignment="Stretch"
+								<Border Margin="0"
+										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"
 										Name="PART_Background"
 										Background="{TemplateBinding Background}"/>
