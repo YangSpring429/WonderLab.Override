@@ -46,6 +46,38 @@ public sealed class ListBoxAnimationBehavior : Behavior<ListBoxItem> {
 
         aniGroup.Add(offsetAni);
         aniGroup.Add(opacityAni);
+
+        compositionVisual.StartAnimationGroup(aniGroup);
+    }
+}
+
+public sealed class ListBoxTagAnimationBehavior : Behavior<Control> {
+    protected override async void OnLoaded() {
+        var compositionVisual = ElementComposition.GetElementVisual(AssociatedObject);
+        compositionVisual.Opacity = 0;
+
+        await Task.Delay(150);
+        var delay = TimeSpan.FromMilliseconds(300);
+        var xPoint = compositionVisual.Offset.X;
+        var yPoint = compositionVisual.Offset.Y;
+        var height = AssociatedObject.Bounds.Height + yPoint;
+
+        var offsetAni = CompositionAnimationUtil.CreateVector3Animation(compositionVisual,
+            new((float)xPoint, (float)height * 2, 0),
+            new((float)xPoint, (float)yPoint, 0), TimeSpan.FromSeconds(0.4), new WonderBackEaseOut() {
+                Amplitude = Amplitude.Strong
+            }, delay);
+
+        var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(compositionVisual, 0, 1,
+            TimeSpan.FromSeconds(0.6), new CubicEaseOut(), delay);
+
+        offsetAni.Target = CompositionAnimationUtil.PROPERTY_OFFSET;
+        opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;
+
+        var aniGroup = compositionVisual.Compositor.CreateAnimationGroup();
+
+        aniGroup.Add(offsetAni);
+        aniGroup.Add(opacityAni);
         compositionVisual.StartAnimationGroup(aniGroup);
     }
 }

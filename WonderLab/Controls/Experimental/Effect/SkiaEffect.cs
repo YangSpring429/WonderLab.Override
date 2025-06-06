@@ -61,7 +61,6 @@ public class SkiaEffect {
     /// REMEMBER: For files to be discoverable in the assembly they should be marked as an embedded resource.
     /// </summary>
     /// <param name="shaderName">Name of the shader to load, with or without extension. - MUST BE .sksl</param>
-    /// <returns>An instance of a SukiBackgroundShader with the loaded shader.</returns>
     public static SkiaEffect FromEmbeddedResource(string shaderName, BackgroundType type = BackgroundType.Voronoi) {
         _type = type;
         shaderName = shaderName.ToLowerInvariant();
