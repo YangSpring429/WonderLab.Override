@@ -12,7 +12,7 @@ jobs:
   check-commits:
     runs-on: ubuntu-latest
     outputs:
-      has_recent_commits: ${{ steps.check_commits.outputs.has_recent_commits }}
+      has_recent_commits: ${{ steps.has.outputs.has_recent_commits }}
     steps:
       - name: Checkout code (dev)
         uses: actions/checkout@v4
