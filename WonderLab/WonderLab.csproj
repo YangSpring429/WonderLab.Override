@@ -83,7 +83,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\refs\Motnet\Monet.Avalonia\Monet.Avalonia.csproj" />
+        <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
         <ProjectReference Include="..\WonderLab.Override.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
     </ItemGroup>
 
