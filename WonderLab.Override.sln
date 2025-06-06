@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WonderLab.Override.I18n", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "refs", "refs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet.Avalonia", "refs\Motnet\Monet.Avalonia\Monet.Avalonia.csproj", "{D222D88B-A08B-F522-0C9A-5520A8097943}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet.Avalonia", "refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj", "{1AB63E08-E670-F8FC-3341-512B2A1F7B18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet.Shared", "refs\Motnet\Monet.Shared\Monet.Shared.csproj", "{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monet.Shared", "refs\Monet\Monet.Shared\Monet.Shared.csproj", "{8F0C39FD-82C0-7389-C87F-B81B2584889C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,21 +27,21 @@ Global
 		{6B952F55-28BE-0A3E-28F4-DA9851539196}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B952F55-28BE-0A3E-28F4-DA9851539196}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B952F55-28BE-0A3E-28F4-DA9851539196}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D222D88B-A08B-F522-0C9A-5520A8097943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D222D88B-A08B-F522-0C9A-5520A8097943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D222D88B-A08B-F522-0C9A-5520A8097943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D222D88B-A08B-F522-0C9A-5520A8097943}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB63E08-E670-F8FC-3341-512B2A1F7B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB63E08-E670-F8FC-3341-512B2A1F7B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB63E08-E670-F8FC-3341-512B2A1F7B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB63E08-E670-F8FC-3341-512B2A1F7B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0C39FD-82C0-7389-C87F-B81B2584889C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0C39FD-82C0-7389-C87F-B81B2584889C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0C39FD-82C0-7389-C87F-B81B2584889C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0C39FD-82C0-7389-C87F-B81B2584889C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D222D88B-A08B-F522-0C9A-5520A8097943} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{A90FCCA4-3ED1-AD09-0BEA-CB42EB68FA8E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1AB63E08-E670-F8FC-3341-512B2A1F7B18} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8F0C39FD-82C0-7389-C87F-B81B2584889C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C808D3E-F7AB-41DF-B008-C4C9026BCDCE}
