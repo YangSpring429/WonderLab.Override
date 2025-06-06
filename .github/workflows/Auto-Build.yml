@@ -16,24 +16,26 @@ jobs:
     steps:
       - name: Checkout code (dev)
         uses: actions/checkout@v4
+        id: date
         with:
           ref: dev
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
       - name: Check commits in last 3 days
-        id: check_commits
+        id: has
         run: |
           count=$(git log --since="3 days ago" --oneline | wc -l)
           echo "Recent commit count: $count"
           if [ "$count" -eq 0 ]; then
-            echo "has_recent_commits=false" >> $GITHUB_OUTPUT
+            echo "::set-output name=has_recent_commits::false"
           else
-            echo "has_recent_commits=true" >> $GITHUB_OUTPUT
+            echo "::set-output name=has_recent_commits::true"
           fi
-          echo "::set-output name=has_recent_commits::$(if [ "$count" -gt 0 ]; then echo "true"; else echo "false"; fi)"
+          echo "has_recent_commits is: ${{ steps.has.outputs.has_recent_commits }}"
 
   time:
     runs-on: ubuntu-latest
+    needs: check-commits
     if: needs.check-commits.outputs.has_recent_commits == 'true'
     outputs:
       v: ${{ steps.date.outputs.time }}
@@ -59,7 +61,6 @@ jobs:
 
   linux:
     runs-on: ubuntu-22.04
-    if: needs.check-commits.outputs.has_recent_commits == 'true'
     needs: time
     steps:
       - name: Checkout
@@ -122,7 +123,6 @@ jobs:
 
   win:
     runs-on: windows-latest
-    if: needs.check-commits.outputs.has_recent_commits == 'true'
     needs: time
     steps:
       - name: Checkout code
@@ -157,7 +157,6 @@ jobs:
   mac:
     needs: [linux, win, time]
     runs-on: macos-latest
-    if: needs.check-commits.outputs.has_recent_commits == 'true'
     steps:
       - name: Download-LinuxArtifacts
         uses: actions/download-artifact@v4
@@ -182,7 +181,6 @@ jobs:
   publish:
     needs: [linux, win, mac, time]
     runs-on: ubuntu-latest
-    if: needs.check-commits.outputs.has_recent_commits == 'true'
     steps:
       - name: Time
         id: gdate
