@@ -30,6 +30,7 @@
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ProgressBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ComboBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollViewerTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/WonderWindowTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ToggleButtonTheme.axaml"/>

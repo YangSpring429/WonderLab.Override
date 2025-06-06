@@ -49,6 +49,12 @@
 		<Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundBrush}"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="4"/>
+			</ItemsPanelTemplate>
+		</Setter>
+		
 		<Setter Property="Template">
 			<ControlTemplate>
 				<DataValidationErrors>

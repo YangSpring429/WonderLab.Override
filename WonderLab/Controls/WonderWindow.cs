@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
@@ -6,11 +7,15 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Rendering.Composition;
 using MinecraftLaunch.Base.Utilities;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Controls.Experimental.Effect;
+using WonderLab.Extensions;
+using WonderLab.Media.Easings;
 using WonderLab.Utilities;
 
 namespace WonderLab.Controls;
@@ -48,9 +53,17 @@ public class WonderWindow : Window {
 
     protected override Type StyleKeyOverride => typeof(WonderWindow);
 
-    protected override void OnLoaded(RoutedEventArgs e) {
+    protected override async void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
-        UpdateBackground((BackgroundType.None, BackgroundType));
+        var compositionVisual = ElementComposition.GetElementVisual(_PART_BackgroundBorder);
+        var size = compositionVisual!.Size;
+        compositionVisual.Scale = new(1.5f, 1.5f, 0);
+        compositionVisual.CenterPoint = new(size.X / 2, size.Y / 2, compositionVisual.CenterPoint.Z);
+
+        _PART_BackgroundBorder.Effect = new BlurEffect() { Radius = 50f };
+
+        await Task.Delay(TimeSpan.FromSeconds(0.2));
+        RunOpenAnimation(compositionVisual);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
@@ -91,9 +104,9 @@ public class WonderWindow : Window {
 
         if (EnvironmentUtil.IsWindow &&
                 values.newValue is BackgroundType.Acrylic or BackgroundType.Mica) {
+
             Win32InteropUtil.SetWindowEffect(TryGetPlatformHandle().Handle,
                 values.newValue is BackgroundType.Acrylic ? 3 : 4);
-
             return;
         }
 
@@ -125,5 +138,20 @@ public class WonderWindow : Window {
                 TransparencyLevelHint = [WindowTransparencyLevel.Mica, WindowTransparencyLevel.None];
                 break;
         }
+    }
+
+    private async void RunOpenAnimation(CompositionVisual compositionVisual) {
+        var scaleAni = CompositionAnimationUtil
+            .CreateVector3Animation(compositionVisual, new(1.5f), new(1f),
+                TimeSpan.FromSeconds(1), new ExponentialEaseOut());
+
+        compositionVisual.StartAnimation(CompositionAnimationUtil.PROPERTY_SCALE, scaleAni);
+
+        await _PART_BackgroundBorder.Animate(EffectProperty)
+            .WithEasing(new ExponentialEaseOut())
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .From(new BlurEffect() { Radius = 50f })
+            .To(new BlurEffect() { Radius = 0f })
+            .RunAsync();
     }
 }

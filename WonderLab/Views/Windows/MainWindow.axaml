@@ -106,6 +106,10 @@
 			
 			<ListBox.Tag>
 				<Grid ColumnDefinitions="auto auto">
+					<Interaction.Behaviors>
+						<wb:ListBoxTagAnimationBehavior/>
+					</Interaction.Behaviors>
+					
 					<ItemsControl Background="Transparent"
 								  ItemsSource="{Binding MinecraftProcesses}"
 								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}">
