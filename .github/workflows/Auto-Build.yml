@@ -85,9 +85,9 @@ jobs:
         run: |
           cd ./WonderLab
           sudo su
-          pupnet --runtime linux-x64 --kind appimage -o WonderLab.Desktop.linux.x64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm --kind appimage -o WonderLab.Desktop.linux.arm.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.Desktop.linux.arm64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
       - name: Build-MacOsApp
         run: |
           cd ./WonderLab
@@ -97,7 +97,7 @@ jobs:
           cp ./Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cd ./bin/Release/net8.0/
           cd ./osx-x64/publish/
-          zip -9 -r ../../WonderLab.Desktop.osx.mac.x64.app.zip "./WonderLab.app"
+          zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
       - name: Build-WinExe
         run: |
           cd ./WonderLab
@@ -105,18 +105,18 @@ jobs:
           dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
           dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
           dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true     
-          mv ./bin/Release/net8.0/win-x86/publish/WonderLab.exe ./bin/Release/net8.0/win-x86/publish/WonderLab.Desktop.x86.exe
-          mv ./bin/Release/net8.0/win-x64/publish/WonderLab.exe ./bin/Release/net8.0/win-x64/publish/WonderLab.Desktop.x64.exe
-          mv ./bin/Release/net8.0/win-arm64/publish/WonderLab.exe ./bin/Release/net8.0/win-arm64/publish/WonderLab.Desktop.arm64.exe
+          mv ./bin/Release/net8.0/win-x86/publish/WonderLab.exe ./bin/Release/net8.0/win-x86/publish/WonderLab.x86.exe
+          mv ./bin/Release/net8.0/win-x64/publish/WonderLab.exe ./bin/Release/net8.0/win-x64/publish/WonderLab.x64.exe
+          mv ./bin/Release/net8.0/win-arm64/publish/WonderLab.exe ./bin/Release/net8.0/win-arm64/publish/WonderLab.arm64.exe
           cd ./bin/Release/net8.0/
           cd ./win-x86/
-          zip -9 -r "../WonderLab.Desktop.x86.zip" "./publish"
+          zip -9 -r "../WonderLab.win.x86.zip" "./publish"
           cd ../
           cd ./win-x64/
-          zip -9 -r "../WonderLab.Desktop.x64.zip" "./publish"
+          zip -9 -r "../WonderLab.win.x64.zip" "./publish"
           cd ../
           cd ./win-arm64/
-          zip -9 -r "../WonderLab.Desktop.arm64.zip" "./publish"
+          zip -9 -r "../WonderLab.win.arm64.zip" "./publish"
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -152,9 +152,9 @@ jobs:
       - name: Build
         run: |
           cd ./WonderLab
-          pupnet -r win-x64 -k setup -y -o WonderLab.Desktop.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-x86 -k setup -y -o WonderLab.Desktop.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-arm64 -k setup -y -o WonderLab.Desktop.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -173,18 +173,18 @@ jobs:
           path: ./WonderLab.Release/
       - name: Unzip
         run: |
-          unzip -n ./WonderLab.Release/bin/Release/net8.0/WonderLab.Desktop.osx.mac.x64.app.zip -d ./app.x64
+          unzip -n ./WonderLab.Release/bin/Release/net8.0/WonderLab.osx.mac.x64.app.zip -d ./app.x64
       - name: Build-MacOsDmg-x64
         uses: L-Super/create-dmg-actions@v1.0.3
         with:
-          dmg_name: "WonderLab.Desktop.osx.mac.x64"
+          dmg_name: "WonderLab.osx.mac.x64"
           src_dir: "./app.x64/WonderLab.app"
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
           name: osx-artifacts
           path: |
-            ./WonderLab.Desktop.osx.mac.x64.dmg
+            ./WonderLab.osx.mac.x64.dmg
 
   publish:
     needs: [linux, win, mac, time]
@@ -217,8 +217,8 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.TOKEN }}"
-          title: "v${{ needs.time.outputs.v }}"
-          automatic_release_tag: "AutoPublish-${{ steps.gdate.outputs.date }}"
+          title: "v${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}"
+          automatic_release_tag: "AutoPublish"
           prerelease: false
           files: |
             WonderLab.Release/*.exe
