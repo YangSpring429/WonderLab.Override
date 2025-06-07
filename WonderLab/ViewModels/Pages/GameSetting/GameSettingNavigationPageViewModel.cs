@@ -9,8 +9,8 @@ using WonderLab.Services.Launch;
 namespace WonderLab.ViewModels.Pages.GameSetting;
 
 public sealed partial class GameSettingNavigationPageViewModel : DynamicPageViewModelBase {
-    private MinecraftEntry _minecraftEntry;
     private readonly GameService _gameService;
+    private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
 
@@ -26,7 +26,7 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
 
     [RelayCommand]
     private async Task OnLoaded() {
-        await Task.Delay(50);
+        await Task.Delay(160);
         PageKey = "GameSetting/Setting";
     }
 }
