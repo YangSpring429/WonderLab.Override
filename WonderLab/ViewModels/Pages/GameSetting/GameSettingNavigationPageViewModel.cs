@@ -1,8 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
+using MinecraftLaunch.Components.Parser;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services.Launch;
 
@@ -26,7 +31,18 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
 
     [RelayCommand]
     private async Task OnLoaded() {
-        await Task.Delay(160);
+        await Task.Delay(200);
         PageKey = "GameSetting/Setting";
+    }
+
+    [RelayCommand]
+    private async Task Save() {
+        try {
+            await MinecraftParser.DataProcessors
+                .FirstOrDefault()
+                .SaveAsync();
+
+            WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
+        } catch (Exception) {}
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MinecraftLaunch.Base.Interfaces;
-using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Utilities;
@@ -7,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;

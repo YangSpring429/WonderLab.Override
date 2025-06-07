@@ -5,6 +5,8 @@ using MinecraftLaunch.Components.Parser;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using WonderLab.Classes.Models;
+using WonderLab.Classes.Processors;
 
 namespace WonderLab.Services.Launch;
 
@@ -79,11 +81,11 @@ public sealed class GameService {
         ActiveGame = entry;
     }
 
-    public bool TryGetMinecraft(string id, out MinecraftEntry minecraft) {
-        _logger.LogInformation("尝试获取游戏实例：{id}", id);
+    public bool TryGetMinecraftProfile(out SpecificSettingModel profile) {
+        var datas = MinecraftParser.DataProcessors.FirstOrDefault().Datas
+            .ToDictionary(x => x.Key, x1 => x1.Value as SpecificSettingModel);
 
-        minecraft = Minecrafts.FirstOrDefault(x => x.Id == id);
-        return minecraft is null;
+        return datas.TryGetValue(ActiveGameCache.Id, out profile);
     }
 }
 
