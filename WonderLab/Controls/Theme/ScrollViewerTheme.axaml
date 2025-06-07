@@ -1,6 +1,12 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Media.Converters">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<ScrollBar Classes="vertical"/>
+		</Border>
+	</Design.PreviewWith>
+	
 	<ControlTheme TargetType="ScrollViewer" x:Key="{x:Type ScrollViewer}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Template">

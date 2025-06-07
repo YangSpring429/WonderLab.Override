@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.Controls"
+                    xmlns:aconv="using:Avalonia.Controls.Converters"
+                    x:CompileBindings="True">
+	<Design.PreviewWith>
+		<Border Padding="50">
+			<Panel Width="125" Height="170">
+				<ScrollBar Orientation="Vertical" HorizontalAlignment="Right" AllowAutoHide="False" Margin="0 0 0 20" />
+
+				<ScrollBar IsEnabled="True" Orientation="Horizontal" VerticalAlignment="Bottom" AllowAutoHide="False" />
+			</Panel>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="ScrollBarThumb" TargetType="Thumb">
+		<Setter Property="Opacity" Value="0.5" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:.15"
+								 Property="Background"/>
+
+				<DoubleTransition Duration="0:0:.15"
+								  Property="Opacity"/>
+			</Transitions>
+		</Setter>
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Panel Width="16"
+						   Background="Transparent">
+						<Border Width="4"
+								Margin="4"
+								Name="ThumbBarVertical"
+								Opacity="{TemplateBinding Opacity}"
+								Transitions="{TemplateBinding Transitions}"
+								CornerRadius="{TemplateBinding CornerRadius}"
+								HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+								Background="{DynamicResource ScrollBarThumbBackgroundBrush}">
+						</Border>
+					</Panel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ Border#ThumbBarVertical">
+			<Setter Property="Opacity" Value="0.9" />
+		</Style>
+	</ControlTheme>
+
+	<ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+		<Setter Property="MinWidth" Value="{DynamicResource ScrollBarSize}" />
+		<Setter Property="MinHeight" Value="{DynamicResource ScrollBarSize}" />
+		<Setter Property="CornerRadius" Value="{DynamicResource ScrollBarCornerRadius}" />
+
+		<Style Selector="^:vertical">
+			<Setter Property="AllowAutoHide" Value="False" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="Transparent"
+							UseLayoutRounding="False">
+						<Track IsDirectionReversed="True"
+							   Maximum="{TemplateBinding Maximum}"
+							   Minimum="{TemplateBinding Minimum}"
+							   Orientation="{TemplateBinding Orientation}"
+							   Value="{TemplateBinding Value, Mode=TwoWay}"
+							   ViewportSize="{TemplateBinding ViewportSize}"
+							   Grid.Row="1">
+							<Track.DecreaseButton>
+								<RepeatButton
+									Background="Transparent"
+									Classes="repeattrack"
+									Focusable="False"
+									Name="PART_PageUpButton" />
+							</Track.DecreaseButton>
+							
+							<Track.IncreaseButton>
+								<RepeatButton
+									Background="Transparent"
+									Classes="repeattrack"
+									Focusable="False"
+									Name="PART_PageDownButton" />
+							</Track.IncreaseButton>
+
+							<Thumb Name="thumb"
+								   Theme="{StaticResource ScrollBarThumb}"/>
+						</Track>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

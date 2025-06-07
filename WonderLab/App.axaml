@@ -24,6 +24,7 @@
 				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBlockTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/BlurBorderTheme.axaml"/>
