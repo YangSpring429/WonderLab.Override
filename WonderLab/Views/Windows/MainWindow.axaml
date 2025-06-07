@@ -91,7 +91,7 @@
 			<TextBlock.Inlines>
 				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
 				<LineBreak/>
-				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.529.2126"/>
+				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.606.1951"/>
 			</TextBlock.Inlines>
 		</TextBlock>
 		
@@ -106,6 +106,10 @@
 			
 			<ListBox.Tag>
 				<Grid ColumnDefinitions="auto auto">
+					<Interaction.Behaviors>
+						<wb:ListBoxTagAnimationBehavior/>
+					</Interaction.Behaviors>
+					
 					<ItemsControl Background="Transparent"
 								  ItemsSource="{Binding MinecraftProcesses}"
 								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}">
