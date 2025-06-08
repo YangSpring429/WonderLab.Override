@@ -9,29 +9,29 @@
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>       
-    
-    <PropertyGroup> 
-        <PackageIcon>Icon.png</PackageIcon>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <RepositoryUrl>https://github.com/Lunova-Studio/WonderLab.Override</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/Lunova-Studio/WonderLab.Override</PackageProjectUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>WonderLab</PackageTags>
-        <PackageReleaseNotes>WonderLab</PackageReleaseNotes>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <CFBundleName>WonderLab</CFBundleName>
-        <CFBundleDisplayName>WonderLab</CFBundleDisplayName>
-        <CFBundleIdentifier>studio.lunova.wonderlab</CFBundleIdentifier>
-        <CFBundleVersion>2.0.0</CFBundleVersion>
-        <CFBundlePackageType>AAPL</CFBundlePackageType>
-        <CFBundleSignature>WonderLab</CFBundleSignature>
-        <CFBundleExecutable>WonderLab</CFBundleExecutable>
-        <CFBundleIconFile>Icon-Border.icns</CFBundleIconFile>
-        <CFBundleShortVersionString>2.0</CFBundleShortVersionString>
-        <NSPrincipalClass>NSApplication</NSPrincipalClass>
-        <NSHighResolutionCapable>true</NSHighResolutionCapable>
     </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageIcon>Assets\Images\Icons\Icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/Lunova-Studio/WonderLab.Override</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Lunova-Studio/WonderLab.Override</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>WonderLab</PackageTags>
+		<PackageReleaseNotes>WonderLab</PackageReleaseNotes>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<CFBundleName>WonderLab</CFBundleName>
+		<CFBundleDisplayName>WonderLab</CFBundleDisplayName>
+		<CFBundleIdentifier>studio.lunova.wonderlab</CFBundleIdentifier>
+		<CFBundleVersion>2.0.0</CFBundleVersion>
+		<CFBundlePackageType>AAPL</CFBundlePackageType>
+		<CFBundleSignature>WonderLab</CFBundleSignature>
+		<CFBundleExecutable>WonderLab</CFBundleExecutable>
+		<CFBundleIconFile>Icon-Border.icns</CFBundleIconFile>
+		<CFBundleShortVersionString>2.0</CFBundleShortVersionString>
+		<NSPrincipalClass>NSApplication</NSPrincipalClass>
+		<NSHighResolutionCapable>true</NSHighResolutionCapable>
+	</PropertyGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
@@ -43,18 +43,28 @@
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
         <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
         <AvaloniaResource Remove="Assets\gawrgura-13490790.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
         <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
         <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
         <AvaloniaResource Remove="Assets\steve.png" />
+        <AvaloniaResource Remove="Assets\Text\dateTime.txt" />
+        <AvaloniaResource Remove="Assets\Text\Default.isl" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
         <EmbeddedResource Include="Assets\gawrgura-13490790.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
         <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
         <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
         <EmbeddedResource Include="Assets\steve.png" />
+        <EmbeddedResource Include="Assets\Text\dateTime.txt" />
+        <EmbeddedResource Include="Assets\Text\Default.isl" />
     </ItemGroup>
 
     <ItemGroup>

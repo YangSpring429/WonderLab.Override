@@ -1,57 +1,20 @@
-name: WonderLab 自动构建发布
+name: WonderLab 手动构建发布
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'
 
 env:
   version: "2.0"
 
 jobs:
-  check-commits:
-    runs-on: ubuntu-latest
-    outputs:
-      has_recent_commits: ${{ steps.has.outputs.has_recent_commits }}
-    steps:
-      - name: Checkout code (dev)
-        uses: actions/checkout@v4
-        id: date
-        with:
-          ref: dev
-          token: ${{ secrets.TOKEN }}
-          fetch-depth: 0
-      - name: Check commits in last 3 days
-        id: has
-        run: |
-          count=$(git log --since="3 days ago" --oneline | wc -l)
-          echo "Recent commit count: $count"
-          if [ "$count" -eq 0 ]; then
-            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
-            echo "has_recent_commits is: false"
-          else
-            echo "has_recent_commits=1" >> $GITHUB_OUTPUT
-            echo "has_recent_commits is: true"
-          fi
-      - name: Echo
-        run: |
-          echo "is: ${{ steps.has.outputs.has_recent_commits }}"
-
   time:
     runs-on: ubuntu-latest
-    needs: check-commits
-    if: needs.check-commits.outputs.has_recent_commits == '1'
     outputs:
       v: ${{ steps.date.outputs.time }}
       y: ${{ steps.date.outputs.y }}
       md: ${{ steps.date.outputs.md }}
       hm: ${{ steps.date.outputs.hm }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: dev
       - name: Time
         id: date
         run: |
@@ -71,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: dev
+          ref: main
       - name: Time
         id: date
         run: |
@@ -137,7 +100,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           fetch-depth: 0
       - name: Sub-Module
         run: |
@@ -228,8 +191,8 @@ jobs:
         with:
           repo_token: "${{ secrets.TOKEN }}"
           title: "v${{env.version}}.${{ needs.time.outputs.y }}${{ needs.time.outputs.md }}"
-          automatic_release_tag: "AutoPublish"
-          prerelease: true
+          automatic_release_tag: "ManualPublish"
+          prerelease: false
           files: |
             WonderLab.Release/*.exe
             WonderLab.Release/*.dmg
