@@ -180,7 +180,7 @@ public sealed partial class App : Application {
         });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
-        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.DateTime.txt").ToText());
+        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.Assets.Text.dateTime.txt").ToText());
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e) {
