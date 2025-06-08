@@ -112,7 +112,7 @@ jobs:
           choco: innosetup
       - name: Chinesize-InnoSetup
         run: |
-          Copy-Item "./Assets/Text/Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
+          Copy-Item "./WonderLab/Assets/Text/Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
       - name: Dependency-Pupnet
         run: |
           dotnet tool install -g KuiperZone.PupNet
