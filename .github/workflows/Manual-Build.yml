@@ -62,7 +62,7 @@ jobs:
           sudo su
           dotnet restore -r osx-x64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
-          cp ./Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
+          cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cd ./bin/Release/net8.0/
           cd ./osx-x64/publish/
           zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
