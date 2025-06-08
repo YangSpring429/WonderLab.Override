@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         id: date
         with:
-          ref: dev
+          ref: ${{ github.event_name == 'workflow_dispatch' && 'main' || 'dev' }}
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
       - name: Check commits in last 3 天之前
