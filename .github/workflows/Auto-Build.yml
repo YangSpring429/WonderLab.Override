@@ -217,7 +217,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.TOKEN }}"
-          title: "v${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}"
+          title: "v${{env.version}}.${{ needs.time.outputs.y }}${{ needs.time.outputs.md }}"
           automatic_release_tag: "AutoPublish"
           prerelease: true
           files: |
