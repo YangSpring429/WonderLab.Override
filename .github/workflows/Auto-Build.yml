@@ -21,7 +21,7 @@ jobs:
           ref: dev
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
-      - name: Check commits in last 3 days
+      - name: Check commits in last 3 天之前
         id: has
         run: |
           count=$(git log --since="3 days ago" --oneline | wc -l)
@@ -72,6 +72,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: dev
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
       - name: Sub-Module
         run: |
           git pull
@@ -148,6 +153,11 @@ jobs:
       - name: Dependency-Pupnet
         run: |
           dotnet tool install -g KuiperZone.PupNet
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./YMCL.Main/YMCL/Public/Texts/DateTime.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
         shell: bash
       - name: Build
         run: |
@@ -219,7 +229,7 @@ jobs:
           repo_token: "${{ secrets.TOKEN }}"
           title: "v${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}"
           automatic_release_tag: "AutoPublish"
-          prerelease: false
+          prerelease: true
           files: |
             WonderLab.Release/*.exe
             WonderLab.Release/*.dmg
