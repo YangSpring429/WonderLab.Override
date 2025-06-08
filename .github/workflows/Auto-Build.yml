@@ -6,7 +6,7 @@ on:
     - cron: '0 2 * * *'
 
 env:
-  VERSION_FILE_PATH: "./WonderLab.Override/WonderLab/version.txt"
+  VERSION_FILE_PATH: "./WonderLab/version.txt"
 
 jobs:
   check-commits:
