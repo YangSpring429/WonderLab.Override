@@ -105,8 +105,8 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
+          echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
       - name: Sub-Module
         run: |
           git pull
@@ -120,9 +120,9 @@ jobs:
         run: |
           cd ./WonderLab
           sudo su
-          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
       - name: Build-MacOsApp
         run: |
           cd ./WonderLab
@@ -186,15 +186,15 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
+          echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
         shell: bash
       - name: Build
         run: |
           cd ./WonderLab
-          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
