@@ -72,6 +72,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: dev
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
       - name: Sub-Module
         run: |
           git pull
@@ -148,6 +153,11 @@ jobs:
       - name: Dependency-Pupnet
         run: |
           dotnet tool install -g KuiperZone.PupNet
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.time.outputs.v }}"
         shell: bash
       - name: Build
         run: |
@@ -163,7 +173,7 @@ jobs:
             ./WonderLab/Deploy/OUT/*
 
   mac:
-    needs: [linux, win, time]
+    needs: [linux, time]
     runs-on: macos-latest
     steps:
       - name: Download-LinuxArtifacts

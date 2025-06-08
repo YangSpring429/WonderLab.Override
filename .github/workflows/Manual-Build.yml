@@ -38,7 +38,7 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
           echo "Version is ${{ needs.time.outputs.v }}"
       - name: Sub-Module
         run: |
@@ -112,14 +112,14 @@ jobs:
           choco: innosetup
       - name: Chinesize-InnoSetup
         run: |
-          Copy-Item "./Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
+          Copy-Item "./Assets/Text/Default.isl" "C:\Program Files (x86)\Inno Setup 6\Default.isl" -Force
       - name: Dependency-Pupnet
         run: |
           dotnet tool install -g KuiperZone.PupNet
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
           echo "Version is ${{ needs.time.outputs.v }}"
         shell: bash
       - name: Build
