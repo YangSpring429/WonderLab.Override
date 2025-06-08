@@ -22,11 +22,12 @@ jobs:
           ref: ${{ github.event_name == 'workflow_dispatch' && 'main' || 'dev' }}
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
+        run: |
+          echo "current: $TARGET_BRANCH"
       - name: Check commits in last 3 天之前
         id: has
         run: |
-          count=$(git log --since="3 天之前" --oneline | wc -l)
-          echo "current branch: $TARGET_BRANCH"
+          count=$(git log --since="3 days ago" --oneline | wc -l)
           echo "Recent commit count: $count"
           if [ "$count" -eq 0 ]; then
             echo "has_recent_commits=0" >> $GITHUB_OUTPUT
