@@ -1,16 +1,21 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
+using MinecraftLaunch.Components.Parser;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages.GameSetting;
 
 public sealed partial class GameSettingNavigationPageViewModel : DynamicPageViewModelBase {
-    private MinecraftEntry _minecraftEntry;
     private readonly GameService _gameService;
+    private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
 
@@ -26,7 +31,18 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
 
     [RelayCommand]
     private async Task OnLoaded() {
-        await Task.Delay(50);
+        await Task.Delay(200);
         PageKey = "GameSetting/Setting";
+    }
+
+    [RelayCommand]
+    private async Task Save() {
+        try {
+            await MinecraftParser.DataProcessors
+                .FirstOrDefault()
+                .SaveAsync();
+
+            WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
+        } catch (Exception) {}
     }
 }

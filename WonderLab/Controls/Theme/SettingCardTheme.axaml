@@ -3,7 +3,7 @@
 					xmlns:wc="using:WonderLab.Controls">
 	<Design.PreviewWith>
 		<Border Width="400" Padding="20">
-			<wc:SettingCard Background="Red" Foreground="White" Header="Title" Icon="&#xE700;"/>
+			<wc:SettingCard IsEnabled="False" Background="Red" Foreground="White" Header="Title" Icon="&#xE700;"/>
 		</Border>
 	</Design.PreviewWith>
 	
@@ -16,6 +16,14 @@
 		<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
 		<Setter Property="Foreground" Value="{DynamicResource SettingCardForegroundBrush}"/>
 		<Setter Property="Background" Value="{DynamicResource SettingCardBackgroundBrush}"/>
+		<Setter Property="Transitions">
+			<Transitions>
+				<DoubleTransition Property="Opacity"
+								  Duration="0:0:.35"
+								  Easing="CubicEaseOut"/>
+			</Transitions>
+		</Setter>
+		
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Button Classes="ripple"
@@ -29,8 +37,18 @@
 						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
 						VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
-					<Grid Margin="{TemplateBinding Padding}"
-						  ColumnDefinitions="Auto Auto 1* Auto">
+					<Grid RowSpacing="0"
+						  Name="PART_LayoutGrid"
+						  RowDefinitions="auto auto"
+						  Margin="{TemplateBinding Padding}"
+						  ColumnDefinitions="auto auto * auto">
+						<Grid.Transitions>
+							<Transitions>
+								<DoubleTransition Duration="0:0:.015"
+												  Property="RowSpacing"/>
+							</Transitions>
+						</Grid.Transitions>
+						
 						<wc:FontIcon FontSize="22"
 									 VerticalAlignment="Center"
 									 Glyph="{TemplateBinding Icon}"
@@ -40,14 +58,20 @@
 								   Grid.Column="1"
 								   Margin="12 0 0 0"
 								   VerticalAlignment="Center"
+								   HorizontalAlignment="Left"
 								   Text="{TemplateBinding Header}"
 								   Foreground="{TemplateBinding Foreground}"/>
 
-						<ContentPresenter Grid.Column="3"
-										  Content="{TemplateBinding Content}"/>
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  Grid.Column="3"/>
 					</Grid>
 				</Button>
 			</ControlTemplate>
 		</Setter>
+
+		<Style Selector="^:disabled">
+			<Setter Property="Opacity" Value="0.6"/>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

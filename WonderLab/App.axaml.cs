@@ -8,12 +8,14 @@ using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
 using System;
 using System.IO;
 using System.Linq;
+using WonderLab.Classes.Processors;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
@@ -45,6 +47,7 @@ public sealed partial class App : Application {
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
         Monet = (Styles[1] as MonetColors)!;
+        MinecraftParser.DataProcessors.Add(new SpecificSettingProcessor());
     }
 
     public override void RegisterServices() {

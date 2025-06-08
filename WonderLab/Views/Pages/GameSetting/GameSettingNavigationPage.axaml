@@ -23,14 +23,24 @@
 				   Text="{Binding MinecraftId}"
 				   Grid.Row="1"/>
 
-		<Button Width="25"
-				Height="25"
-				FontSize="16"
-				Classes="icon"
-				Margin="0 0 16 0"
-				Content="&#xE72A;"
-				HorizontalAlignment="Right"
-				Command="{Binding CloseCommand}"/>
+		<StackPanel Spacing="8"
+					Margin="0 0 16 0"
+					Orientation="Horizontal"
+					HorizontalAlignment="Right">
+			<Button Width="30"
+					Height="30"
+					FontSize="16"
+					Classes="icon"
+					Content="&#xE74E;"
+					Command="{Binding SaveCommand}"/>
+
+			<Button Width="30"
+					Height="30"
+					FontSize="16"
+					Classes="icon"
+					Content="&#xE72A;"
+					Command="{Binding CloseCommand}"/>
+		</StackPanel>
 		
 		<TabStrip Margin="0 16 16 0"
 				  Grid.Row="2">

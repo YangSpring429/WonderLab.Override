@@ -29,7 +29,7 @@
 		<Setter Property="MinHeight" Value="510"/>
 		<Setter Property="WindowStartupLocation" Value="CenterScreen"/>
 		<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
-		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="-1" />
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0" />
 		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
 		<Setter Property="Background" Value="{DynamicResource ApplicationBackgroundBrush}"/>
 		<Setter Property="TextElement.Foreground" Value="{DynamicResource ApplicationTitleBarForegroundBrush}" />
