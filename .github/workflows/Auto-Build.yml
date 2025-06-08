@@ -7,7 +7,6 @@ on:
 
 env:
   version: "2.0"
-  TARGET_BRANCH: ${{ github.event_name == 'workflow_dispatch' && 'main' || 'dev' }}
 
 jobs:
   check-commits:
@@ -19,12 +18,10 @@ jobs:
         uses: actions/checkout@v4
         id: date
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && 'main' || 'dev' }}
+          ref: dev
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
-        run: |
-          echo "current: $TARGET_BRANCH"
-      - name: Check commits in last 3 天之前
+      - name: Check commits in last 3 days
         id: has
         run: |
           count=$(git log --since="3 days ago" --oneline | wc -l)
@@ -75,11 +72,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: dev
-      - name: Time
-        id: date
-        run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
       - name: Sub-Module
         run: |
           git pull
@@ -156,11 +148,6 @@ jobs:
       - name: Dependency-Pupnet
         run: |
           dotnet tool install -g KuiperZone.PupNet
-      - name: Time
-        id: date
-        run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
         shell: bash
       - name: Build
         run: |
