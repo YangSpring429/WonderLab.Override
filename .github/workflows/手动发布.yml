@@ -15,11 +15,6 @@ jobs:
       md: ${{ steps.date.outputs.md }}
       hm: ${{ steps.date.outputs.hm }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: dev
       - name: Time
         id: date
         run: |
@@ -141,7 +136,7 @@ jobs:
             ./WonderLab/Deploy/OUT/*
 
   mac:
-    needs: [linux, win, time]
+    needs: [linux, time]
     runs-on: macos-latest
     steps:
       - name: Download-LinuxArtifacts
