@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using WonderLab.Classes.Processors;
 using WonderLab.Controls;
+using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
@@ -179,6 +180,7 @@ public sealed partial class App : Application {
         });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
+        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.Assets.Text.dateTime.txt").ToText());
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e) {
