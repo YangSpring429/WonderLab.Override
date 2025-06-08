@@ -14,4 +14,14 @@ public static class AvaloniaExtsnsion {
 
         return new Bitmap(memoryStream);
     }
+
+    public static string ToText(this Uri uri) {
+        var memoryStream = new MemoryStream();
+        using var stream = AssetLoader.Open(uri);
+        stream!.CopyTo(memoryStream);
+        memoryStream.Position = 0;
+
+        using var reader = new StreamReader(memoryStream);
+        return reader.ReadToEnd();
+    }
 }

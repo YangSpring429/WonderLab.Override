@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using DialogHostAvalonia;
 using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ using System;
 using System.IO;
 using System.Linq;
 using WonderLab.Controls;
+using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
@@ -176,6 +178,8 @@ public sealed partial class App : Application {
         });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
+
+        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.DateTime.txt").ToText());
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e) {

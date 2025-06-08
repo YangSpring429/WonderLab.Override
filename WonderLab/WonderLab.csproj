@@ -47,6 +47,7 @@
         <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
         <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
         <AvaloniaResource Remove="Assets\steve.png" />
+        <None Remove="DateTime.txt" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
@@ -55,6 +56,7 @@
         <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
         <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
         <EmbeddedResource Include="Assets\steve.png" />
+        <EmbeddedResource Include="DateTime.txt" />
     </ItemGroup>
 
     <ItemGroup>
