@@ -156,7 +156,7 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./YMCL.Main/YMCL/Public/Texts/DateTime.txt
+          echo "${{ needs.time.outputs.v }}" > ./WonderLab/DateTime.txt
           echo "Version is ${{ needs.time.outputs.v }}"
         shell: bash
       - name: Build
