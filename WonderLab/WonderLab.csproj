@@ -12,7 +12,7 @@
     </PropertyGroup>       
     
     <PropertyGroup> 
-        <PackageIcon>Icon.png</PackageIcon>
+        <PackageIcon>Assets\Images\Icons\Icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/Lunova-Studio/WonderLab.Override</RepositoryUrl>
         <PackageProjectUrl>https://github.com/Lunova-Studio/WonderLab.Override</PackageProjectUrl>
@@ -43,20 +43,27 @@
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
         <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
         <AvaloniaResource Remove="Assets\gawrgura-13490790.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
+        <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
         <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
         <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
         <AvaloniaResource Remove="Assets\steve.png" />
+        <AvaloniaResource Remove="Assets\Text\dateTime.txt" />
         <None Remove="DateTime.txt" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
         <EmbeddedResource Include="Assets\gawrgura-13490790.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
         <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
         <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
         <EmbeddedResource Include="Assets\steve.png" />
-        <EmbeddedResource Include="DateTime.txt" />
+        <EmbeddedResource Include="Assets\Text\dateTime.txt" />
     </ItemGroup>
 
     <ItemGroup>
