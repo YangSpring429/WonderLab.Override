@@ -135,11 +135,11 @@ jobs:
           cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-arm64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cd ./bin/Release/net8.0/
-          cd ./osx-x64/
-          zip -9 -r "../WonderLab.osx.mac.x64.app.zip" "./publish/WonderLab.app"
-          cd ../
-          cd ./osx-arm64/
-          zip -9 -r "../WonderLab.osx.mac.arm64.app.zip" "./publish/WonderLab.app"
+          cd ./osx-x64/publish/
+          zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
+          cd ../../
+          cd./osx-arm64/publish/
+          zip -9 -r "../WonderLab.osx.mac.arm64.app.zip" "./WonderLab.app"
       - name: Build-WinExe
         run: |
           cd ./WonderLab
