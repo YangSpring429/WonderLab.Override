@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
+using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages.GameSetting;
@@ -18,6 +19,7 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
+    [ObservableProperty] private int _activePageIndex;
 
     public string MinecraftId => _minecraftEntry.Id;
     public AvaloniaPageProvider PageProvider { get; }
@@ -42,7 +44,19 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
                 .FirstOrDefault()
                 .SaveAsync();
 
+            await App.Get<ResourcepackService>().SaveToOptionsAsync(default);
+
             WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
         } catch (Exception) {}
+    }
+
+    partial void OnActivePageIndexChanged(int value) {
+        PageKey = value switch {
+            0 => "GameSetting/Setting",
+            1 => "GameSetting/Resourcepack",
+            2 => "GameSetting/Resourcepack",
+            3 => "GameSetting/Resourcepack",
+            _ => PageKey ?? "GameSetting/Setting",
+        };
     }
 }

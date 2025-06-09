@@ -111,6 +111,8 @@
 
 							<TextBlock Grid.Row="1"
 									   Classes="Caption"
+									   HorizontalAlignment="Left"
+									   TextTrimming="CharacterEllipsis"
 									   Text="{TemplateBinding Description}"
 									   Foreground="{DynamicResource TileForegroundBrush}">
 								<TextBlock.IsVisible>

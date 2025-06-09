@@ -43,7 +43,8 @@
 		</StackPanel>
 		
 		<TabStrip Margin="0 16 16 0"
-				  Grid.Row="2">
+				  SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}"
+				  Grid.Row="2">			
 			<TabStripItem Content="设置"/>
 			<TabStripItem Content="资源包"/>
 			<TabStripItem Content="模组"/>
