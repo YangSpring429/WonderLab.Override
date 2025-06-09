@@ -105,8 +105,8 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
+          echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
       - name: Sub-Module
         run: |
           git pull
@@ -186,8 +186,8 @@ jobs:
       - name: Time
         id: date
         run: |
-          echo "${{ needs.time.outputs.v }}" > ./WonderLab/Assets/Text/dateTime.txt
-          echo "Version is ${{ needs.time.outputs.v }}"
+          echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
         shell: bash
       - name: Build
         run: |
