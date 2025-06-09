@@ -227,6 +227,7 @@ jobs:
         with:
           dmg_name: "WonderLab.osx.mac.x64"
           src_dir: "./app.x64/WonderLab.app"
+
       - name: Build-MacOsDmg-arm64
         uses: L-Super/create-dmg-actions@v1.0.3
         with:
@@ -238,6 +239,7 @@ jobs:
           name: osx-artifacts
           path: |
             ./WonderLab.osx.mac.x64.dmg
+            ./WonderLab.osx.mac.arm64.dmg
 
   publish:
     needs: [linux, win, mac, version-management]
