@@ -73,7 +73,10 @@ public sealed class ResourcepackService {
     }
 
     public async Task SaveToOptionsAsync(CancellationToken cancellationToken) {
-        _optionsNode["resourcePacks"] = Resourcepacks.Where(x => x.IsEnabled)
+        if (_optionsNode is null)
+            return;
+
+        _optionsNode["resourcePacks"] = Resourcepacks?.Where(x => x.IsEnabled)
             .Select(x => x.FileName);
 
         var optionsPath = Path.Combine(_workingPath, "options.txt");
