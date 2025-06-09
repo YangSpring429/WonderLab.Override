@@ -1,13 +1,25 @@
 ﻿using Avalonia;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace WonderLab;
 
 internal sealed class Program {
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+    public static void Main(string[] args) {
+        try {
+            var app = BuildAvaloniaApp();
+            app.StartWithClassicDesktopLifetime(args);
+        } catch (Exception ex) {
+            var path = Path.Combine("WonderLab", "logs", $"crash.log");
+            var fileInfo = new FileInfo(path);
+            if (!fileInfo.Directory.Exists)
+                fileInfo.Directory.Create();
+
+            File.WriteAllText(fileInfo.FullName, ex.ToString());
+        }
+    }
 
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
