@@ -7,6 +7,35 @@ env:
   version: "2.0"
 
 jobs:
+  version-management:
+    runs-on: ubuntu-latest
+    outputs:
+      base_version: ${{ steps.read_version.outputs.base_version }}
+      build_number: ${{ steps.generate_build.outputs.build_number }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      
+      - name: Read base version
+        id: read_version
+        run: |
+          # 从文件读取基础版本号（格式：X.Y.Z）
+          base_version=$(cat ${{ env.VERSION_FILE_PATH }})
+          echo "base_version=$base_version" >> $GITHUB_OUTPUT
+          echo "Base version: $base_version"
+      
+      - name: Generate build number
+        id: generate_build
+        run: |
+          # 生成基于日期的构建号 (格式：MMdd)
+          build_number=$(date +'%m%d')
+          echo "build_number=$build_number" >> $GITHUB_OUTPUT
+          echo "Build number: $build_number"
+
+
   time:
     runs-on: ubuntu-latest
     outputs:
@@ -28,7 +57,7 @@ jobs:
 
   linux:
     runs-on: ubuntu-22.04
-    needs: time
+    needs: [time, version-management]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,9 +82,9 @@ jobs:
         run: |
           cd ./WonderLab
           sudo su
-          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
       - name: Build-MacOsApp
         run: |
           cd ./WonderLab
@@ -95,7 +124,7 @@ jobs:
 
   win:
     runs-on: windows-latest
-    needs: time
+    needs: [time, version-management]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -125,9 +154,9 @@ jobs:
       - name: Build
         run: |
           cd ./WonderLab
-          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
-          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{env.version}}.${{ needs.time.outputs.y }}.${{ needs.time.outputs.md }}
+          pupnet -r win-x64 -k setup -y -o WonderLab.win.x64.installer.exe --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet -r win-x86 -k setup -y -o WonderLab.win.x86.installer.exe --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+          pupnet -r win-arm64 -k setup -y -o WonderLab.win.arm64.installer.exe --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
@@ -160,7 +189,7 @@ jobs:
             ./WonderLab.osx.mac.x64.dmg
 
   publish:
-    needs: [linux, win, mac, time]
+    needs: [linux, win, mac, version-management]
     runs-on: ubuntu-latest
     steps:
       - name: Time
@@ -190,8 +219,8 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.TOKEN }}"
-          title: "v${{env.version}}.${{ needs.time.outputs.y }}${{ needs.time.outputs.md }}"
-          automatic_release_tag: "ManualPublish"
+          title: "v${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
+          automatic_release_tag: "v${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
           prerelease: false
           files: |
             WonderLab.Release/*.exe
