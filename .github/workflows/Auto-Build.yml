@@ -139,7 +139,7 @@ jobs:
           zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
           cd ../../
           cd ./osx-arm64/publish/
-          zip -9 -r "../WonderLab.osx.mac.arm64.app.zip" "./WonderLab.app"
+          zip -9 -r "../../WonderLab.osx.mac.arm64.app.zip" "./WonderLab.app"
       - name: Build-WinExe
         run: |
           cd ./WonderLab
