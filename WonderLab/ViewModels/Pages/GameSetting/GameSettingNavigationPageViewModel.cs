@@ -9,21 +9,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
+using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages.GameSetting;
 
 public sealed partial class GameSettingNavigationPageViewModel : DynamicPageViewModelBase {
     private readonly GameService _gameService;
+    private readonly ResourcepackService _resourcepackService;
     private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
+    [ObservableProperty] private int _activePageIndex;
 
     public string MinecraftId => _minecraftEntry.Id;
     public AvaloniaPageProvider PageProvider { get; }
 
-    public GameSettingNavigationPageViewModel(GameService gameService, AvaloniaPageProvider avaloniaPageProvider) {
+    public GameSettingNavigationPageViewModel(GameService gameService, ResourcepackService resourcepackService, AvaloniaPageProvider avaloniaPageProvider) {
         _gameService = gameService;
+        _resourcepackService = resourcepackService;
         _minecraftEntry = _gameService.ActiveGameCache;
 
         PageProvider = avaloniaPageProvider;
@@ -42,7 +46,23 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
                 .FirstOrDefault()
                 .SaveAsync();
 
+            await _resourcepackService.SaveToOptionsAsync(default);
             WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
-        } catch (Exception) {}
+        } catch (Exception) { }
+    }
+
+    public override async void Close() {
+        base.Close();
+        await Save();
+    }
+
+    partial void OnActivePageIndexChanged(int value) {
+        PageKey = value switch {
+            0 => "GameSetting/Setting",
+            1 => "GameSetting/Resourcepack",
+            2 => "GameSetting/Resourcepack",
+            3 => "GameSetting/Resourcepack",
+            _ => PageKey ?? "GameSetting/Setting",
+        };
     }
 }

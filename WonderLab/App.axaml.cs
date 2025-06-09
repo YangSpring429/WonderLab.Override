@@ -21,6 +21,7 @@ using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
+using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
 using WonderLab.ViewModels.Dialogs.Setting;
 using WonderLab.ViewModels.Pages;
@@ -91,8 +92,8 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<SettingService>();
         builder.Services.AddSingleton<AccountService>();
         builder.Services.AddSingleton<GameProcessService>();
+        builder.Services.AddSingleton<ResourcepackService>();
         builder.Services.AddSingleton<AuthenticationService>();
-        //builder.Services.AddSingleton<DownloadService>();
         //builder.Services.AddSingleton<NotificationService>();
 
         //Configure Window
@@ -124,6 +125,7 @@ public sealed partial class App : Application {
 
         //GameSetting
         pageProvider.AddPage<GameSettingPage, GameSettingPageViewModel>("GameSetting/Setting");
+        pageProvider.AddPage<ResourcepackSettingPage, ResourcepackSettingPageViewModel>("GameSetting/Resourcepack");
         pageProvider.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
         //page.AddPage<ChooseAccountPage, ChooseAccountPageViewModel>("GameSetting/ChooseAccount");
 

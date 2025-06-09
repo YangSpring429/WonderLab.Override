@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:wt="using:WonderLab.Media.Transitions"
              x:Class="WonderLab.GameSettingNavigationPage">
 	<Interaction.Behaviors>
@@ -32,7 +33,11 @@
 					FontSize="16"
 					Classes="icon"
 					Content="&#xE74E;"
-					Command="{Binding SaveCommand}"/>
+					Command="{Binding SaveCommand}">
+				<Interaction.Behaviors>
+					<wb:AnimationIconBehavior FontSize="16" ToIcon="&#xE8FB;"/>
+				</Interaction.Behaviors>
+			</Button>
 
 			<Button Width="30"
 					Height="30"
@@ -43,7 +48,8 @@
 		</StackPanel>
 		
 		<TabStrip Margin="0 16 16 0"
-				  Grid.Row="2">
+				  SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}"
+				  Grid.Row="2">			
 			<TabStripItem Content="设置"/>
 			<TabStripItem Content="资源包"/>
 			<TabStripItem Content="模组"/>
