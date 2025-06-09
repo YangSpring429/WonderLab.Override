@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  version: "2.0"
+  VERSION_FILE_PATH: "./WonderLab/version.txt"
 
 jobs:
   version-management:
