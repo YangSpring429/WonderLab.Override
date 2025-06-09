@@ -128,20 +128,18 @@ jobs:
           cd ./WonderLab
           sudo su
           dotnet restore -r osx-x64
-          dotnet restore -r osx-arm64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
+          dotnet restore -r osx-arm64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
 
-          # 复制图标
           cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-arm64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
-
-          # 进入输出目录并压缩
           cd ./bin/Release/net8.0/
-          cd ./osx-x64/publish/
-          zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
-          cd ../../osx-arm64/publish/
-          zip -9 -r ../../WonderLab.osx.mac.arm64.app.zip "./WonderLab.app"
+          cd ./osx-x64/
+          zip -9 -r "../WonderLab.osx.mac.x64.app.zip" "./publish/WonderLab.app"
+          cd ../
+          cd ./osx-arm64/
+          zip -9 -r "../WonderLab.osx.mac.arm64.app.zip" "./publish/WonderLab.app"
       - name: Build-WinExe
         run: |
           cd ./WonderLab
