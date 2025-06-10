@@ -9,7 +9,7 @@ namespace WonderLab.Services;
 
 public sealed class SettingService {
     private readonly ILogger<SettingService> _logger;
-    private readonly FileInfo _settingFileInfo = new(@"WonderLab\settings.json");
+    private readonly FileInfo _settingFileInfo = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "WonderLab", "settings.json"));
 
     public SettingModel Setting { get; set; }
 
