@@ -23,6 +23,7 @@ using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
+using WonderLab.Utilities;
 using WonderLab.ViewModels.Dialogs.Setting;
 using WonderLab.ViewModels.Pages;
 using WonderLab.ViewModels.Pages.Download;
@@ -124,6 +125,7 @@ public sealed partial class App : Application {
         pageProvider.AddPage<AboutPage, AboutPageViewModel>("Setting/About");
 
         //GameSetting
+        pageProvider.AddPage<ModSettingPage, ModSettingPageViewModel>("GameSetting/Mod");
         pageProvider.AddPage<GameSettingPage, GameSettingPageViewModel>("GameSetting/Setting");
         pageProvider.AddPage<ResourcepackSettingPage, ResourcepackSettingPageViewModel>("GameSetting/Resourcepack");
         pageProvider.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
@@ -139,7 +141,7 @@ public sealed partial class App : Application {
         //Configure Logging
         Log.Logger = new LoggerConfiguration().WriteTo
             .Console(outputTemplate: LOG_OUTPUT_TEMPLATE).WriteTo
-            .File(Path.Combine("WonderLab", "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
+            .File(Path.Combine(PathUtil.DefaultDirectory, "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
             .CreateLogger();
 
         builder.Logging.AddSerilog(Log.Logger);
