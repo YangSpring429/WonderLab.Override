@@ -4,12 +4,13 @@ using MinecraftLaunch.Extensions;
 using System;
 using System.IO;
 using WonderLab.Classes.Models;
+using WonderLab.Utilities;
 
 namespace WonderLab.Services;
 
 public sealed class SettingService {
     private readonly ILogger<SettingService> _logger;
-    private readonly FileInfo _settingFileInfo = new(@"WonderLab\settings.json");
+    private readonly FileInfo _settingFileInfo = new(Path.Combine(PathUtil.DefaultDirectory, "settings.json"));
 
     public SettingModel Setting { get; set; }
 

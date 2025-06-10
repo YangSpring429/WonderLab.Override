@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using WonderLab.Utilities;
 
 namespace WonderLab;
 
@@ -12,7 +13,7 @@ internal sealed class Program {
             var app = BuildAvaloniaApp();
             app.StartWithClassicDesktopLifetime(args);
         } catch (Exception ex) {
-            var path = Path.Combine("WonderLab", "logs", $"crash.log");
+            var path = Path.Combine(PathUtil.DefaultDirectory, "WonderLab", "logs", $"crash.log");
             var fileInfo = new FileInfo(path);
             if (!fileInfo.Directory.Exists)
                 fileInfo.Directory.Create();
