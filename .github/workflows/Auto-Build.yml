@@ -129,10 +129,17 @@ jobs:
           sudo su
           dotnet restore -r osx-x64
           dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
+          dotnet restore -r osx-arm64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
+
           cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
+          cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-arm64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
           cd ./bin/Release/net8.0/
           cd ./osx-x64/publish/
           zip -9 -r ../../WonderLab.osx.mac.x64.app.zip "./WonderLab.app"
+          cd ../../
+          cd ./osx-arm64/publish/
+          zip -9 -r "../../WonderLab.osx.mac.arm64.app.zip" "./WonderLab.app"
       - name: Build-WinExe
         run: |
           cd ./WonderLab
@@ -214,17 +221,25 @@ jobs:
       - name: Unzip
         run: |
           unzip -n ./WonderLab.Release/bin/Release/net8.0/WonderLab.osx.mac.x64.app.zip -d ./app.x64
+          unzip -n ./WonderLab.Release/bin/Release/net8.0/WonderLab.osx.mac.arm64.app.zip -d ./app.arm64
       - name: Build-MacOsDmg-x64
         uses: L-Super/create-dmg-actions@v1.0.3
         with:
           dmg_name: "WonderLab.osx.mac.x64"
           src_dir: "./app.x64/WonderLab.app"
+
+      - name: Build-MacOsDmg-arm64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "WonderLab.osx.mac.arm64"
+          src_dir: "./app.arm64/WonderLab.app"
       - name: UploadArtifacts
         uses: actions/upload-artifact@v4
         with:
           name: osx-artifacts
           path: |
             ./WonderLab.osx.mac.x64.dmg
+            ./WonderLab.osx.mac.arm64.dmg
 
   publish:
     needs: [linux, win, mac, version-management]
@@ -235,24 +250,29 @@ jobs:
         run: |
           echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
           echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
+      
       - name: Download-LinuxArtifacts
         uses: actions/download-artifact@v4
         with:
           name: linux-artifacts
           path: ./WonderLab.Release/
+      
       - name: Download-WindowsArtifacts
         uses: actions/download-artifact@v4
         with:
           name: win-artifacts
           path: ./WonderLab.Release/
+      
       - name: Download-MacArtifacts
         uses: actions/download-artifact@v4
         with:
           name: osx-artifacts
           path: ./WonderLab.Release/
+      
       - name: List Files
         run: |
           ls -la ./WonderLab.Release/
+      
       - name: Publish Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
