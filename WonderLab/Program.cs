@@ -13,7 +13,7 @@ internal sealed class Program {
             var app = BuildAvaloniaApp();
             app.StartWithClassicDesktopLifetime(args);
         } catch (Exception ex) {
-            var path = Path.Combine(PathUtil.DefaultDirectory, "WonderLab", "logs", $"crash.log");
+            var path = Path.Combine(PathUtil.DefaultDirectory, "logs", $"crash.log");
             var fileInfo = new FileInfo(path);
             if (!fileInfo.Directory.Exists)
                 fileInfo.Directory.Create();
