@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WonderLab.Services.Auxiliary;
 
 namespace WonderLab.Services.Launch;
 
