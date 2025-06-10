@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;
 using WonderLab.Services.Authentication;
+using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages;
