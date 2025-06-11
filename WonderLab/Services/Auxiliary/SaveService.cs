@@ -12,13 +12,15 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;
+using WonderLab.Services.Launch;
+using WonderLab.Utilities;
 
-namespace WonderLab.Services.Launch;
+namespace WonderLab.Services.Auxiliary;
 
 public sealed class SaveService {
     private readonly GameService _gameService;
     private readonly SettingService _settingService;
-    private readonly FileInfo _serversFileInfo = new(@"WonderLab\servers.json");
+    private readonly FileInfo _serversFileInfo = new(Path.Combine(PathUtil.DefaultDirectory, "servers.json"));
 
     public ObservableCollection<SaveModel> Saves { get; } = [];
     public List<MultiPlayerTimeModel> MultiPlayerSaveTimes { get; private set; } = [];
